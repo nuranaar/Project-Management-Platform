@@ -3,6 +3,7 @@
   color: $p_color;
   &:hover {
     color: $main_color;
+    text-decoration: none;
   }
 }
 %hr {
@@ -16,7 +17,7 @@
 
 body {
   background-color: $bg_color;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.7;
 }
 * {
