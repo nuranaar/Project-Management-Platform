@@ -14,7 +14,7 @@
 }
 
 .sides .main .head p, .sides .main .head .progInfo i,
-.sides .main .head .progInfo span {
+.sides .main .head .progInfo span, .popup .form .desc {
   color: #bdbac2;
 }
 
@@ -254,6 +254,7 @@ body {
 
 .popup {
   padding: 0;
+  border-radius: 10px;
 }
 
 .popup .form {
@@ -285,15 +286,36 @@ body {
 
 .popup .form .popup-head {
   background-color: #fbfbfb;
-  border-radius: 10px 10px 0 0;
+  position: relative;
+  top: 0;
 }
 
-.popup .form .popup-head .fancybox-button {
-  position: absolute;
-  color: #bdbac2;
-  background-color: #f5f5f5;
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
+.popup .form .custom-control-label::before {
+  left: -30px;
+  top: -30px;
+  height: 18px;
+  width: 34px;
+}
+
+.popup .form .custom-control-label::after {
+  top: -30px;
+  left: -27px;
+  width: 17px;
+  height: 17px;
+}
+
+.popup .form .warning {
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #fbfbfb;
+}
+
+.popup .form .warning i {
+  color: #c81818;
+  padding: 5px;
+}
+
+.popup .form .warning span {
+  padding: 5px;
 }
 /*# sourceMappingURL=style.css.map */

@@ -1,5 +1,6 @@
 .popup {
   padding: 0;
+  border-radius: 10px;
   .form {
     border-radius: 10px;
     margin: auto;
@@ -23,16 +24,37 @@
     }
     .popup-head {
       background-color: $bg_color;
-      border-radius: 10px 10px 0 0;
+      position: relative;
+      top: 0;
+    }
+    .desc {
+      @extend %desc;
+    }
+    .custom-control-label {
+      &::before {
+        left: -30px;
+        top: -30px;
+        height: 18px;
+        width: 34px;
+      }
+      &::after {
+        top: -30px;
+        left: -27px;
+        width: 17px;
+        height: 17px;
+      }
+    }
+    .warning{
+      border-radius: 10px;
+      padding: 10px;
+      background-color: $bg_color;
+      i{
+        color: rgb(200, 24, 24);
+        padding: 5px;
 
-      .fancybox-button {
-        position: absolute;
-        
-        color: $p_color;
-        background-color: $elem_color;
-        width: 40px;
-        height: 40px;
-        border-radius: 100%;
+      }
+      span{
+        padding: 5px;
       }
     }
   }

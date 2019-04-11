@@ -170,66 +170,142 @@
 
 
 
-    <!--team popup-->
-    <div style="display: none;" id="hidden-content">
-        <div id="team" class="popup">
-            <div class="form mt-5">
-                <div class="popup-head px-5 pt-4 pb-2 d-flex justify-content-between">
-                    <h3>New Task</h3>
-                </div>
-                <form action="post" class="  px-4">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" class="form-control" aria-describedby="teamName"
-                        placeholder="Team name">
-
-                    <label for="desc">Description</label>
-                    <textarea id="desc" name="desc" class="form-control" rows="3"
-                        placeholder="Team description"></textarea>
-
-                    <label for="member">Members</label>
-                    <input type="text" id="member" name="member" class="form-control" aria-describedby="teammember"
-                        placeholder="Add team members">
-                    <hr>
-                    <button type="submit" class="createBtn btn btn-primary my-3">Create
-                        team</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!--end popup-->
-    <!--team popup-->
-    <div style="display: none;" id="hidden-content">
-        <div id="project" class="popup">
-            <div class="form mt-5">
-                <div class="popup-head px-5 pt-4 pb-2 d-flex justify-content-between">
-                    <h3>New Project</h3>
-                </div>
-                <form action="post" class="  px-4">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" class="form-control" aria-describedby="teamName"
-                        placeholder="Team name">
-
-                    <label for="desc">Description</label>
-                    <textarea id="desc" name="desc" class="form-control" rows="3"
-                        placeholder="Team description"></textarea>
-
-                    <label for="member">Members</label>
-                    <input type="text" id="member" name="member" class="form-control" aria-describedby="teammember"
-                        placeholder="Add team members">
-                    <hr>
-                    <button type="submit" class="createBtn btn btn-primary my-3">Create
-                        team</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!--end popup-->
-    <!--team popup-->
+    <!--task popup-->
     <div style="display: none;" id="hidden-content">
         <div id="task" class="popup">
-            <div class="form mt-5">
-                <div class="popup-head px-5 pt-4 pb-2 d-flex justify-content-between">
+            <div class="form">
+                <div class="popup-head px-5 pt-4 pb-2 w-100">
+                    <h3>New Task</h3>
+                </div>
+                <form action="post" class=" px-4">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" class="form-control" aria-describedby="teamName"
+                        placeholder="Team name">
+
+                    <label for="desc">Description</label>
+                    <textarea id="desc" name="desc" class="form-control" rows="3"
+                        placeholder="Team description"></textarea>
+
+                    <label for="member">Members</label>
+                    <input type="text" id="member" name="member" class="form-control" aria-describedby="teamMember"
+                        placeholder="Add team members">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="start-date">Start date</label>
+                            <input type="date" id="start-date" name="start-date" class="form-control"
+                                aria-describedby="start-date">
+
+                        </div>
+                        <div class="col-6">
+                            <label for="end-date">End date</label>
+                            <input type="date" id="end-date" name="end-date" class="form-control"
+                                aria-describedby="end-date">
+
+                        </div>
+                    </div>
+                    <label for="taskFile">Starting files</label>
+                    <input type="file" class="form-control" id="taskFile" aria-describedby="taskFile"
+                        placeholder="Select or drag & drop your files for upload">
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <p>Private team</p>
+                            <p class="desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            </p>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                <label class="custom-control-label" for="customSwitch1"></label>
+                            </div>
+                        </div>
+                        <div class=" col-6">
+                            <div class="warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span>Warning</span>
+                                <p class="desc p-2">Lorem Ipsum is simply dummy text of the printing and typesetting
+                                    industry.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="createBtn btn btn-primary my-3">Create
+                        team</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--end popup-->
+    <!--project popup-->
+    <div style="display: none;" id="hidden-content">
+        <div id="project" class="popup">
+            <div class="form">
+                <div class="popup-head px-5 pt-4 pb-2 w-100">
+                    <h3>New Project</h3>
+                </div>
+                <form action="post" class=" px-4">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" class="form-control" aria-describedby="projectName"
+                        placeholder="Project name">
+
+                    <label for="desc">Description</label>
+                    <textarea id="desc" name="desc" class="form-control" rows="3"
+                        placeholder="Project description"></textarea>
+
+                    <label for="member">Members</label>
+                    <input type="text" id="member" name="member" class="form-control" aria-describedby="projectMember"
+                        placeholder="Add team members">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="start-date">Start date</label>
+                            <input type="date" id="start-date" name="start-date" class="form-control"
+                                aria-describedby="start-date">
+
+                        </div>
+                        <div class="col-6">
+                            <label for="end-date">End date</label>
+                            <input type="date" id="end-date" name="end-date" class="form-control"
+                                aria-describedby="end-date">
+
+                        </div>
+                    </div>
+                    <label for="projectFile">Starting files</label>
+                    <input type="file" class="form-control" id="projectFile" aria-describedby="projectFile"
+                        placeholder="Select or drag & drop your files for upload">
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <p>Private project</p>
+                            <p class="desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            </p>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                <label class="custom-control-label" for="customSwitch1"></label>
+                            </div>
+                        </div>
+                        <div class=" col-6">
+                            <div class="warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span>Warning</span>
+                                <p class="desc p-2">Lorem Ipsum is simply dummy text of the printing and typesetting
+                                    industry.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="createBtn btn btn-primary my-3">Create
+                        project</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--end popup-->
+    <!--team popup-->
+    <div style="display: none; " id="hidden-content">
+        <div id="team" class="popup">
+            <div class="form">
+                <div class="popup-head px-5 pt-4 pb-2 w-100">
                     <h3>New Team</h3>
                 </div>
                 <form action="post" class="  px-4">
@@ -245,6 +321,26 @@
                     <input type="text" id="member" name="member" class="form-control" aria-describedby="teammember"
                         placeholder="Add team members">
                     <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <p>Private project</p>
+                            <p class="desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            </p>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                <label class="custom-control-label" for="customSwitch1"></label>
+                            </div>
+                        </div>
+                        <div class=" col-6">
+                            <div class="warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span>Warning</span>
+                                <p class="desc p-2">Lorem Ipsum is simply dummy text of the printing and typesetting
+                                    industry.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                     <button type="submit" class="createBtn btn btn-primary my-3">Create
                         team</button>
                 </form>
