@@ -14,6 +14,20 @@
 %desc {
   color: $p_color;
 }
+%card {
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
+  margin-top: 30px;
+  border-radius: 7px;
+  background-color: #fff;
+ 
+}
+%card_hover{
+  &:hover {
+    top: -10px;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+  }
+}
 
 body {
   background-color: $bg_color;
@@ -30,4 +44,99 @@ body {
   font-size: 16px;
   font-weight: 500;
   border-radius: 6px;
+}
+.click-title {
+  &:hover {
+    color: $main_color;
+  }
+}
+.page {
+  width: 850px;
+  margin: auto;
+  display: none;
+  a {
+    @extend %a;
+  }
+  .page-title {
+    a {
+      &:hover {
+        background-color: $bg_color;
+      }
+      i {
+        text-align: center;
+        background-color: $elem_color;
+        height: 50px;
+        color: $p_color;
+        width: 50px;
+        border: 2px solid $bg_color;
+        border-radius: 100%;
+        line-height: 48px;
+      }
+    }
+    .filterForm {
+      color: $p_color;
+      position: relative;
+      width: 200px;
+      .filter {
+        background-color: $elem_color;
+        border: none;
+        padding-left: 50px;
+      }
+      .filterBtn {
+        position: absolute;
+        top: 5px;
+        left: 4px;
+        color: $p_color;
+        &:focus {
+          border: none;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}
+.upload {
+  label {
+    width: 100%;
+
+    input {
+      display: none;
+    }
+    span {
+      &:hover {
+        background-color: $elem_color;
+      }
+      display: block;
+      padding: 30px;
+      background: #fff;
+      color: #bdbac2;
+      font-weight: 500;
+      text-align: center;
+      border: 1px solid #efebeb;
+      border-radius: 6px;
+      transition: all 0.3s;
+    }
+  }
+}
+.avatars {
+  display: inline-flex;
+  list-style: none;
+  li {
+    margin-left: -10px;
+    img {
+      width: 50px;
+      border: 2px solid $bg_color;
+      border-radius: 100%;
+    }
+    i {
+      text-align: center;
+      line-height: 48px;
+      background-color: $elem_color;
+      height: 50px;
+      color: $p_color;
+      width: 50px;
+      border: 2px solid $bg_color;
+      border-radius: 100%;
+    }
+  }
 }

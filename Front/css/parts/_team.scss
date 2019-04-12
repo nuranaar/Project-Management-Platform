@@ -1,0 +1,209 @@
+main {
+  padding: 0 106px;
+  overflow: auto;
+  margin: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  .header {
+    .head {
+      p {
+        @extend %desc;
+      }
+
+      .progress {
+        height: 5px;
+      }
+      .progInfo {
+        margin-top: 15px;
+        i,
+        span {
+          padding: 4px;
+          @extend %desc;
+        }
+        .due {
+          background-color: $elem_color;
+          padding: 5px;
+          border-radius: 5px;
+        }
+      }
+    }
+    .btn-list {
+      background-color: $elem_color;
+      border-radius: 10px;
+      padding: 10px;
+      width: 850px;
+      &:focus {
+        box-shadow: none;
+      }
+      .btn-item {
+        color: $p_color;
+        font-weight: 700;
+        text-align: center;
+        width: 250px;
+        border-radius: 10px;
+        padding: 15px;
+        &:focus {
+          box-shadow: none;
+        }
+        &.active {
+          background-color: #fff;
+          color: $main_color;
+        }
+      }
+    }
+  }
+  #projects {
+    .page-body {
+      flex-wrap: wrap;
+      .project-card {
+        @extend %card;
+        @extend %card_hover;
+        height: 200px;
+        width: 400px;
+        overflow: hidden;
+        .progress {
+          height: 5px;
+          border-radius: 0;
+        }
+        .card-title {
+          position: relative;
+          height: 63px;
+          margin-bottom: 0;
+          .curColor {
+            position: absolute;
+            top: 35%;
+            left: 7%;
+            padding: 5px;
+            font-size: small;
+          }
+          .title {
+            color: $t_color;
+            font-weight: 700;
+            span {
+              line-height: 74px;
+              font-size: 18px;
+              margin-left: 62px;
+            }
+          }
+
+          .dropdown {
+            position: absolute;
+            top: 20%;
+            right: 7%;
+            .dropdown-menu {
+              position: absolute;
+              left: -100px !important;
+              text-align: center;
+              .dropdown-item {
+                border-radius: 5px;
+                width: 90%;
+                margin: auto;
+                &:focus {
+                  background: none;
+                }
+              }
+            }
+          }
+        }
+        .card-body {
+          p {
+            @extend %desc;
+          }
+          .card-info {
+            i,
+            span {
+              padding: 4px;
+              @extend %desc;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  #tasks {
+    .page-body {
+      .task-list {
+        list-style: none;
+        .task-stage {
+          margin-top: 30px;
+          background-color: $elem_color;
+          border-radius: 10px;
+          .stage {
+            padding: 20px;
+          }
+          .task-card {
+            overflow: hidden;
+            border-radius: 10px;
+            background-color: #fff;
+            width: 90%;
+            margin: auto;
+            .progress {
+              height: 3px;
+              border-radius: 0;
+            }
+            p {
+              @extend %desc;
+            }
+            h6 {
+              font-weight: 700;
+              color: $t_color;
+            }
+
+            i,
+            span {
+              padding: 4px;
+              @extend %desc;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  #members {
+    .page-body {
+      flex-wrap: wrap;
+      .member-card {
+        @extend %card;
+        @extend %card_hover;
+        width: 256px;
+        height: 306px;
+
+        .member-photo {
+          img {
+            width: 100px;
+            border-radius: 100%;
+          }
+        }
+        .member-info {
+          p {
+            @extend %desc;
+          }
+          h6 {
+            font-weight: 700;
+            color: $t_color;
+          }
+        }
+        .icons {
+          padding: 0;
+          list-style: none;
+          display: flex;
+          justify-content: space-evenly;
+          li {
+            i {
+              text-align: center;
+              line-height: 40px;
+              background-color: $elem_color;
+              height: 40px;
+              color: $p_color;
+              width: 40px;
+              border: 2px solid $elem_color;
+              border-radius: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
