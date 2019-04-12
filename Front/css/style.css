@@ -21,7 +21,7 @@ main #tasks .page-body .task-list .task-stage .task-card span, main #members .pa
   color: #bdbac2;
 }
 
-main #projects .page-body .project-card, main #members .page-body .member-card, #files .page-body .file-card {
+main #projects .page-body .project-card, main #members .page-body .member-card, #files .page-body .file-card, #activity .page-body .act-card {
   -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
           box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
   margin-top: 30px;
@@ -592,6 +592,33 @@ main #members .page-body .member-card .icons li i {
 }
 
 #files .page-body .file-card .file-info span {
+  color: #bdbac2;
+}
+
+#activity .page-body .act-card {
+  position: relative;
+}
+
+#activity .page-body .act-card .dropdown {
+  position: absolute;
+  right: 15px;
+}
+
+#activity .page-body .act-card .act-info a p {
+  font-weight: 700;
+  color: #212529;
+}
+
+#activity .page-body .act-card .act-info a p span {
+  font-weight: 700;
+  color: #007bff;
+}
+
+#activity .page-body .act-card .act-info a p span:hover {
+  text-decoration: underline;
+}
+
+#activity .page-body .act-card .act-info span {
   color: #bdbac2;
 }
 /*# sourceMappingURL=style.css.map */
