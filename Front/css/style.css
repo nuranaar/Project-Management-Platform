@@ -21,7 +21,7 @@ main #tasks .page-body .task-list .task-stage .task-card span, main #members .pa
   color: #bdbac2;
 }
 
-main #projects .page-body .project-card, main #members .page-body .member-card, #files .page-body .file-card, #activity .page-body .act-card, #checklist .page-body .file-card {
+main #projects .page-body .project-card, main #members .page-body .member-card, #files .page-body .file-card, #activity .page-body .act-card, #checklist .page-body .file-card, #checklist #note .page-body .note-card {
   -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
           box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
   margin-top: 30px;
@@ -29,7 +29,7 @@ main #projects .page-body .project-card, main #members .page-body .member-card, 
   background-color: #fff;
 }
 
-main #projects .page-body .project-card:hover, main #members .page-body .member-card:hover {
+main #projects .page-body .project-card:hover, main #members .page-body .member-card:hover, #checklist #note .page-body .note-card:hover {
   top: -10px;
   position: relative;
   -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
@@ -639,18 +639,52 @@ main #members .page-body .member-card .icons li i {
   color: #bdbac2;
 }
 
-#checklist .page-body .file-card .input-group-text {
-  background-color: #fff;
-  border: none;
+#checklist .page-body .file-card .file-info .input-group {
+  position: relative;
 }
 
-#checklist .page-body .file-card .form-control {
+#checklist .page-body .file-card .file-info .input-group .bar {
+  color: #bdbac2;
+  position: absolute;
+  top: 6px;
+  left: 0px;
+  z-index: 1;
+}
+
+#checklist .page-body .file-card .file-info .input-group .check {
+  position: absolute;
+  top: 13px;
+  left: 35px;
+  z-index: 1;
+}
+
+#checklist .page-body .file-card .file-info .input-group .form-control {
   background-color: #fff;
 }
 
-#checklist .page-body .file-card .form-control:focus {
+#checklist .page-body .file-card .file-info .input-group .form-control:focus {
   color: #bdbac2;
   -webkit-box-shadow: none;
           box-shadow: none;
+}
+
+#checklist #note .page-body {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+#checklist #note .page-body .note-card {
+  position: relative;
+  width: 400px;
+}
+
+#checklist #note .page-body .note-card span {
+  color: #bdbac2;
+}
+
+#checklist #note .page-body .note-card .dropdown {
+  position: absolute;
+  right: 15px;
+  top: 17px;
 }
 /*# sourceMappingURL=style.css.map */

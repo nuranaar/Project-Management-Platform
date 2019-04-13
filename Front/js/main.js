@@ -25,4 +25,21 @@ $(document).ready(function () {
         "display": "inline-block"
     });
 
+    $(".check").click(function (e) {
+        if ($(this).attr("checked") != "checked") {
+            $(this).attr("checked", "checked");
+            $(this).next().css({
+                "text-decoration-line": "line-through"
+            });
+        }
+        else if ($(this).attr("checked") == "checked") {
+            $(this).removeAttr("checked");
+            $(this).next().css({
+                "text-decoration-line": "none"
+            });
+        }
+    });
+
+
+
 });

@@ -208,7 +208,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="checklist" class="page mt-5">
+                    <div id="checklist" class="page">
                         <div class="page-title d-flex justify-content-between ">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h2>Checklist</h2>
@@ -226,15 +226,17 @@
                             <div class="file-card w-100 d-flex justify-content-start align-items-center">
 
                                 <div class="file-info pl-4 py-4 w-100">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <input type="checkbox" aria-label="Checkbox for following text input">
-                                            </div>
+                                    <div class="input-group pl-5 mb-3">
+                                        <div class="bar">
+                                            <i class="fas fa-bars"></i>
                                         </div>
-                                        <input type="text" class="form-control" value="Lorem Ipsum is simply dummy text of the printing industry">
+                                        <input class="check" checked="checked" type="checkbox"
+                                            aria-label="Checkbox for following text input">
+
+                                        <input type="text" class="form-control"
+                                            value="Lorem Ipsum is simply dummy text of the printing industry">
                                     </div>
-                           
+
                                 </div>
                                 <div class="dropdown">
                                     <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
@@ -247,6 +249,89 @@
                                         <a class="dropdown-item" href="#">Delete</a>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="file-card w-100 d-flex justify-content-start align-items-center">
+
+                                <div class="file-info pl-4 py-4 w-100">
+                                    <div class="input-group pl-5 mb-3">
+                                        <div class="bar">
+                                            <i class="fas fa-bars"></i>
+                                        </div>
+
+                                        <input class="check" type="checkbox"
+                                            aria-label="Checkbox for following text input">
+
+                                        <input type="text" class="form-control"
+                                            value="Lorem Ipsum is simply dummy text of the printing industry">
+                                    </div>
+
+                                </div>
+                                <div class="dropdown">
+                                    <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" href="#">Edit</a>
+                                        <a class="dropdown-item" href="#">Share</a>
+                                        <a class="dropdown-item" href="#">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="note" class="page mt-5" style="display:inline-block;">
+                            <div class="page-title d-flex justify-content-between ">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h2>Note</h2>
+                                    <div class="add">
+                                        <a data-fancybox data-src="#task" class="dropdown-item" href="javascript:;"><i
+                                                class="fa fa-plus"></i></a>
+                                    </div>
+                                </div>
+                                <form class="filterForm my-3">
+                                    <input type="search" class="form-control filter py-4" placeholder="Filter notes">
+                                    <button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
+                                </form>
+                            </div>
+                            <div class="page-body d-flex justify-content-around align-items-center">
+                                <div class="note-card p-4">
+                                    <p>
+                                        Sytem Update
+                                    </p>
+                                    <span>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                        when an unknown printer.</span>
+                                    <div class="dropdown">
+                                        <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Share</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="note-card p-4">
+                                    <p>
+                                        Sytem Update
+                                    </p>
+                                    <span>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                        when an unknown printer.</span>
+                                    <div class="dropdown">
+                                        <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" href="#">Share</a>
+                                            <a class="dropdown-item" href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
