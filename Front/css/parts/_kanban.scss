@@ -1,0 +1,40 @@
+.kanban {
+  #tasks {
+    .page-body {
+      .task-list {
+        display: flex;
+        justify-content: space-between;
+        .task-stage {
+          width: 270px;
+          .scroll-task {
+          height: 450px;
+
+            overflow: auto;
+            overflow-x: hidden;
+            &::-webkit-scrollbar {
+              width: 0 !important;
+            }
+            .task-card {
+              .dropdown {
+                position: absolute;
+                right: 16px;
+                top: -160px;
+              }
+              .avatars {
+                img {
+                  width: 40px;
+                }
+              }
+            }
+          }
+          .menuBtn{
+              color: #fff;
+              width: 80%;
+              margin: auto;
+              margin-top: 20px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -687,4 +687,44 @@ main #members .page-body .member-card .icons li i {
   right: 15px;
   top: 17px;
 }
+
+.kanban #tasks .page-body .task-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.kanban #tasks .page-body .task-list .task-stage {
+  width: 270px;
+}
+
+.kanban #tasks .page-body .task-list .task-stage .scroll-task {
+  height: 450px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.kanban #tasks .page-body .task-list .task-stage .scroll-task::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.kanban #tasks .page-body .task-list .task-stage .scroll-task .task-card .dropdown {
+  position: absolute;
+  right: 16px;
+  top: -160px;
+}
+
+.kanban #tasks .page-body .task-list .task-stage .scroll-task .task-card .avatars img {
+  width: 40px;
+}
+
+.kanban #tasks .page-body .task-list .task-stage .menuBtn {
+  color: #fff;
+  width: 80%;
+  margin: auto;
+  margin-top: 20px;
+}
 /*# sourceMappingURL=style.css.map */
