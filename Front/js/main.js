@@ -32,11 +32,13 @@ $(document).ready(function () {
                 "text-decoration-line": "line-through"
             });
         }
-        else if ($(this).attr("checked") == "checked") {
+        else{
             $(this).removeAttr("checked");
             $(this).next().css({
                 "text-decoration-line": "none"
             });
         }
     });
+  // console.log($(".check").hasAttr("checked").next());
+
 });

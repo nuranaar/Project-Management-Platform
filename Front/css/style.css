@@ -727,4 +727,48 @@ main #members .page-body .member-card .icons li i {
   margin: auto;
   margin-top: 20px;
 }
+
+#teams .page-body {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+#teams .page-body .team-card {
+  width: 400px;
+  -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
+          box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
+  margin-top: 30px;
+  border-radius: 7px;
+  padding: 30px;
+  background-color: #fff;
+  position: relative;
+}
+
+#teams .page-body .team-card:hover {
+  top: -10px;
+  position: relative;
+  -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+}
+
+#teams .page-body .team-card .dropdown {
+  position: absolute;
+  top: 16px;
+  right: 13px;
+}
+
+#teams .page-body .team-card p {
+  padding-bottom: 15px;
+  margin: 0;
+}
+
+#teams .page-body .team-card span {
+  color: #bdbac2;
+}
+
+main .title .header .btn-list#setting {
+  width: 270px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
 /*# sourceMappingURL=style.css.map */
