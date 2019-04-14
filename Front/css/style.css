@@ -21,7 +21,7 @@ main #tasks .page-body .task-list .task-stage .task-card span, main #members .pa
   color: #bdbac2;
 }
 
-main #projects .page-body .project-card, main #members .page-body .member-card, #files .page-body .file-card, #activity .page-body .act-card, #checklist .page-body .file-card, #checklist #note .page-body .note-card, main .acc-form {
+main #projects .page-body .project-card, main #members .page-body .member-card, #files .page-body .file-card, #activity .page-body .act-card, #checklist .page-body .file-card, #checklist #note .page-body .note-card, main .acc-form, .sign-cart, .create-link {
   -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
           box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
   margin-top: 30px;
