@@ -130,22 +130,153 @@
             </div>
         </div>
         <!--end of Navbar -->
-        <main>
-            <div class="container ">
+        <main class="w-100">
+            <div class="container d-flex justify-content-around align-items-start">
                 <!--Start of header -->
-                <div class="title mt-5">
-                <h2>Settings</h2>
-                </div>
+
                 <div class="header mt-4">
+                    <div class="title mt-5 mb-4">
+                        <h2>Settings</h2>
+                    </div>
                     <div id="setting" class="btn-list d-flex">
-                        <a href="#account" class="btn btn-item active" role="button">My Account</a>
+                        <a href="#account" class="btn btn-item " role="button">My Account</a>
                         <a href="#privacy" class="btn btn-item " role="button">Privacy &amp; Safety</a>
-                        <a href="#noti" class="btn btn-item " role="button">Notifications</a>
+                        <a href="#noti" class="btn btn-item active" role="button">Notifications</a>
                     </div>
                 </div>
                 <!--End of header -->
                 <!--Start of Main -->
-                <div class="row mb-5">
+                <div class="row my-5">
+                    <div id="account" class="acc-form p-5">
+                        <form action="post">
+                            <div class="form-group">
+                                <label>
+                                    <input type="file" style="display: none;">
+                                    <img src="img/avatar-male-4.jpg" alt="avatar">
+                                </label>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="form-group" style="width: 245px">
+
+                                    <label for="name">First Name</label>
+                                    <input type="text" id="name" name="name" class="form-control"
+                                        aria-describedby="teamName" placeholder="Enter your first name">
+
+                                </div>
+                                <div class="form-group " style="width: 240px">
+                                    <label for="name">Last Name</label>
+                                    <input type="text" id="name" name="name" class="form-control"
+                                        aria-describedby="teamName" placeholder="Enter your last name">
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Email Address</label>
+                                <input type="text" id="name" name="name" class="form-control"
+                                    aria-describedby="teamName" placeholder="Enter your email address">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Job Position</label>
+                                <input type="text" id="name" name="name" class="form-control"
+                                    aria-describedby="teamName" placeholder="What's your job position?">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="desc">Biography</label>
+                                <textarea id="desc" name="desc" class="form-control" rows="3"
+                                    placeholder="Tell us a little about yourself"></textarea>
+
+                            </div>
+                            <button class="nav-link btn btn-primary menuBtn w-100" href="#" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Save Settimgs
+                            </button>
+                        </form>
+                    </div>
+                    <div id="privacy" class="acc-form p-5">
+                        <form action="post">
+                            <div class="form-group">
+                                <label for="name">Current Password</label>
+                                <input type="text" id="name" name="name" class="form-control"
+                                    aria-describedby="teamName" placeholder="Enter your current password">
+
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="form-group" style="width: 245px">
+
+                                    <label for="name">New Password</label>
+                                    <input type="text" id="name" name="name" class="form-control"
+                                        aria-describedby="teamName" placeholder="Enter a new password">
+
+                                </div>
+                                <div class="form-group " style="width: 240px">
+                                    <label for="name">Confirm Password</label>
+                                    <input type="text" id="name" name="name" class="form-control"
+                                        aria-describedby="teamName" placeholder="Confirm your new password">
+
+                                </div>
+                            </div>
+
+
+                            <button class="nav-link btn btn-primary menuBtn w-100" href="#" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Change Password
+                            </button>
+                        </form>
+                    </div>
+                    <div class="acc-form" id="noti">
+                        <div class="popup">
+                            <div class="form p-5">
+                                <div class="noti">
+                                    <p>Pop-up
+                                    </p>
+                                    <p class="desc">Lorem Ipsum is simply dummy text of the printing and typesetting
+                                        industry.
+                                    </p>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                        <label class="custom-control-label" for="customSwitch1"></label>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="noti">
+
+                                    <p>Vibrate</p>
+                                    <p class="desc">Lorem Ipsum is simply dummy text of the printing and typesetting
+                                        industry.
+                                    </p>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                        <label class="custom-control-label" for="customSwitch1"></label>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="noti">
+                                    <p>Sound</p>
+                                    <p class="desc">Lorem Ipsum is simply dummy text of the printing and typesetting
+                                        industry.
+                                    </p>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                        <label class="custom-control-label" for="customSwitch1"></label>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="noti">
+                                    <p>Flash</p>
+                                    <p class="desc">Lorem Ipsum is simply dummy text of the printing and typesetting
+                                        industry.
+                                    </p>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                        <label class="custom-control-label" for="customSwitch1"></label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!--End of main -->
             </div>

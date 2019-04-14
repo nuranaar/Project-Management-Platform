@@ -21,7 +21,7 @@ main #tasks .page-body .task-list .task-stage .task-card span, main #members .pa
   color: #bdbac2;
 }
 
-main #projects .page-body .project-card, main #members .page-body .member-card, #files .page-body .file-card, #activity .page-body .act-card, #checklist .page-body .file-card, #checklist #note .page-body .note-card {
+main #projects .page-body .project-card, main #members .page-body .member-card, #files .page-body .file-card, #activity .page-body .act-card, #checklist .page-body .file-card, #checklist #note .page-body .note-card, main .acc-form {
   -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
           box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
   margin-top: 30px;
@@ -766,9 +766,35 @@ main #members .page-body .member-card .icons li i {
   color: #bdbac2;
 }
 
-main .title .header .btn-list#setting {
+main {
+  margin: 0;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+main .header .btn-list#setting {
   width: 270px;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+}
+
+main .acc-form {
+  display: none;
+  width: 600px;
+}
+
+main .acc-form img {
+  border-radius: 100%;
+  width: 100px;
+}
+
+main #noti .noti {
+  position: relative;
+}
+
+main #noti .noti .custom-switch {
+  right: 16px;
+  top: 10px;
+  position: absolute;
 }
 /*# sourceMappingURL=style.css.map */

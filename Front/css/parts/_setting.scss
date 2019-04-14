@@ -1,11 +1,31 @@
 main {
-  .title {
-    .header {
-      .btn-list {
-        &#setting {
-          width: 270px;
-          flex-wrap: wrap;
-        }
+  margin: 0;
+  padding-right: 30px;
+  padding-left: 30px;
+  .header {
+    .btn-list {
+      &#setting {
+        width: 270px;
+        flex-wrap: wrap;
+      }
+    }
+  }
+  .acc-form {
+    display: none;
+    width: 600px;
+    @extend %card;
+    img {
+      border-radius: 100%;
+      width: 100px;
+    }
+  }
+  #noti {
+    .noti {
+      position: relative;
+      .custom-switch {
+        right: 16px;
+        top: 10px;
+        position: absolute;
       }
     }
   }
