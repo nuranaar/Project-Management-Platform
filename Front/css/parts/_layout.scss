@@ -9,11 +9,6 @@
     width: 260px;
     overflow-y: scroll;
     .container {
-      position: sticky;
-      top: 0;
-      overflow-x: hidden;
-      overflow-y: auto;
-
       .navbar {
         width: 260px;
         background-color: #fff;
@@ -119,5 +114,4 @@
       }
     }
   }
- 
 }

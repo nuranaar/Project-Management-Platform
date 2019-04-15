@@ -73,25 +73,26 @@ body {
         line-height: 48px;
       }
     }
-    .filterForm {
-      color: $p_color;
-      position: relative;
-      width: 200px;
-      .filter {
-        background-color: $elem_color;
-        border: none;
-        padding-left: 50px;
-      }
-      .filterBtn {
-        position: absolute;
-        top: 5px;
-        left: 4px;
-        color: $p_color;
-        &:focus {
-          border: none;
-          box-shadow: none;
-        }
-      }
+   
+  }
+}
+.filterForm {
+  color: $p_color;
+  position: relative;
+  width: 200px;
+  .filter {
+    background-color: $elem_color;
+    border: none;
+    padding-left: 50px;
+  }
+  .filterBtn {
+    position: absolute;
+    top: 5px;
+    left: 4px;
+    color: $p_color;
+    &:focus {
+      border: none;
+      box-shadow: none;
     }
   }
 }

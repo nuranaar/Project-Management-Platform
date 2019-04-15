@@ -1,0 +1,52 @@
+.chat {
+  width: 1105px;
+  .members-list {
+    overflow: scroll;
+    background-color: #fdfdfd;
+    width: 500px;
+    height: 100vh;
+    overflow: auto;
+    overflow-x: hidden;
+    &::-webkit-scrollbar {
+      width: 0 !important;
+    }
+    .btn-list {
+      .btn-item {
+        padding: 10px;
+      }
+    }
+    #files {
+      .avatars {
+        i {
+          width: 40px;
+          height: 40px;
+          line-height: 38px;
+        }
+        img {
+          width: 40px;
+        }
+      }
+    }
+  }
+  .inbox {
+    header {
+      background-color: #f9f9f9;
+      .logo-team{
+        width: 50px;
+        height: 50px;
+        border-radius: 7px;
+      }
+      .avatars{
+        margin-left: auto;
+      }
+      .inbox-title {
+        span {
+          color: $p_color;
+        }
+      }
+    }
+    footer {
+      background-color: #f9f9f9;
+    }
+  }
+}

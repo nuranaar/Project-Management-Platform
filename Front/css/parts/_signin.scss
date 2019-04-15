@@ -31,3 +31,15 @@
     }
   }
 }
+#error {
+    margin: 8%;
+  h1 {
+    color: $main_color;
+    font-size: 180px;
+    font-weight: 700;
+  }
+  span {
+    color: $p_color;
+    font-size: 30px;
+  }
+}

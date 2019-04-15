@@ -1,7 +1,9 @@
 main {
-  padding: 0 106px;
-  overflow: auto;
-  margin: auto;
+  height: 100vh;
+  padding: 0 106px !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin:auto;
   margin-top: 0;
   margin-bottom: 0;
   .header {
@@ -24,30 +26,6 @@ main {
           background-color: $elem_color;
           padding: 5px;
           border-radius: 5px;
-        }
-      }
-    }
-    .btn-list {
-      background-color: $elem_color;
-      border-radius: 10px;
-      padding: 10px;
-      width: 850px;
-      &:focus {
-        box-shadow: none;
-      }
-      .btn-item {
-        color: $p_color;
-        font-weight: 700;
-        text-align: center;
-        width: 250px;
-        border-radius: 10px;
-        padding: 15px;
-        &:focus {
-          box-shadow: none;
-        }
-        &.active {
-          background-color: #fff;
-          color: $main_color;
         }
       }
     }
@@ -204,6 +182,30 @@ main {
           }
         }
       }
+    }
+  }
+}
+.btn-list {
+  background-color: $elem_color;
+  border-radius: 10px;
+  padding: 10px;
+  width: 850px;
+  &:focus {
+    box-shadow: none;
+  }
+  .btn-item {
+    color: $p_color;
+    font-weight: 700;
+    text-align: center;
+    width: 250px;
+    border-radius: 10px;
+    padding: 15px;
+    &:focus {
+      box-shadow: none;
+    }
+    &.active {
+      background-color: #fff;
+      color: $main_color;
     }
   }
 }
