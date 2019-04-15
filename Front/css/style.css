@@ -21,7 +21,7 @@ main #tasks .page-body .task-list .task-stage .task-card span, main #members .pa
   color: #bdbac2;
 }
 
-main #projects .page-body .project-card, main #members .page-body .member-card, #files .page-body .file-card, #activity .page-body .act-card, #checklist .page-body .file-card, #checklist #note .page-body .note-card, main .acc-form, .sign-cart, .create-link {
+main #projects .page-body .project-card, main #members .page-body .member-card, #files .page-body .file-card, #activity .page-body .act-card, #checklist .page-body .file-card, #checklist #note .page-body .note-card, main .acc-form, .sign .sign-cart, .sign .create-link {
   -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
           box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
   margin-top: 30px;
@@ -796,5 +796,32 @@ main #noti .noti .custom-switch {
   right: 16px;
   top: 10px;
   position: absolute;
+}
+
+.sign .logo img {
+  width: 60px;
+}
+
+.sign .title h2 {
+  font-weight: 700;
+}
+
+.sign .sign-cart .form-group {
+  position: relative;
+}
+
+.sign .sign-cart .form-group .search {
+  padding-left: 40px;
+}
+
+.sign .sign-cart .form-group .searchBtn {
+  color: #bdbac2;
+  position: absolute;
+  top: 40px;
+  left: 0;
+}
+
+.sign .create-link span {
+  color: #bdbac2;
 }
 /*# sourceMappingURL=style.css.map */
