@@ -46,6 +46,11 @@
                 font-weight: 700;
               }
             }
+            &:hover{
+              p{
+                color: $main_color;
+              }
+            }
             span {
               color: $p_color;
               font-weight: 400;
@@ -124,6 +129,12 @@
           position: absolute;
           top: 30px;
           right: 30px;
+        }
+        .message{
+          &:focus{
+            box-shadow: none;
+            background-color: $elem-color;
+          }
         }
       }
     }

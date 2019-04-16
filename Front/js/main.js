@@ -39,6 +39,8 @@ $(document).ready(function () {
             });
         }
     });
-  // console.log($(".check").hasAttr("checked").next());
+   $( "input:checked" ).next().css({
+    "text-decoration-line": "line-through"
+});
 
 });
