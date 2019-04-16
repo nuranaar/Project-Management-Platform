@@ -1,6 +1,6 @@
 .chat {
   width: 1105px;
-  .members-list {
+  .chat-datas {
     overflow: scroll;
     background-color: #fdfdfd;
     width: 500px;
@@ -27,16 +27,48 @@
         }
       }
     }
+    #members {
+      .member-list {
+        list-style-type: none;
+        .member-item {
+          position: relative;
+          padding: 10px;
+          border-bottom: 2px solid #fbfbfb;
+          transition: all 0.4s;
+          &:hover {
+            border-bottom: 2px solid $main_color;
+          }
+          .member-info {
+            a {
+              p {
+                color: $t_color;
+                margin-bottom: 0px;
+                font-weight: 700;
+              }
+            }
+            span {
+              color: $p_color;
+              font-weight: 400;
+            }
+          }
+          .dropdown {
+            position: absolute;
+            right: 0;
+            top: 0;
+          }
+        }
+      }
+    }
   }
   .inbox {
     header {
       background-color: #f9f9f9;
-      .logo-team{
+      .logo-team {
         width: 50px;
         height: 50px;
         border-radius: 7px;
       }
-      .avatars{
+      .avatars {
         margin-left: auto;
       }
       .inbox-title {
@@ -45,8 +77,55 @@
         }
       }
     }
+    .inbox-body {
+      &::-webkit-scrollbar {
+        width: 0 !important;
+      }
+      overflow-y: scroll;
+      height: calc(100vh - #{196px});
+      .text {
+        width: 350px;
+        color: $p_color;
+        p {
+          background-color: $elem_color;
+          padding: 15px;
+          border-radius: 7px;
+        }
+      }
+
+      .user-message {
+        justify-content: flex-end;
+        .text {
+          text-align: right;
+          order: 1;
+          p {
+            text-align: left;
+            background-color: $main_color;
+            color: #fff;
+          }
+        }
+        .avatars {
+          order: 2;
+        }
+      }
+    }
     footer {
       background-color: #f9f9f9;
+      .message-area {
+        position: relative;
+        .smile-btn {
+          position: absolute;
+          color: $p_color;
+          top: 30px;
+          left: 30px;
+        }
+        .send-btn {
+          color: $p_color;
+          position: absolute;
+          top: 30px;
+          right: 30px;
+        }
+      }
     }
   }
 }

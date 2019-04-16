@@ -6,6 +6,9 @@
     text-decoration: none;
   }
 }
+hr {
+  border-color: $bg_color;
+}
 %hr {
   width: 200px;
   color: $bg_color;
@@ -19,9 +22,8 @@
   margin-top: 30px;
   border-radius: 7px;
   background-color: #fff;
- 
 }
-%card_hover{
+%card_hover {
   &:hover {
     top: -10px;
     position: relative;
@@ -73,7 +75,6 @@ body {
         line-height: 48px;
       }
     }
-   
   }
 }
 .filterForm {

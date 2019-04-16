@@ -133,15 +133,73 @@
         <main class="m-0 p-0">
             <div class="container p-0">
                 <div class="chat d-flex">
-                    <div class="members-list p-4">
+                    <div class="chat-datas p-4">
                         <form class="filterForm my-3 w-100">
                             <input type="search" class="form-control filter py-4"
                                 placeholder="Filter members &amp; files">
                             <button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
                         </form>
                         <div class="btn-list d-flex mt-3 justify-content-between w-100">
-                            <a href="#members" class="btn btn-item " role="button">Members</a>
-                            <a href="#files" class="btn btn-item active" role="button">Files</a>
+                            <a href="#members" class="btn btn-item active" role="button">Members</a>
+                            <a href="#files" class="btn btn-item " role="button">Files</a>
+                        </div>
+                        <div id="members" class="page mt-5 w-100">
+                            <div class="page-title d-flex justify-content-between mb-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h2>Members</h2>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="page-body">
+                                <ul class="member-list pl-2">
+                                    <li class="member-item d-flex justify-content-start align-items-start">
+                                        <ul class="avatars mb-2 px-3">
+                                            <li> <a href=""> <img src="img/avatar-male-1.jpg" alt=""></a></li>
+                                        </ul>
+                                        <div class="member-info">
+                                            <a href="">
+                                                <p>Chase Conrad</p>
+
+                                            </a>
+                                            <span>Developer</span>
+                                        </div>
+                                        <div class="dropdown">
+                                            <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                <a class="dropdown-item" href="#">Edit</a>
+                                                <a class="dropdown-item" href="#">Share</a>
+                                                <a class="dropdown-item" href="#">Delete</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="member-item d-flex justify-content-start align-items-start">
+                                        <ul class="avatars mb-2 px-3">
+                                            <li> <a href=""> <img src="img/avatar-female-1.jpg" alt=""></a></li>
+                                        </ul>
+                                        <div class="member-info">
+                                            <a href="">
+                                                <p>Victoria Garner </p>
+
+                                            </a>
+                                            <span>Designer</span>
+                                        </div>
+                                        <div class="dropdown">
+                                            <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                <a class="dropdown-item" href="#">Edit</a>
+                                                <a class="dropdown-item" href="#">Share</a>
+                                                <a class="dropdown-item" href="#">Delete</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                         <div id="files" class="page mt-5 w-100">
                             <div class="page-title d-flex justify-content-between ">
@@ -219,10 +277,56 @@
                                 <li><a href=""><i class="fa fa-plus"></i></a></li>
                             </ul>
                         </header>
-                        <div class="body"></div>
+                        <div class="inbox-body">
+                            <div class="container">
+                                <div class="message my-2 d-flex align-items-end">
+                                    <ul class="avatars mb-2 px-3">
+                                        <li> <a href=""> <img src="img/avatar-female-2.jpg" alt=""></a></li>
+                                    </ul>
+                                    <div class="text">
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                        </p>
+                                        <span>07:30am</span>
+                                    </div>
+                                </div>
+                                <div class="message user-message my-2 d-flex align-items-end">
+                                    <ul class="avatars mb-2 px-3">
+                                        <li> <a href=""> <img src="img/avatar-male-1.jpg" alt=""></a></li>
+                                    </ul>
+                                    <div class="text">
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                        </p>
+                                        <span>08:30am</span>
+                                    </div>
+                                </div>
+                                <div class="message my-2 d-flex align-items-end">
+                                    <ul class="avatars mb-2 px-3">
+                                        <li> <a href=""> <img src="img/avatar-male-1.jpg" alt=""></a></li>
+                                    </ul>
+                                    <div class="text">
+                                        <p>It has survived not only five centuries, but also the leap into electronic
+                                            typesetting.</p>
+                                        <span>08:45am</span>
+                                    </div>
+                                </div>
+                                <div class="message user-message my-2 d-flex align-items-end">
+                                    <ul class="avatars mb-2 px-3">
+                                        <li> <a href=""> <img src="img/avatar-male-1.jpg" alt=""></a></li>
+                                    </ul>
+                                    <div class="text">
+                                        <p>It has survived not only five centuries, but also the leap into electronic
+                                            typesetting.</p>
+                                        <span>08:45am</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <footer>
-                            <form action="post">
-                                
+                            <form action="post" class="message-area w-100 p-4">
+                                <input type="text" class="form-control message px-5 py-4"
+                                    placeholder="Start typing for reply...">
+                                <button class="btn smile-btn"><i class="far fa-smile-wink"></i></button>
+                                <button type="submit" class="btn send-btn"><i class="far fa-paper-plane"></i></button>
                             </form>
                         </footer>
                     </div>
