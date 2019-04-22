@@ -131,8 +131,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904221659432_Init.cs" />
+    <Compile Include="Migrations\201904221659432_Init.Designer.cs">
+      <DependentUpon>201904221659432_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Activity.cs" />
+    <Compile Include="Models\Checklist.cs" />
+    <Compile Include="Models\File.cs" />
+    <Compile Include="Models\Note.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectMember.cs" />
+    <Compile Include="Models\Task.cs" />
+    <Compile Include="Models\TaskMember.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\TeamMember.cs" />
     <Compile Include="Models\User.cs" />
@@ -214,6 +225,11 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201904221659432_Init.resx">
+      <DependentUpon>201904221659432_Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

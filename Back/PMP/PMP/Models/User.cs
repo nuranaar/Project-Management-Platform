@@ -27,8 +27,22 @@ namespace PMP.Models
 
 
 
+		public List<Team> Teams { get; set; }
+
 		public List<TeamMember> TeamMembers { get; set; }
 
+		public List<Project> Projects { get; set; }
+
 		public List<ProjectMember> ProjectMembers { get; set; }
+
+		public List<Task> Tasks { get; set; }
+
+		public List<TaskMember> TaskMembers { get; set; }
+
+		public List<File> Files { get; set; }
+
+		public List<Activity> Activities { get; set; }
+
+
 	}
 }
