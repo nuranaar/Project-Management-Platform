@@ -22,6 +22,8 @@ namespace PMP.Models
 
 		public DateTime EndTime { get; set; }
 
+		public string Slug { get; set; }
+
 		public User User { get; set; }
 
 		public List<ProjectMember> ProjectMembers { get; set; }

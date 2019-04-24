@@ -1,0 +1,64 @@
+#checklist {
+  .page-body {
+    .file-card {
+      @extend %card;
+      position: relative;
+      .dropdown {
+        position: absolute;
+        right: 15px;
+      }
+      .file-info {
+        p {
+          color: $p_color;
+        }
+        span {
+          color: $p_color;
+        }
+        .input-group {
+        position: relative;
+        .bar{
+          color: $p_color;
+          position: absolute;
+          top: 6px;
+          left: 0px;
+          z-index: 1; 
+        }
+          .check {
+            position: absolute;
+            top: 13px;
+            left: 35px;
+            z-index: 1;
+          }
+          .form-control {
+            background-color: #fff;
+            &:focus {
+              color: $p_color;
+              box-shadow: none;
+            }
+          }
+        }
+      }
+    }
+  }
+  #note {
+    .page-body {
+      flex-wrap: wrap;
+
+      .note-card {
+        position: relative;
+        width: 400px;
+        @extend %card;
+        @extend %card_hover;
+
+        span {
+          color: $p_color;
+        }
+        .dropdown {
+          position: absolute;
+          right: 15px;
+          top: 17px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+#files {
+  .page-body {
+    .file-card {
+      @extend %card;
+      position: relative;
+      .dropdown {
+        position: absolute;
+        right: 15px;
+      }
+      .file-info {
+        a {
+          p {
+            font-weight: 700;
+            color: $main_color;
+          }
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+        span {
+          color: $p_color;
+        }
+      }
+    }
+  }
+}
+#activity {
+  .page-body {
+    .act-card {
+      @extend %card;
+      position: relative;
+      .dropdown {
+        position: absolute;
+        right: 15px;
+      }
+      .act-info {
+        a {
+          p {
+            font-weight: 700;
+              color: $t_color;
+            span {
+              font-weight: 700;
+              color: $main_color;
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+            
+          }
+        }
+        span {
+          color: $p_color;
+        }
+      }
+    }
+  }
+}

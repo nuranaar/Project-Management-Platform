@@ -1,0 +1,45 @@
+.sign {
+  .logo {
+    img {
+      width: 60px;
+    }
+  }
+  .title {
+    h2 {
+      font-weight: 700;
+    }
+  }
+  .sign-cart {
+    .form-group {
+      position: relative;
+      .search {
+        padding-left: 40px;
+      }
+      .searchBtn {
+        color: $p_color;
+        position: absolute;
+        top: 40px;
+        left: 0;
+      }
+    }
+    @extend %card;
+  }
+  .create-link {
+    @extend %card;
+    span {
+      color: $p_color;
+    }
+  }
+}
+#error {
+    margin: 8%;
+  h1 {
+    color: $main_color;
+    font-size: 180px;
+    font-weight: 700;
+  }
+  span {
+    color: $p_color;
+    font-size: 30px;
+  }
+}

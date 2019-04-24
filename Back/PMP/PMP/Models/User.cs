@@ -22,6 +22,8 @@ namespace PMP.Models
 
 		public string Photo { get; set; }
 
+		public string Slug { get; set; }
+
 		[Column(TypeName = "ntext")]
 		public string Biography { get; set; }
 

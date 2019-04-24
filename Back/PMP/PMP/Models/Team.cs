@@ -18,6 +18,8 @@ namespace PMP.Models
 		[Column(TypeName = "ntext")]
 		public string Desc { get; set; }
 
+		public string Slug { get; set; }
+
 
 
 		public List<TeamMember> TeamMembers { get; set; }

@@ -1,42 +1,338 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-</head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+﻿@{
+	List<Project> projects = ViewBag.Project as List<Project>;
+}
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+	<link rel="stylesheet" href="~/Public/css/style.css">
+	<link rel="icon" type="image/png" href="~/Public/img/logo.png">
+	<title>DIFF - Project Management Platform</title>
+</head>
+
+<body>
+	<div class="sides">
+		<!--Start of Navbar -->
+		<div class="navigation">
+			<div class="container  pl-0">
+				<nav class="navbar">
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="#"><img class="logo my-2" src="~/Public/img/logo.png" alt="Logo"></a>
+						</li>
+						<li class="nav-item mt-2">
+							<a class="nav-link" href="#">Team</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Project
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" href="#">Tasks</a>
+								<a class="dropdown-item" href="#">Files</a>
+								<a class="dropdown-item" href="#">Activity</a>
+							</div>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Task
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" href="#">Files</a>
+								<a class="dropdown-item" href="#">Activity</a>
+							</div>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Kanban Board</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Chat</a>
+						</li>
+						<li>
+							<hr>
+							<h5 class="ml-3">Projects</h5>
+						</li>
+						@foreach (Project project in projects.ToList())
+						{
+							<li class="nav-item">
+								<div class="project">
+									<div class="curColor">
+										<i class="fas fa-circle"></i>
+									</div>
+									<a class="nav-link" href="#">@project.Name</a>
+								</div>
+							</li>
+						}
+						<hr>
+						<li class="nav-item">
+							<form class=" searchForm my-3">
+								<input type="search" class="form-control search py-4" placeholder="Search">
+								<button type="submit" class="btn searchBtn"> <i class="fas fa-search"></i></button>
+							</form>
+						</li>
+
+						<li class="nav-item dropdown">
+							<a class="nav-link btn btn-primary menuBtn" href="#" role="button" data-toggle="dropdown"
+							   aria-haspopup="true" aria-expanded="false">
+								Add New
+							</a>
+							<div class="menu" aria-labelledby="navbarDropdownMenuLink">
+								<ul class="menu-list">
+									<li>
+										<a data-fancybox data-src="#team" class="dropop dropdown-item"
+										   href="javascript:;">Team</a>
+
+									</li>
+									<li>
+										<a data-fancybox data-src="#project" class="dropop dropdown-item"
+										   href="javascript:;">Project</a>
+									</li>
+									<li>
+										<a data-fancybox data-src="#task" class="dropop dropdown-item"
+										   href="javascript:;">Task</a>
+									</li>
+								</ul>
+
+
+
+							</div>
+						</li>
+						<li class="nav-item ml-5">
+							<div class="onlineUser m-4">
+								<img src="~/Public/img/avatar-male-1.jpg" alt="user">
+								<div class="onlineIcon">
+									<i class="fas fa-circle"></i>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<!--end of Navbar -->
+		<main>
+			<div class="container">
+				@RenderBody()
+			</div>
+		</main>
+	</div>
+	<!--task popup-->
+	<div style="display: none;" id="hidden-content">
+		<div id="task" class="popup">
+			<div class="form">
+				<div class="popup-head px-5 pt-4 pb-2 w-100">
+					<h3>New Task</h3>
+				</div>
+				<form action="post" class=" px-4">
+					<label for="name">Name</label>
+					<input type="text" id="name" name="name" class="form-control" aria-describedby="teamName"
+						   placeholder="Team name">
+
+					<label for="desc">Description</label>
+					<textarea id="desc" name="desc" class="form-control" rows="3"
+							  placeholder="Team description"></textarea>
+
+					<label for="member">Members</label>
+					<input type="text" id="member" name="member" class="form-control" aria-describedby="teamMember"
+						   placeholder="Add team members">
+
+					<div class="row">
+						<div class="col-6">
+							<label for="start-date">Start date</label>
+							<input type="date" id="start-date" name="start-date" class="form-control"
+								   aria-describedby="start-date">
+
+						</div>
+						<div class="col-6">
+							<label for="end-date">End date</label>
+							<input type="date" id="end-date" name="end-date" class="form-control"
+								   aria-describedby="end-date">
+
+						</div>
+					</div>
+					<label for="taskFile">Starting files</label>
+					<div class="upload w-100">
+						<label>
+							<input type="file">
+							<span>Select or drag &amp; drop your files for upload</span>
+						</label>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-6">
+							<p>Private team</p>
+							<p class="desc">
+								Lorem Ipsum is simply dummy text of the printing and typesetting
+								industry.
+							</p>
+							<div class="custom-control custom-switch">
+								<input type="checkbox" class="custom-control-input" id="customSwitch1">
+								<label class="custom-control-label" for="customSwitch1"></label>
+							</div>
+						</div>
+						<div class=" col-6">
+							<div class="warning">
+								<i class="fas fa-exclamation-triangle"></i>
+								<span>Warning</span>
+								<p class="desc p-2">
+									Lorem Ipsum is simply dummy text of the printing and typesetting
+									industry.
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<button type="submit" class="createBtn btn btn-primary my-3">
+						Create
+						team
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--end popup-->
+	<!--project popup-->
+	<div style="display: none;" id="hidden-content">
+		<div id="project" class="popup">
+			<div class="form">
+				<div class="popup-head px-5 pt-4 pb-2 w-100">
+					<h3>New Project</h3>
+				</div>
+				<form action="post" class=" px-4">
+					<label for="name">Name</label>
+					<input type="text" id="name" name="name" class="form-control" aria-describedby="projectName"
+						   placeholder="Project name">
+
+					<label for="desc">Description</label>
+					<textarea id="desc" name="desc" class="form-control" rows="3"
+							  placeholder="Project description"></textarea>
+
+					<label for="member">Members</label>
+					<input type="text" id="member" name="member" class="form-control" aria-describedby="projectMember"
+						   placeholder="Add team members">
+					<div class="row">
+						<div class="col-6">
+							<label for="start-date">Start date</label>
+							<input type="date" id="start-date" name="start-date" class="form-control"
+								   aria-describedby="start-date">
+
+						</div>
+						<div class="col-6">
+							<label for="end-date">End date</label>
+							<input type="date" id="end-date" name="end-date" class="form-control"
+								   aria-describedby="end-date">
+
+						</div>
+					</div>
+					<label for="projectFile">Starting files</label>
+					<div class="upload w-100">
+						<label>
+							<input type="file">
+							<span>Select or drag &amp; drop your files for upload</span>
+						</label>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-6">
+							<p>Private project</p>
+							<p class="desc">
+								Lorem Ipsum is simply dummy text of the printing and typesetting
+								industry.
+							</p>
+							<div class="custom-control custom-switch">
+								<input type="checkbox" class="custom-control-input" id="customSwitch1">
+								<label class="custom-control-label" for="customSwitch1"></label>
+							</div>
+						</div>
+						<div class=" col-6">
+							<div class="warning">
+								<i class="fas fa-exclamation-triangle"></i>
+								<span>Warning</span>
+								<p class="desc p-2">
+									Lorem Ipsum is simply dummy text of the printing and typesetting
+									industry.
+								</p>
+							</div>
+						</div>
+					</div>
+					<button type="submit" class="createBtn btn btn-primary my-3">
+						Create
+						project
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--end popup-->
+	<!--team popup-->
+	<div style="display: none; " id="hidden-content">
+		<div id="team" class="popup">
+			<div class="form">
+				<div class="popup-head px-5 pt-4 pb-2 w-100">
+					<h3>New Team</h3>
+				</div>
+				<form action="post" class="px-4">
+					<label for="name">Name</label>
+					<input type="text" id="name" name="name" class="form-control" aria-describedby="teamName"
+						   placeholder="Team name">
+
+					<label for="desc">Description</label>
+					<textarea id="desc" name="desc" class="form-control" rows="3"
+							  placeholder="Team description"></textarea>
+
+					<label for="member">Members</label>
+					<input type="text" id="member" name="member" class="form-control" aria-describedby="teammember"
+						   placeholder="Add team members">
+					<hr>
+					<div class="row">
+						<div class="col-6">
+							<p>Private project</p>
+							<p class="desc">
+								Lorem Ipsum is simply dummy text of the printing and typesetting
+								industry.
+							</p>
+							<div class="custom-control custom-switch">
+								<input type="checkbox" class="custom-control-input" id="customSwitch1">
+								<label class="custom-control-label" for="customSwitch1"></label>
+							</div>
+						</div>
+						<div class=" col-6">
+							<div class="warning">
+								<i class="fas fa-exclamation-triangle"></i>
+								<span>Warning</span>
+								<p class="desc p-2">
+									Lorem Ipsum is simply dummy text of the printing and typesetting
+									industry.
+								</p>
+							</div>
+						</div>
+					</div>
+					<button type="submit" class="createBtn btn btn-primary my-3">
+						Create
+						team
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--end popup-->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+	<script src="~/Public/js/main.js"></script>
+
+
 </body>
+
 </html>
