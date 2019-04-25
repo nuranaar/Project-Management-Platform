@@ -1,0 +1,290 @@
+﻿@model ProjectVm
+@{
+	ViewBag.Title = "Index";
+}
+
+<!--Start of header -->
+<div class="header w-100 mt-5">
+	<div class="head d-flex justify-content-center">
+		<div class="row">
+			<div class="col-6">
+				<h1>@Model.Project.Name </h1>
+				<p>@Model.Project.Desc</p>
+			</div>
+			<div class="col-6">
+				<ul class="avatars">
+					@foreach (ProjectMember member in Model.ProjectMembers.ToList())
+					{
+						<li><a href="#"><img src="~/Public/img/@Model.Users.Find(u=>u.Id==member.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==member.UserId).Name"></a></li>
+					}
+					<li><a href="#"><i class="fa fa-plus"></i></a></li>
+				</ul>
+				<div class="progress">
+					<div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25"
+						 aria-valuemin="0" aria-valuemax="100"></div>
+				</div>
+				<div class="progInfo d-flex justify-content-between">
+					<div><i class="far fa-check-square"></i><span>4/10</span></div>
+					<div class="due"><i class="far fa-clock"></i><span>Due 7 days</span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="btn-list d-flex mt-3 justify-content-between">
+		<a href="#tasks" class="btn btn-item active" role="button">Tasks</a>
+		<a href="#files" class="btn btn-item" role="button">Files</a>
+		<a href="#activity" class="btn btn-item " role="button">Activity</a>
+	</div>
+</div>
+<!--End of header -->
+<!--Start of Main -->
+
+<div class="row mb-5">
+	<div id="activity" class="page mt-5">
+		<div class="page-title d-flex justify-content-between ">
+			<div class="d-flex justify-content-between align-items-center">
+				<h2>Activity</h2>
+			</div>
+			<form class=" filterForm my-3">
+				<input type="search" class="form-control filter py-4" placeholder="Filter activity">
+				<button type="submit" class="btn filterBtn"><i class="fas fa-search"></i></button>
+			</form>
+		</div>
+		<div class="page-body ">
+
+			@foreach (ProjectMember member in Model.ProjectMembers.ToList())
+			{
+				foreach (Activity act in Model.Activities.Where(a => a.UserId == member.UserId).ToList())
+				{
+					<div class="act-card w-100 d-flex justify-content-start align-items-center">
+						<ul class="avatars mt-3">
+							<li><a href="#"><i class="fas fa-star"></i></a></li>
+							<li><a href="#"><img src="~/Public/img/@Model.Users.Find(u=>u.Id==act.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==act.UserId).Name"></a></li>
+						</ul>
+						<div class="act-info pl-4 py-4">
+							<a href="#">
+								<p class="m-0">@act.Desc</p>
+							</a>
+							<span>
+								@act.Date.ToString("MMM dd")
+							</span>
+						</div>
+						<div class="dropdown">
+							<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fas fa-ellipsis-v"></i>
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" href="#">Edit</a>
+								<a class="dropdown-item" href="#">Share</a>
+								<a class="dropdown-item" href="#">Delete</a>
+							</div>
+						</div>
+					</div>
+
+				}
+			}
+		</div>
+	</div>
+
+	<div id="tasks" class="page mt-5">
+		<div class="page-title d-flex justify-content-between ">
+			<div class="d-flex justify-content-between align-items-center">
+				<h2>Tasks</h2>
+				<div class="add">
+					<a data-fancybox data-src="#task" class="dropdown-item" href="javascript:;">
+						<i class="fa fa-plus"></i>
+					</a>
+				</div>
+			</div>
+			<form class=" filterForm my-3">
+				<input type="search" class="form-control filter py-4" placeholder="Filter tasks">
+				<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
+			</form>
+		</div>
+		<div class="page-body">
+			<ul class="task-list pl-0">
+				<li>
+					<div id="execution" class="task-stage pb-4">
+						<h5 class="stage pb-0">Execution</h5>
+						<div class="task-card mt-4">
+							<div class="progress">
+								<div class="progress-bar" role="progressbar" style="width: 25%"
+									 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<div class="row">
+								<div class="col-6 p-4 pl-5">
+									<h6>Calendar component iteration</h6>
+									<p>Lorem Ipsum is simply dummy text </p>
+								</div>
+								<div class="col-6 p-4 d-flex justify-content-between align-items-center">
+									<ul class="avatars">
+										<li><a href=""><img src="img/avatar-male-1.jpg" alt=""></a></li>
+										<li>
+											<a href=""><img src="img/avatar-female-2.jpg" alt=""></a>
+										</li>
+										<li><a href=""><img src="img/avatar-male-3.jpg" alt=""></a></li>
+									</ul>
+									<div class="mt-2">
+										<i class="far fa-check-square"></i><span>4/10</span>
+									</div>
+
+									<div class="dropdown">
+										<a class="nav-link" href="#" id="navbarDropdownMenuLink"
+										   role="button" data-toggle="dropdown" aria-haspopup="true"
+										   aria-expanded="false">
+											<i class="fas fa-ellipsis-v"></i>
+										</a>
+										<div class="dropdown-menu"
+											 aria-labelledby="navbarDropdownMenuLink">
+											<a class="dropdown-item" href="#">Edit</a>
+											<a class="dropdown-item" href="#">Share</a>
+											<a class="dropdown-item" href="#">Delete</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div id="sketches" class="task-stage pb-4">
+						<h5 class="stage pb-0">Sketches</h5>
+						<div class="task-card mt-4">
+							<div class="progress">
+								<div class="progress-bar" role="progressbar" style="width: 25%"
+									 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<div class="row">
+								<div class="col-6 p-4 pl-5">
+									<h6>Calendar component iteration</h6>
+									<p>Lorem Ipsum is simply dummy text </p>
+								</div>
+								<div class="col-6 p-4 d-flex justify-content-between align-items-center">
+									<ul class="avatars">
+										<li><a href="#"><img src="img/avatar-male-1.jpg" alt=""></a></li>
+										<li>
+											<a href="#"><img src="img/avatar-female-2.jpg" alt=""></a>
+										</li>
+										<li><a href="#"><img src="img/avatar-male-3.jpg" alt=""></a></li>
+									</ul>
+									<div class="mt-2">
+										<i class="far fa-check-square"></i><span>4/10</span>
+									</div>
+
+									<div class="dropdown">
+										<a class="nav-link" href="#" id="navbarDropdownMenuLink"
+										   role="button" data-toggle="dropdown" aria-haspopup="true"
+										   aria-expanded="false">
+											<i class="fas fa-ellipsis-v"></i>
+										</a>
+										<div class="dropdown-menu"
+											 aria-labelledby="navbarDropdownMenuLink">
+											<a class="dropdown-item" href="#">Edit</a>
+											<a class="dropdown-item" href="#">Share</a>
+											<a class="dropdown-item" href="#">Delete</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div id="shape" class="task-stage   pb-4  ">
+						<h5 class="stage pb-0">Shape</h5>
+						<div class="task-card mt-4">
+							<div class="progress">
+								<div class="progress-bar" role="progressbar" style="width: 25%"
+									 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<div class="row">
+								<div class="col-6 p-4 pl-5">
+									<h6>Calendar component iteration</h6>
+									<p>Lorem Ipsum is simply dummy text </p>
+								</div>
+								<div class="col-6 p-4 d-flex justify-content-between align-items-center">
+									<ul class="avatars">
+										<li><a href=""><img src="img/avatar-male-1.jpg" alt=""></a></li>
+										<li>
+											<a href=""><img src="img/avatar-female-2.jpg" alt=""></a>
+										</li>
+										<li><a href=""><img src="img/avatar-male-3.jpg" alt=""></a></li>
+									</ul>
+									<div class="mt-2">
+										<i class="far fa-check-square"></i><span>4/10</span>
+									</div>
+
+									<div class="dropdown">
+										<a class="nav-link" href="#" id="navbarDropdownMenuLink"
+										   role="button" data-toggle="dropdown" aria-haspopup="true"
+										   aria-expanded="false">
+											<i class="fas fa-ellipsis-v"></i>
+										</a>
+										<div class="dropdown-menu"
+											 aria-labelledby="navbarDropdownMenuLink">
+											<a class="dropdown-item" href="#">Edit</a>
+											<a class="dropdown-item" href="#">Share</a>
+											<a class="dropdown-item" href="#">Delete</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+
+		</div>
+	</div>
+	<div id="files" class="page mt-5">
+		<div class="page-title d-flex justify-content-between ">
+			<div class="d-flex justify-content-between align-items-center">
+				<h2>Files</h2>
+			</div>
+			<form class=" filterForm my-3">
+				<input type="search" class="form-control filter py-4" placeholder="Filter files">
+				<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
+			</form>
+		</div>
+		<div class="page-body ">
+			<div class="upload w-100">
+				<label>
+					<input type="file">
+					<span>Select or drag &amp; drop your files for upload</span>
+				</label>
+			</div>
+			@foreach (ProjectMember member in Model.ProjectMembers.ToList())
+			{
+				foreach (var file in Model.Files.Where(f => f.UserId == member.UserId).ToList())
+				{
+		<div class="file-card w-100 d-flex justify-content-start align-items-center">
+			<ul class="avatars mt-3">
+				<li><a href="#"><i class="far fa-file-alt"></i></a></li>
+				<li><a href="#"><img src="~/Public/img/@Model.Users.Find(u=>u.Id==file.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==file.UserId).Name"></a></li>
+			</ul>
+			<div class="file-info pl-4 py-4">
+				<a href="#">
+					<p class="m-0">@file.Name</p>
+				</a>
+				<span>@file.Weight</span>
+			</div>
+			<div class="dropdown">
+				<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+				   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i class="fas fa-ellipsis-v"></i>
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+					<a class="dropdown-item" href="#">Edit</a>
+					<a class="dropdown-item" href="#">Share</a>
+					<a class="dropdown-item" href="#">Delete</a>
+				</div>
+			</div>
+		</div>
+
+				}
+			}
+		</div>
+	</div>
+</div>
+<!--End of main -->

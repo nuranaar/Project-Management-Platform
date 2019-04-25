@@ -84,3 +84,4 @@ C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.pdb
 C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.Init.resources
 C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.csproj.GenerateResource.cache
 C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.AddSlug.resources
+C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.ChangeTasmMembersTable.resources
