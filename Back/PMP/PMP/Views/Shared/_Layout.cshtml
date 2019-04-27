@@ -62,6 +62,7 @@
 							<hr>
 							<h5 class="ml-3">Projects</h5>
 						</li>
+
 						@foreach (Project project in projects.ToList())
 						{
 							<li class="nav-item">
@@ -69,10 +70,11 @@
 									<div class="curColor">
 										<i class="fas fa-circle"></i>
 									</div>
-									<a class="nav-link" href="#">@project.Name</a>
+									<a class="nav-link" href="@Url.Action("index", "project", new { slug = project.Slug })">@project.Name</a>
 								</div>
 							</li>
 						}
+
 						<hr>
 						<li class="nav-item">
 							<form class=" searchForm my-3">
@@ -148,15 +150,15 @@
 
 					<div class="row">
 						<div class="col-6">
-							<label for="start-date">Start date</label>
-							<input type="date" id="start-date" name="start-date" class="form-control"
-								   aria-describedby="start-date">
+							<label for="StartTime">Start date</label>
+							<input type="date" id="StartTime" name="StartTime" class="form-control"
+								   aria-describedby="StartTime">
 
 						</div>
 						<div class="col-6">
-							<label for="end-date">End date</label>
-							<input type="date" id="end-date" name="end-date" class="form-control"
-								   aria-describedby="end-date">
+							<label for="EndTime">End date</label>
+							<input type="date" id="EndTime" name="EndTime" class="form-control"
+								   aria-describedby="EndTime">
 
 						</div>
 					</div>
@@ -208,38 +210,32 @@
 				<div class="popup-head px-5 pt-4 pb-2 w-100">
 					<h3>New Project</h3>
 				</div>
-				<form action="post" class=" px-4">
+				<form id="project-form" data-type="create" method="post" class=" px-4">
 					<label for="name">Name</label>
-					<input type="text" id="name" name="name" class="form-control" aria-describedby="projectName"
+					<input type="text" id="name" name="name" data-type="slug-source" class="form-control" aria-describedby="projectName"
 						   placeholder="Project name">
-
+					<div class="form-group" style="display:block">
+						<label for="slug">Slug</label>
+						<input type="text" id="slug" name="slug" data-type="slug-input" class="form-control" aria-describedby="projectName"
+							   placeholder="Project slug">
+					</div>
 					<label for="desc">Description</label>
 					<textarea id="desc" name="desc" class="form-control" rows="3"
 							  placeholder="Project description"></textarea>
-
 					<label for="member">Members</label>
 					<input type="text" id="member" name="member" class="form-control" aria-describedby="projectMember"
 						   placeholder="Add team members">
 					<div class="row">
 						<div class="col-6">
-							<label for="start-date">Start date</label>
-							<input type="date" id="start-date" name="start-date" class="form-control"
-								   aria-describedby="start-date">
-
+							<label for="StartTime">Start date</label>
+							<input type="date" id="StartTime" name="StartTime" class="form-control"
+								   aria-describedby="StartTime">
 						</div>
 						<div class="col-6">
-							<label for="end-date">End date</label>
-							<input type="date" id="end-date" name="end-date" class="form-control"
-								   aria-describedby="end-date">
-
+							<label for="EndTime">End date</label>
+							<input type="date" id="EndTime" name="EndTime" class="form-control"
+								   aria-describedby="EndTime">
 						</div>
-					</div>
-					<label for="projectFile">Starting files</label>
-					<div class="upload w-100">
-						<label>
-							<input type="file">
-							<span>Select or drag &amp; drop your files for upload</span>
-						</label>
 					</div>
 					<hr>
 					<div class="row">
@@ -326,11 +322,13 @@
 		</div>
 	</div>
 	<!--end popup-->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 	<script src="~/Public/js/main.js"></script>
+	<script src="~/Public/js/slugify.js"></script>
+	<script src="~/Public/js/create.js"></script>
 
 
 </body>

@@ -25,6 +25,7 @@ namespace PMP.Models
 
 		public string Slug { get; set; }
 
+
 		public User User { get; set; }
 
 		public Project Project { get; set; }
@@ -36,7 +37,6 @@ namespace PMP.Models
 		public List<Checklist> Checklists { get; set; }
 
 		public List<Note> Notes { get; set; }
-
 
 	}
 }

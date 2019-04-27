@@ -181,7 +181,9 @@
     <Content Include="Public\img\avatar-male-6.jpg" />
     <Content Include="Public\img\logo-team.jpg" />
     <Content Include="Public\img\logo.png" />
+    <Content Include="Public\js\create.js" />
     <Content Include="Public\js\main.js" />
+    <Content Include="Public\js\slugify.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
