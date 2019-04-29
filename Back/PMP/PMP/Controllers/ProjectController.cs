@@ -63,10 +63,7 @@ namespace PMP.Controllers
 			{
 				project.Id,
 				project.Name,
-				project.Slug,
-				project.StartTime,
-				project.EndTime,
-				project.Desc,
+				project.Slug
 			}, JsonRequestBehavior.AllowGet);
 		}
 	}

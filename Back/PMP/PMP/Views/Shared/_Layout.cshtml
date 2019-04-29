@@ -1,5 +1,6 @@
 ﻿@{
 	List<Project> projects = ViewBag.Project as List<Project>;
+	Project pr = ViewBag.Pr as Project;
 }
 
 <!DOCTYPE html>
@@ -62,19 +63,19 @@
 							<hr>
 							<h5 class="ml-3">Projects</h5>
 						</li>
-
-						@foreach (Project project in projects.ToList())
-						{
-							<li class="nav-item">
-								<div class="project">
-									<div class="curColor">
-										<i class="fas fa-circle"></i>
+						<div class="pr-list">
+							@foreach (Project project in projects.ToList())
+							{
+								<li class="nav-item">
+									<div class="project">
+										<div class="curColor">
+											<i class="fas fa-circle"></i>
+										</div>
+										<a class="nav-link" href="@Url.Action("index", "project", new { slug = project.Slug })">@project.Name</a>
 									</div>
-									<a class="nav-link" href="@Url.Action("index", "project", new { slug = project.Slug })">@project.Name</a>
-								</div>
-							</li>
-						}
-
+								</li>
+							}
+						</div>
 						<hr>
 						<li class="nav-item">
 							<form class=" searchForm my-3">
@@ -212,9 +213,16 @@
 				</div>
 				<form id="project-form" data-type="create" method="post" class=" px-4">
 					<label for="name">Name</label>
-					<input type="text" id="name" name="name" data-type="slug-source" class="form-control" aria-describedby="projectName"
+
+					<input type="text" id="name" name="name" data-type="slug-source" required class="form-control" aria-describedby="projectName"
 						   placeholder="Project name">
-					<div class="form-group" style="display:block">
+
+					@Html.LabelFor(model => pr.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+					<div class="col-md-10">
+						@Html.EditorFor(model => pr.Name, new { htmlAttributes = new { @class = "form-control", @data_type = "slug-source" } })
+						@Html.ValidationMessageFor(model => pr.Name, "", new { @class = "text-danger" })
+					</div>
+					<div class="form-group" style="display:none">
 						<label for="slug">Slug</label>
 						<input type="text" id="slug" name="slug" data-type="slug-input" class="form-control" aria-describedby="projectName"
 							   placeholder="Project slug">
@@ -239,24 +247,23 @@
 					</div>
 					<hr>
 					<div class="row">
-						<div class="col-6">
-							<p>Private project</p>
-							<p class="desc">
-								Lorem Ipsum is simply dummy text of the printing and typesetting
-								industry.
-							</p>
-							<div class="custom-control custom-switch">
-								<input type="checkbox" class="custom-control-input" id="customSwitch1">
-								<label class="custom-control-label" for="customSwitch1"></label>
-							</div>
-						</div>
-						<div class=" col-6">
+						@*<div class="col-6">
+				<p>Private project</p>
+				<p class="desc">
+					Lorem Ipsum is simply dummy text of the printing and typesetting
+					industry.
+				</p>
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="customSwitch1">
+					<label class="custom-control-label" for="customSwitch1"></label>
+				</div>
+			</div>*@
+						<div class=" col-12">
 							<div class="warning">
 								<i class="fas fa-exclamation-triangle"></i>
 								<span>Warning</span>
 								<p class="desc p-2">
-									Lorem Ipsum is simply dummy text of the printing and typesetting
-									industry.
+									@Html.ValidationSummary(true, "", new { @class = "warning-message text-danger" })
 								</p>
 							</div>
 						</div>
@@ -279,19 +286,19 @@
 				</div>
 				<form action="post" class="px-4">
 					<label for="name">Name</label>
-					<input type="text" id="name" name="name" class="form-control" aria-describedby="teamName"
+					<input type="text" id="name" name="name" class="form-control"  aria-describedby="teamName"
 						   placeholder="Team name">
 
 					<label for="desc">Description</label>
-					<textarea id="desc" name="desc" class="form-control" rows="3"
+					<textarea id="desc" name="desc" class="form-control" required rows="3"
 							  placeholder="Team description"></textarea>
 
 					<label for="member">Members</label>
-					<input type="text" id="member" name="member" class="form-control" aria-describedby="teammember"
+					<input type="text" id="member" name="member" required class="form-control" aria-describedby="teammember"
 						   placeholder="Add team members">
 					<hr>
 					<div class="row">
-						<div class="col-6">
+						@*<div class="col-6">
 							<p>Private project</p>
 							<p class="desc">
 								Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -301,14 +308,13 @@
 								<input type="checkbox" class="custom-control-input" id="customSwitch1">
 								<label class="custom-control-label" for="customSwitch1"></label>
 							</div>
-						</div>
-						<div class=" col-6">
+						</div>*@
+						<div class=" col-12">
 							<div class="warning">
 								<i class="fas fa-exclamation-triangle"></i>
 								<span>Warning</span>
 								<p class="desc p-2">
-									Lorem Ipsum is simply dummy text of the printing and typesetting
-									industry.
+									@Html.ValidationSummary(true, "", new { @class = "warning-message text-danger" })
 								</p>
 							</div>
 						</div>

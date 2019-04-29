@@ -14,6 +14,7 @@ namespace PMP.Controllers
 		public BaseController()
 		{
 			ViewBag.Project = db.Projects.OrderByDescending(p => p.StartTime).ToList();
+			ViewBag.Pr = db.Projects;
 		}
 
 		
