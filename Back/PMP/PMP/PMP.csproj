@@ -146,6 +146,14 @@
     <Compile Include="Migrations\201904241652157_ChangeTasmMembersTable.Designer.cs">
       <DependentUpon>201904241652157_ChangeTasmMembersTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904291603429_TeamChenge.cs" />
+    <Compile Include="Migrations\201904291603429_TeamChenge.Designer.cs">
+      <DependentUpon>201904291603429_TeamChenge.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904291718410_AddStage.cs" />
+    <Compile Include="Migrations\201904291718410_AddStage.Designer.cs">
+      <DependentUpon>201904291718410_AddStage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Checklist.cs" />
@@ -155,6 +163,7 @@
     <Compile Include="Models\ProjectMember.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\TaskMember.cs" />
+    <Compile Include="Models\TaskStage.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\TeamMember.cs" />
     <Compile Include="Models\User.cs" />
@@ -232,6 +241,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904241652157_ChangeTasmMembersTable.resx">
       <DependentUpon>201904241652157_ChangeTasmMembersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904291603429_TeamChenge.resx">
+      <DependentUpon>201904291603429_TeamChenge.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904291718410_AddStage.resx">
+      <DependentUpon>201904291718410_AddStage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

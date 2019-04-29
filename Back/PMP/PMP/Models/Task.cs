@@ -25,6 +25,10 @@ namespace PMP.Models
 
 		public string Slug { get; set; }
 
+		[ForeignKey("TaskStage")]
+		public int TaskStageId { get; set; }
+		
+		public TaskStage TaskStage { get; set; }
 
 		public User User { get; set; }
 

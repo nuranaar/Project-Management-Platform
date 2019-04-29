@@ -57,8 +57,7 @@ namespace PMP.Controllers
 				db.ProjectMembers.Add(projectMember);
 				db.SaveChanges();
 			}
-			projectMember.User = db.Users.Find(projectMember.UserId);
-			project.User = db.Users.Find(project.UserId);
+			
 			return Json(new
 			{
 				project.Id,

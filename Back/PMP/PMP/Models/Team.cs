@@ -20,7 +20,7 @@ namespace PMP.Models
 
 		public string Slug { get; set; }
 
-
+		public User User { get; set; }
 
 		public List<TeamMember> TeamMembers { get; set; }
 	}
