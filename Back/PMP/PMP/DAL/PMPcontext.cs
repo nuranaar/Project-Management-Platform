@@ -36,6 +36,7 @@ namespace PMP.DAL
 
 		public DbSet<TeamMember> TeamMembers { get; set; }
 
+		public DbSet<TaskStage> TaskStages { get; set; }
 
 	}
 }

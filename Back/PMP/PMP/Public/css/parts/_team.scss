@@ -13,7 +13,7 @@ main {
       }
 
       .progress {
-        height: 5px;
+        border-radius: 5px !important;
       }
       .progInfo {
         margin-top: 15px;
@@ -36,13 +36,9 @@ main {
       .project-card {
         @extend %card;
         @extend %card_hover;
-        height: 200px;
         width: 400px;
-        overflow: hidden;
-        .progress {
-          height: 5px;
-          border-radius: 0;
-        }
+        border-radius: 7px;
+       
         .card-title {
           position: relative;
           height: 63px;
@@ -89,6 +85,7 @@ main {
             @extend %desc;
           }
           .card-info {
+           
             i,
             span {
               padding: 4px;
@@ -112,21 +109,21 @@ main {
             padding: 20px;
           }
           .task-card {
-            overflow: hidden;
-            border-radius: 10px;
+            border-radius: 7px;
             background-color: #fff;
             width: 90%;
             margin: auto;
-            .progress {
-              height: 3px;
-              border-radius: 0;
-            }
+            
             p {
               @extend %desc;
             }
             h6 {
               font-weight: 700;
               color: $t_color;
+              &:hover{
+              color: $main_color;
+
+              }
             }
 
             i,

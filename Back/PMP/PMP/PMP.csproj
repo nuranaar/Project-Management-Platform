@@ -129,6 +129,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="DAL\PMPcontext.cs" />
     <Compile Include="Global.asax.cs">
@@ -191,6 +192,7 @@
     <Content Include="Public\img\logo-team.jpg" />
     <Content Include="Public\img\logo.png" />
     <Content Include="Public\js\create.js" />
+    <Content Include="Public\js\isEmpty.js" />
     <Content Include="Public\js\main.js" />
     <Content Include="Public\js\slugify.js" />
     <Content Include="Web.config" />
@@ -208,11 +210,13 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Task\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Views\Team\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Public\css\parts\_chat.scss" />
     <Content Include="Public\css\parts\_common.scss" />
     <Content Include="Public\css\parts\_kanban.scss" />
@@ -227,7 +231,6 @@
     <Content Include="Public\css\parts\_variable.scss" />
     <Content Include="Public\css\style.css.map" />
     <Content Include="Public\css\style.scss" />
-    <Content Include="Views\Project\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

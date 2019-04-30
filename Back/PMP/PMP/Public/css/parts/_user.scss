@@ -2,36 +2,55 @@
   .page-body {
     flex-wrap: wrap;
     .team-card {
-      width:400px;    
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
-      margin-top: 30px;
-      border-radius: 7px;
-      padding: 30px;
-      background-color: #fff;
-position: relative;
-      &:hover {
-        top: -10px;
+      @extend %card;
+      @extend %card_hover;
+
+      width: 400px;
+
+      .card-title {
         position: relative;
-        box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
-      }
-      .dropdown{
-        position: absolute;
-        top: 16px;
-        right: 13px;
+        height: 63px;
+        margin-bottom: 0;
       }
       .title {
         color: $t_color;
         font-weight: 700;
-        p {
+        span {
+          line-height: 74px;
           font-size: 18px;
-          padding-bottom: 15px;
-          margin: 0;
+          margin-left: 30px;
         }
       }
-
-      span {
-        color:$p_color;
-}
+      .dropdown {
+        position: absolute;
+        top: 20%;
+        right: 7%;
+        .dropdown-menu {
+          position: absolute;
+          left: -100px !important;
+          text-align: center;
+          .dropdown-item {
+            border-radius: 5px;
+            width: 90%;
+            margin: auto;
+            &:focus {
+              background: none;
+            }
+          }
+        }
+      }
+    }
+    .card-body {
+      p {
+        @extend %desc;
+      }
+      .card-info {
+        i,
+        span {
+          padding: 4px;
+          @extend %desc;
+        }
+      }
     }
   }
 }

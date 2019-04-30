@@ -21,11 +21,12 @@ hr {
 .popup .form .desc, main .header .head p, main .header .head .progInfo i,
 main .header .head .progInfo span, main #projects .page-body .project-card .card-body p, main #projects .page-body .project-card .card-body .card-info i,
 main #projects .page-body .project-card .card-body .card-info span, main #tasks .page-body .task-list .task-stage .task-card p, main #tasks .page-body .task-list .task-stage .task-card i,
-main #tasks .page-body .task-list .task-stage .task-card span, main #members .page-body .member-card .member-info p {
+main #tasks .page-body .task-list .task-stage .task-card span, main #members .page-body .member-card .member-info p, #teams .page-body .card-body p, #teams .page-body .card-body .card-info i,
+#teams .page-body .card-body .card-info span {
   color: #bdbac2;
 }
 
-main #projects .page-body .project-card, main #members .page-body .member-card, #files .page-body .file-card, #activity .page-body .act-card, #checklist .page-body .file-card, #checklist #note .page-body .note-card, main .acc-form, .sign .sign-cart, .sign .create-link {
+main #projects .page-body .project-card, main #members .page-body .member-card, #files .page-body .file-card, #activity .page-body .act-card, #checklist .page-body .file-card, #checklist #note .page-body .note-card, #teams .page-body .team-card, main .acc-form, .sign .sign-cart, .sign .create-link {
   -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
           box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
   margin-top: 30px;
@@ -33,7 +34,7 @@ main #projects .page-body .project-card, main #members .page-body .member-card, 
   background-color: #fff;
 }
 
-main #projects .page-body .project-card:hover, main #members .page-body .member-card:hover, #checklist #note .page-body .note-card:hover {
+main #projects .page-body .project-card:hover, main #members .page-body .member-card:hover, #checklist #note .page-body .note-card:hover, #teams .page-body .team-card:hover {
   top: -10px;
   position: relative;
   -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
@@ -406,7 +407,6 @@ main #projects .page-body {
 }
 
 main #projects .page-body .project-card {
-  height: 200px;
   width: 400px;
   overflow: hidden;
 }
@@ -740,26 +740,12 @@ main #members .page-body .member-card .icons li i {
 
 #teams .page-body .team-card {
   width: 400px;
-  -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
-          box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
-  margin-top: 30px;
-  border-radius: 7px;
-  padding: 30px;
-  background-color: #fff;
-  position: relative;
 }
 
-#teams .page-body .team-card:hover {
-  top: -10px;
+#teams .page-body .team-card .card-title {
   position: relative;
-  -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
-          box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
-}
-
-#teams .page-body .team-card .dropdown {
-  position: absolute;
-  top: 16px;
-  right: 13px;
+  height: 63px;
+  margin-bottom: 0;
 }
 
 #teams .page-body .team-card .title {
@@ -767,14 +753,37 @@ main #members .page-body .member-card .icons li i {
   font-weight: 700;
 }
 
-#teams .page-body .team-card .title p {
+#teams .page-body .team-card .title span {
+  line-height: 74px;
   font-size: 18px;
-  padding-bottom: 15px;
-  margin: 0;
+  margin-left: 30px;
 }
 
-#teams .page-body .team-card span {
-  color: #bdbac2;
+#teams .page-body .team-card .dropdown {
+  position: absolute;
+  top: 20%;
+  right: 7%;
+}
+
+#teams .page-body .team-card .dropdown .dropdown-menu {
+  position: absolute;
+  left: -100px !important;
+  text-align: center;
+}
+
+#teams .page-body .team-card .dropdown .dropdown-menu .dropdown-item {
+  border-radius: 5px;
+  width: 90%;
+  margin: auto;
+}
+
+#teams .page-body .team-card .dropdown .dropdown-menu .dropdown-item:focus {
+  background: none;
+}
+
+#teams .page-body .card-body .card-info i,
+#teams .page-body .card-body .card-info span {
+  padding: 4px;
 }
 
 main {

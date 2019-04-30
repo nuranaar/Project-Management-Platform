@@ -19,6 +19,7 @@ namespace PMP.Controllers
 				Users=db.Users.ToList(),
 				Team=db.Teams.FirstOrDefault(t=>t.Slug==Slug),
 				Tasks=db.Tasks.ToList(),
+				TaskStages=db.TaskStages.ToList(),
 				TaskMembers = db.TaskMembers.ToList(),
 				Projects= db.Projects.OrderByDescending(p => p.StartTime).ToList(),
 				ProjectMembers = db.ProjectMembers.ToList()

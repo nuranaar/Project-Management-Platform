@@ -8,6 +8,8 @@ namespace PMP.ViewModels
 {
 	public class UserVm
 	{
+		public User Admin { get; set; }
+
 		public List<User> Users { get; set; }
 
 		public List<Team> Teams { get; set; }
@@ -15,6 +17,8 @@ namespace PMP.ViewModels
 		public List<Project> Projects { get; set; }
 
 		public List<Task> Tasks { get; set; }
+
+		public List<TaskStage> TaskStages { get; set; }
 
 		public List<TeamMember> TeamMembers { get; set; }
 

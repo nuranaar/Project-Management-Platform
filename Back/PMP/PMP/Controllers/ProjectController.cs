@@ -18,6 +18,7 @@ namespace PMP.Controllers
 				Users = db.Users.ToList(),
 				Project = db.Projects.FirstOrDefault(p => p.Slug == Slug),
 				TaskMembers = db.TaskMembers.ToList(),
+				TaskStages = db.TaskStages.ToList(),
 				Activities = db.Activities.ToList(),
 				Files=db.Files.ToList(),
 			};
