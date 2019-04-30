@@ -52,10 +52,10 @@ namespace PMP.Controllers
 			{
 				string e = email.Split(',', '\t', ';')[0];
 				teamMember.TeamId = team.Id;
-				var usrId = db.Users.FirstOrDefault(u => u.Email == e).Id;
-				if (usrId != null)
+				var usr = db.Users.FirstOrDefault(u => u.Email == e);
+				if (usr != null)
 				{
-					teamMember.UserId = usrId;
+					teamMember.UserId = usr.Id;
 				}
 				db.TeamMembers.Add(teamMember);
 				db.SaveChanges();

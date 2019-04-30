@@ -1,0 +1,235 @@
+﻿@model TaskVm
+@{
+	ViewBag.Title = "Index";
+}
+
+
+
+<!--Start of header -->
+<div class="header w-100 mt-5">
+
+	<div class="head d-flex justify-content-center">
+		<div class="row">
+			<div class="col-6">
+				<h1>@Model.Task.Name</h1>
+				<p>@Model.Task.Desc</p>
+			</div>
+			<div class="col-6">
+				<ul class="avatars">
+					@foreach (TaskMember member in Model.TaskMembers.ToList())
+					{
+						<li><a href=""><img src="~/Public/img/@Model.Users.Find(u=>u.Id==member.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==member.UserId).Name"></a></li>
+					}
+					<li><a href=""><i class="fa fa-plus"></i></a></li>
+				</ul>
+				<div class="progress">
+					<div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25"
+						 aria-valuemin="0" aria-valuemax="100"></div>
+				</div>
+				<div class="progInfo d-flex justify-content-between">
+					<div><i class="far fa-check-square"></i><span>4/10</span></div>
+					<div class="due"><i class="far fa-clock"></i><span>Due 7 days</span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="btn-list d-flex mt-3 justify-content-between">
+		<a href="#checklist" class="btn btn-item active" role="button">Tasks</a>
+		<a href="#files" class="btn btn-item " role="button">Files</a>
+		<a href="#activity" class="btn btn-item " role="button">Activity</a>
+	</div>
+
+</div>
+<!--End of header -->
+<!--Start of Main -->
+
+<div class="row mb-5">
+	<div id="activity" class="page mt-5">
+		<div class="page-title d-flex justify-content-between ">
+			<div class="d-flex justify-content-between align-items-center">
+				<h2>Activity</h2>
+			</div>
+			<form class=" filterForm my-3">
+				<input type="search" class="form-control filter py-4" placeholder="Filter activity">
+				<button type="submit" class="btn filterBtn"><i class="fas fa-search"></i></button>
+			</form>
+		</div>
+		<div class="page-body ">
+			@foreach (TaskMember member in Model.TaskMembers.ToList())
+			{
+
+
+				foreach (Activity act in Model.Activities.Where(a => a.UserId == member.UserId).ToList())
+				{
+					<div class="act-card w-100 d-flex justify-content-start align-items-center">
+						<ul class="avatars mt-3">
+							<li><a href=""><i class="fas fa-star"></i></a></li>
+
+							<li><a href=""><img src="~/Public/img/@Model.Users.Find(u=>u.Id==act.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==act.UserId).Name"></a></li>
+						</ul>
+						<div class="act-info pl-4 py-4">
+							<a href="#">
+								<p class="m-0">Michael completed the task <span>task</span></p>
+
+							</a>
+							<span>
+								@act.Date.ToString("MMM dd")
+							</span>
+						</div>
+						<div class="dropdown">
+							<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fas fa-ellipsis-v"></i>
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" href="#">Edit</a>
+								<a class="dropdown-item" href="#">Share</a>
+								<a class="dropdown-item" href="#">Delete</a>
+							</div>
+						</div>
+					</div>
+
+				}
+			}
+		</div>
+	</div>
+	<div id="checklist" class="page">
+		<div class="page-title d-flex justify-content-between ">
+			<div class="d-flex justify-content-between align-items-center">
+				<h2>Checklist</h2>
+				<div class="add">
+					<a data-fancybox data-src="#task" class="dropdown-item" href="javascript:;">
+						<i class="fa fa-plus"></i>
+					</a>
+				</div>
+			</div>
+			<form class=" filterForm my-3">
+				<input type="search" class="form-control filter py-4" placeholder="Filter checklist">
+				<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
+			</form>
+		</div>
+		<div class="page-body">
+			@foreach (Checklist checklist in Model.Checklists.ToList())
+			{
+				<div class="file-card w-100 d-flex justify-content-start align-items-center">
+
+					<div class="file-info pl-4 py-4 w-100">
+						<div class="input-group pl-5 mb-3">
+							<div class="bar">
+								<i class="fas fa-bars"></i>
+							</div>
+							<input class="check" @checklist.Checked ?checked="checked" :true type="checkbox"
+								   aria-label="Checkbox for following text input">
+
+							<input type="text" class="form-control"
+								   value="@checklist.Text">
+					
+						</div>
+
+					</div>
+					<div class="dropdown">
+						<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+						   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fas fa-ellipsis-v"></i>
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<a class="dropdown-item" href="#">Edit</a>
+							<a class="dropdown-item" href="#">Share</a>
+							<a class="dropdown-item" href="#">Delete</a>
+						</div>
+					</div>
+				</div>
+			}
+			
+		</div>
+		<div id="note" class="page mt-5" style="display:inline-block;">
+			<div class="page-title d-flex justify-content-between ">
+				<div class="d-flex justify-content-between align-items-center">
+					<h2>Note</h2>
+					<div class="add">
+						<a data-fancybox data-src="#task" class="dropdown-item" href="javascript:;">
+							<i class="fa fa-plus"></i>
+						</a>
+					</div>
+				</div>
+				<form class="filterForm my-3">
+					<input type="search" class="form-control filter py-4" placeholder="Filter notes">
+					<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
+				</form>
+			</div>
+			<div class="page-body d-flex justify-content-around align-items-center">
+				@foreach (Note note in Model.Notes.ToList())
+				{
+					<div class="note-card p-4">
+						<p>
+							@note.Title
+						</p>
+						<span>
+							@note.Desc
+						</span>
+						<div class="dropdown">
+							<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fas fa-ellipsis-v"></i>
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" href="#">Edit</a>
+								<a class="dropdown-item" href="#">Share</a>
+								<a class="dropdown-item" href="#">Delete</a>
+							</div>
+						</div>
+					</div>
+				}
+
+
+			</div>
+		</div>
+	</div>
+	<div id="files" class="page mt-5">
+		<div class="page-title d-flex justify-content-between ">
+			<div class="d-flex justify-content-between align-items-center">
+				<h2>Files</h2>
+			</div>
+			<form class=" filterForm my-3">
+				<input type="search" class="form-control filter py-4" placeholder="Filter files">
+				<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
+			</form>
+		</div>
+		<div class="page-body ">
+			<div class="upload w-100">
+				<label>
+					<input type="file">
+					<span>Select or drag &amp; drop your files for upload</span>
+				</label>
+			</div>
+			@foreach (PMP.Models.File file in Model.Files.ToList())
+			{
+				<div class="file-card w-100 d-flex justify-content-start align-items-center">
+					<ul class="avatars mt-3">
+						<li><a href=""><i class="far fa-file-alt"></i></a></li>
+						<li><a href=""><img src="~/Public/img/@Model.Users.Find(u=>u.Id==file.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==file.UserId).Name"></a></li>
+					</ul>
+					<div class="file-info pl-4 py-4">
+						<a href="#">
+							<p class="m-0">@file.Name</p>
+						</a>
+						<span>@file.Weight</span>
+					</div>
+					<div class="dropdown">
+						<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+						   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fas fa-ellipsis-v"></i>
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<a class="dropdown-item" href="#">Edit</a>
+							<a class="dropdown-item" href="#">Share</a>
+							<a class="dropdown-item" href="#">Delete</a>
+						</div>
+					</div>
+				</div>
+			}
+
+		</div>
+	</div>
+</div>
+<!--End of main -->

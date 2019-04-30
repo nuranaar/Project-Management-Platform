@@ -32,7 +32,7 @@
 				<h2>Teams</h2>
 
 				<div class="add">
-					<a data-fancybox data-src="#project" class="dropdown-item" href="javascript:;">
+					<a data-fancybox data-src="#team" class="dropdown-item" href="javascript:;">
 						<i class="fa fa-plus"></i>
 					</a>
 				</div>
@@ -170,61 +170,72 @@
 					<li>
 						<div id="@stage.Name" class="task-stage pb-4">
 							<h5 class="stage pb-0">@stage.Name</h5>
-							<div class="@stage.Name-list">
-								@foreach (Task task in Model.Tasks.Where(t => t.TaskStageId == stage.Id).ToList())
+
+							@if (stage.Tasks == null)
+							{
+								<div class="add mx-auto text-center" style="width:150px;">
+									<a data-fancybox data-src="#task" class="dropdown-item"  href="javascript:;">
+										Add Task
+									</a>
+								</div>
+							}
+							else
+							{
+								foreach (Task task in Model.Tasks.Where(t => t.TaskStageId == stage.Id).ToList())
 								{
-									
-										<div class="task-card mt-4">
-											<div class="progress">
-												<div class="progress-bar" role="progressbar" style="width: 25%"
-													 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+									<div class="task-card mt-4">
+										<div class="progress">
+											<div class="progress-bar" role="progressbar" style="width: 25%"
+												 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+										<div class="row">
+											<div class="col-6 p-4 pl-5">
+												<a href="@Url.Action("index", "task", new { slug = task.Slug })">
+													<h6>@task.Name</h6>
+												</a>
+
+												<p>@task.Desc</p>
 											</div>
-											<div class="row">
-												<div class="col-6 p-4 pl-5">
-													<a href="@Url.Action("index", "task", new { slug = task.Slug })">
-														<h6>@task.Name</h6>
-													</a>
+											<div class="col-6 p-4 d-flex justify-content-between align-items-center">
+												<ul class="avatars">
+													@foreach (TaskMember member in Model.TaskMembers.Where(t => t.TaskId == task.Id).ToList())
+													{
+														<li>
+															<a href="#"><img src="~/Public/img/@Model.Users.Find(u => u.Id == member.UserId).Photo" alt="@Model.Users.Find(u => u.Id == member.UserId).Name"></a>
+														</li>
+													}
 
-													<p>@task.Desc</p>
+												</ul>
+												<div class="mt-2">
+													<i class="far fa-check-square"></i><span>4/10</span>
 												</div>
-												<div class="col-6 p-4 d-flex justify-content-between align-items-center">
-													<ul class="avatars">
-														@foreach (TaskMember member in Model.TaskMembers.Where(t => t.TaskId == task.Id).ToList())
-														{
-															<li>
-																<a href="#"><img src="~/Public/img/@Model.Users.Find(u => u.Id == member.UserId).Photo" alt="@Model.Users.Find(u => u.Id == member.UserId).Name"></a>
-															</li>
-														}
 
-													</ul>
-													<div class="mt-2">
-														<i class="far fa-check-square"></i><span>4/10</span>
-													</div>
-
-													<div class="dropdown">
-														<a class="nav-link" href="#" id="navbarDropdownMenuLink"
-														   role="button" data-toggle="dropdown" aria-haspopup="true"
-														   aria-expanded="false">
-															<i class="fas fa-ellipsis-v"></i>
-														</a>
-														<div class="dropdown-menu"
-															 aria-labelledby="navbarDropdownMenuLink">
-															<a class="dropdown-item" href="#">Edit</a>
-															<a class="dropdown-item" href="#">Share</a>
-															<a class="dropdown-item" href="#">Delete</a>
-														</div>
+												<div class="dropdown">
+													<a class="nav-link" href="#" id="navbarDropdownMenuLink"
+													   role="button" data-toggle="dropdown" aria-haspopup="true"
+													   aria-expanded="false">
+														<i class="fas fa-ellipsis-v"></i>
+													</a>
+													<div class="dropdown-menu"
+														 aria-labelledby="navbarDropdownMenuLink">
+														<a class="dropdown-item" href="#">Edit</a>
+														<a class="dropdown-item" href="#">Share</a>
+														<a class="dropdown-item" href="#">Delete</a>
 													</div>
 												</div>
 											</div>
 										</div>
+									</div>
 
 
 
 
-									
+
 								}
-							</div>
+
+							}
 						</div>
+
 					</li>
 				}
 			</ul>

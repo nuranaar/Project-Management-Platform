@@ -24,6 +24,7 @@ namespace PMP.Controllers
 			};
 			model.ProjectMembers = db.ProjectMembers.Where(m => m.ProjectId == model.Project.Id).ToList();
 			model.Tasks = db.Tasks.Where(t => t.ProjectId == model.Project.Id).ToList();
+			
 			return View(model);
         }
 		[HttpPost]
@@ -50,10 +51,10 @@ namespace PMP.Controllers
 			{
 				string e = email.Split(',', '\t', ';')[0];
 				projectMember.ProjectId = project.Id;
-				var usrId= db.Users.FirstOrDefault(u => u.Email ==e).Id;
-				if (usrId != null)
+				var usr= db.Users.FirstOrDefault(u => u.Email ==e);
+				if (usr != null)
 				{
-					projectMember.UserId = usrId;
+					projectMember.UserId = usr.Id;
 				}
 				db.ProjectMembers.Add(projectMember);
 				db.SaveChanges();
