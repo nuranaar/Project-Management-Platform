@@ -192,10 +192,12 @@
 					<span>Select or drag &amp; drop your files for upload</span>
 				</label>
 			</div>
-			@foreach (Task task in Model.Tasks.Where(t=>t.ProjectId==Model.Project.Id).ToList())
-			{
-				foreach (var file in Model.Files.Where(f => f.UserId == task.UserId).ToList())
-				{
+@foreach (ProjectMember mem in Model.ProjectMembers.ToList())
+{
+foreach (Task task in Model.Tasks.Where(t=>t.UserId==mem.UserId).ToList())
+{
+	foreach (var file in Model.Files.Where(f => f.UserId == task.UserId).ToList())
+	{
 					<div class="file-card w-100 d-flex justify-content-start align-items-center">
 						<ul class="avatars mt-3">
 							<li><a href="#"><i class="far fa-file-alt"></i></a></li>
@@ -221,6 +223,7 @@
 					</div>
 
 				}
+			}
 			}
 		</div>
 	</div>

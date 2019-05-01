@@ -156,6 +156,14 @@
     <Compile Include="Migrations\201904291718410_AddStage.Designer.cs">
       <DependentUpon>201904291718410_AddStage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905011711250_ProjectTaskRelationDel.cs" />
+    <Compile Include="Migrations\201905011711250_ProjectTaskRelationDel.Designer.cs">
+      <DependentUpon>201905011711250_ProjectTaskRelationDel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905011713361_ProjectTaskRelationDel1.cs" />
+    <Compile Include="Migrations\201905011713361_ProjectTaskRelationDel1.Designer.cs">
+      <DependentUpon>201905011713361_ProjectTaskRelationDel1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Checklist.cs" />
@@ -252,6 +260,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904291718410_AddStage.resx">
       <DependentUpon>201904291718410_AddStage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905011711250_ProjectTaskRelationDel.resx">
+      <DependentUpon>201905011711250_ProjectTaskRelationDel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905011713361_ProjectTaskRelationDel1.resx">
+      <DependentUpon>201905011713361_ProjectTaskRelationDel1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

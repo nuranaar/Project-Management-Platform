@@ -14,6 +14,8 @@ namespace PMP.ViewModels
 
 		public List<TaskMember> TaskMembers { get; set; }
 
+		public List<TaskStage> TaskStages { get; set; }
+
 		public List<Checklist> Checklists { get; set; }
 
 		public List<Note> Notes { get; set; }

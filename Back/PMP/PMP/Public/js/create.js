@@ -45,5 +45,47 @@
 	});
 
 
+	$("[data-fancybox]").fancybox({
+		afterShow: function () {
+				GetStages();
+		}
+	});
+
+
+	
+	function GetStages() {
+		$.ajax({
+			url: "/task/GetStages",
+			type: "get",
+			dataType: "json",
+			success: function (resp) {
+				$("select[name='TaskStageId']").empty();
+				var def = `<option value="0">Select stage</option>`;
+				$("select[name='TaskStageId']").append(def);
+				$.each(resp, function (key, stage) {
+					var opt = `<option value="${stage.Id}">${stage.Name}</option>`;
+					$("select[name='TaskStageId']").append(opt);
+				});
+			}
+			 
+		})
+	}
+	$("#task-form").submit(function (e) {
+		e.preventDefault();
+
+		$.ajax({
+			url: "/task/taskcreate",
+			type: "post",
+			dataType: "json",
+			data: $(this).serialize(),
+			success: function (response) {
+				console.log(response);
+				//var url = `/task?slug=${response.Slug}`;
+				//window.location.href = url;
+			}
+		});
+
+	});
+
 
 });

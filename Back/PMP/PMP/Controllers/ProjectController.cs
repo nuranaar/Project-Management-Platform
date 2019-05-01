@@ -17,13 +17,13 @@ namespace PMP.Controllers
 			{
 				Users = db.Users.ToList(),
 				Project = db.Projects.FirstOrDefault(p => p.Slug == Slug),
+				Tasks = db.Tasks.ToList(),
 				TaskMembers = db.TaskMembers.ToList(),
 				TaskStages = db.TaskStages.ToList(),
 				Activities = db.Activities.ToList(),
 				Files=db.Files.ToList(),
 			};
 			model.ProjectMembers = db.ProjectMembers.Where(m => m.ProjectId == model.Project.Id).ToList();
-			model.Tasks = db.Tasks.Where(t => t.ProjectId == model.Project.Id).ToList();
 			
 			return View(model);
         }

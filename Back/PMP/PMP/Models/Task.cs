@@ -12,8 +12,6 @@ namespace PMP.Models
 
 		public int UserId { get; set; }
 
-		public int ProjectId { get; set; }
-
 		public string Name { get; set; }
 
 		[Column(TypeName = "ntext")]
@@ -31,8 +29,6 @@ namespace PMP.Models
 		public TaskStage TaskStage { get; set; }
 
 		public User User { get; set; }
-
-		public Project Project { get; set; }
 
 		public List<TaskMember> TaskMembers { get; set; }
 

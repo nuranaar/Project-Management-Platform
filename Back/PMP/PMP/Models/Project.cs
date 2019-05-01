@@ -28,7 +28,6 @@ namespace PMP.Models
 
 		public List<ProjectMember> ProjectMembers { get; set; }
 
-		public List<Task> Tasks { get; set; }
 
 	}
 }
