@@ -1,6 +1,7 @@
 ﻿@{
 	List<Project> projects = ViewBag.Project as List<Project>;
 	Project pr = ViewBag.Pr as Project;
+	Task task = ViewBag.Task as Task;
 }
 
 <!DOCTYPE html>
@@ -132,11 +133,12 @@
 	<!--task popup-->
 	<div style="display: none;" id="hidden-content">
 		<div id="task" class="popup task">
-			<div class="form">
+			<div class="form" id="create-form">
 				<div class="popup-head px-5 pt-4 pb-2 w-100">
 					<h3>New Task</h3>
 				</div>
-				<form id="task-form" action="post" class=" px-4">
+				<form class="px-4" id="task-form" enctype="multipart/form-data" method="post">
+
 					<label for="name">Name</label>
 					<input type="text" id="name" name="name" data-type="slug-source" class="form-control" aria-describedby="taskName"
 						   placeholder="Task name">
@@ -146,9 +148,7 @@
 							   placeholder="Task slug">
 					</div>
 					<label for="TaskStageId">Qrup</label>
-					<select name="TaskStageId" id="TaskStageId" class="form-control">
-						
-					</select>
+					<select name="TaskStageId" id="TaskStageId" class="form-control"></select>
 
 					<label for="desc">Description</label>
 					<textarea id="desc" name="desc" class="form-control" rows="3"
@@ -172,37 +172,33 @@
 
 						</div>
 					</div>
-					<label for="taskFile">Starting files</label>
-					<div class="upload w-100">
-						<label>
-							<input type="file">
-							<span>Select or drag &amp; drop your files for upload</span>
-						</label>
-					</div>
+					
+					<label for="fileBase">Starting files</label>
+					<input type="file" id="fileBase" name="fileBase" class="form-control" />
 					<hr>
 					@*<div class="row">
-						<div class="col-6">
-							<p>Private team</p>
-							<p class="desc">
-								Lorem Ipsum is simply dummy text of the printing and typesetting
-								industry.
-							</p>
-							<div class="custom-control custom-switch">
-								<input type="checkbox" class="custom-control-input" id="customSwitch1">
-								<label class="custom-control-label" for="customSwitch1"></label>
-							</div>
-						</div>
-						<div class=" col-6">
-							<div class="warning">
-								<i class="fas fa-exclamation-triangle"></i>
-								<span>Warning</span>
-								<p class="desc p-2">
+							<div class="col-6">
+								<p>Private team</p>
+								<p class="desc">
 									Lorem Ipsum is simply dummy text of the printing and typesetting
 									industry.
 								</p>
+								<div class="custom-control custom-switch">
+									<input type="checkbox" class="custom-control-input" id="customSwitch1">
+									<label class="custom-control-label" for="customSwitch1"></label>
+								</div>
 							</div>
-						</div>
-					</div>*@
+							<div class=" col-6">
+								<div class="warning">
+									<i class="fas fa-exclamation-triangle"></i>
+									<span>Warning</span>
+									<p class="desc p-2">
+										Lorem Ipsum is simply dummy text of the printing and typesetting
+										industry.
+									</p>
+								</div>
+							</div>
+						</div>*@
 
 					<button type="submit" class="createBtn btn btn-primary my-3">
 						Create

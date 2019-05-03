@@ -8,6 +8,20 @@
   text-decoration: none;
 }
 
+.dropdown-item:active {
+  background-color: #fbfbfb !important;
+  color: #fff;
+}
+
+.dropdown-item:visited {
+  background-color: #fbfbfb !important;
+}
+
+.dropdown-item:focus {
+  background-color: #fbfbfb !important;
+  outline: none;
+}
+
 hr {
   border-color: #fbfbfb;
 }

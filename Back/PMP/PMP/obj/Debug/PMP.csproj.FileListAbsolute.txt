@@ -89,3 +89,4 @@ C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Mig
 C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.AddStage.resources
 C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.ProjectTaskRelationDel.resources
 C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.ProjectTaskRelationDel1.resources
+C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.ChangeRelTaskFiles.resources

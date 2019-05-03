@@ -9,10 +9,11 @@ namespace PMP.Controllers
 {
 	public class HomeController : BaseController
 	{
-		int userId = 1; //session
-						// GET: Home
+
 		public ActionResult Index()
 		{
+			int userId = 1; //session
+
 			UserVm model = new UserVm()
 			{
 				Admin = db.Users.Find(userId),

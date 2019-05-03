@@ -15,6 +15,8 @@ namespace PMP.Controllers
 		{
 			ViewBag.Project = db.Projects.OrderByDescending(p => p.StartTime).ToList();
 			ViewBag.Pr = db.Projects;
+			ViewBag.Task = db.Tasks.Include("Files");
+			ViewBag.File = db.Files;
 		}
 
 		

@@ -23,6 +23,11 @@ namespace PMP.Models
 
 		public string Slug { get; set; }
 
+		[ForeignKey("File")]
+		public int FileId { get; set; }
+
+		public File File { get; set; }
+
 		[ForeignKey("TaskStage")]
 		public int TaskStageId { get; set; }
 		
@@ -31,8 +36,6 @@ namespace PMP.Models
 		public User User { get; set; }
 
 		public List<TaskMember> TaskMembers { get; set; }
-
-		public List<File> Files { get; set; }
 
 		public List<Checklist> Checklists { get; set; }
 

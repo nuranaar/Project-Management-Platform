@@ -4,7 +4,22 @@
   &:hover {
     color: $main_color;
     text-decoration: none;
+    
   }
+}
+.dropdown-item{
+  &:active{
+      background-color:$bg_color !important;
+        color: #fff;
+      
+  }
+&:visited{
+  background-color:$bg_color !important;
+}
+&:focus{
+  background-color:$bg_color !important;
+  outline:none;
+}
 }
 hr {
   border-color: $bg_color;
@@ -147,4 +162,3 @@ body {
     }
   }
 }
-

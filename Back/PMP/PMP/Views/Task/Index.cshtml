@@ -8,7 +8,7 @@
 <!--Start of header -->
 <div class="header w-100 mt-5">
 
-	<div class="head d-flex justify-content-center">
+	<div class="head">
 		<div class="row">
 			<div class="col-6">
 				<h1>@Model.Task.Name</h1>
@@ -97,8 +97,8 @@
 		<div class="page-title d-flex justify-content-between ">
 			<div class="d-flex justify-content-between align-items-center">
 				<h2>Checklist</h2>
-				<div class="add">
-					<a data-fancybox data-src="#task" class="dropdown-item" href="javascript:;">
+				<div class="add" id="add-check">
+					<a data-src="#check" class="dropdown-item">
 						<i class="fa fa-plus"></i>
 					</a>
 				</div>
@@ -108,22 +108,24 @@
 				<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
 			</form>
 		</div>
-		<div class="page-body">
+		<div id="check-body" class="page-body">
+
 			@foreach (Checklist checklist in Model.Checklists.ToList())
 			{
-				<div class="file-card w-100 d-flex justify-content-start align-items-center">
-
+				<div class="file-card  w-100 d-flex justify-content-start align-items-center">
 					<div class="file-info pl-4 py-4 w-100">
 						<div class="input-group pl-5 mb-3">
 							<div class="bar">
 								<i class="fas fa-bars"></i>
 							</div>
-							<input class="check" @checklist.Checked ?checked="checked" :true type="checkbox"
-								   aria-label="Checkbox for following text input">
+							<form id="check-form" data-type="edit" data-id="@checklist.Id">
+								<input id="checkbox" class="check" @(checklist.Checked ? "checked =checked" : " ") type="checkbox" />
 
-							<input type="text" class="form-control"
-								   value="@checklist.Text">
-					
+
+	   <input id="text" type="text" class="form-control"
+									   value="@checklist.Text">
+							</form>
+
 						</div>
 
 					</div>
@@ -140,8 +142,10 @@
 					</div>
 				</div>
 			}
-			
+
+
 		</div>
+
 		<div id="note" class="page mt-5" style="display:inline-block;">
 			<div class="page-title d-flex justify-content-between ">
 				<div class="d-flex justify-content-between align-items-center">
@@ -184,52 +188,52 @@
 
 			</div>
 		</div>
-	</div>
-	<div id="files" class="page mt-5">
-		<div class="page-title d-flex justify-content-between ">
-			<div class="d-flex justify-content-between align-items-center">
-				<h2>Files</h2>
+		<div id="files" class="page mt-5">
+			<div class="page-title d-flex justify-content-between ">
+				<div class="d-flex justify-content-between align-items-center">
+					<h2>Files</h2>
+				</div>
+				<form class=" filterForm my-3">
+					<input type="search" class="form-control filter py-4" placeholder="Filter files">
+					<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
+				</form>
 			</div>
-			<form class=" filterForm my-3">
-				<input type="search" class="form-control filter py-4" placeholder="Filter files">
-				<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
-			</form>
-		</div>
-		<div class="page-body ">
-			<div class="upload w-100">
-				<label>
-					<input type="file">
-					<span>Select or drag &amp; drop your files for upload</span>
-				</label>
-			</div>
-			@foreach (PMP.Models.File file in Model.Files.ToList())
-			{
-				<div class="file-card w-100 d-flex justify-content-start align-items-center">
-					<ul class="avatars mt-3">
-						<li><a href=""><i class="far fa-file-alt"></i></a></li>
-						<li><a href=""><img src="~/Public/img/@Model.Users.Find(u=>u.Id==file.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==file.UserId).Name"></a></li>
-					</ul>
-					<div class="file-info pl-4 py-4">
-						<a href="#">
-							<p class="m-0">@file.Name</p>
-						</a>
-						<span>@file.Weight</span>
-					</div>
-					<div class="dropdown">
-						<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
-						   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fas fa-ellipsis-v"></i>
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" href="#">Edit</a>
-							<a class="dropdown-item" href="#">Share</a>
-							<a class="dropdown-item" href="#">Delete</a>
+			<div class="page-body ">
+				<div class="upload w-100">
+					<label>
+						<input type="file">
+						<span>Select or drag &amp; drop your files for upload</span>
+					</label>
+				</div>
+				@foreach (PMP.Models.File file in Model.Files.ToList())
+				{
+					<div class="file-card w-100 d-flex justify-content-start align-items-center">
+						<ul class="avatars mt-3">
+							<li><a href=""><i class="far fa-file-alt"></i></a></li>
+							<li><a href=""><img src="~/Public/img/@Model.Users.Find(u=>u.Id==file.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==file.UserId).Name"></a></li>
+						</ul>
+						<div class="file-info pl-4 py-4">
+							<a href="#">
+								<p class="m-0">@file.Name</p>
+							</a>
+							<span>@file.Weight</span>
+						</div>
+						<div class="dropdown">
+							<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fas fa-ellipsis-v"></i>
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" href="#">Edit</a>
+								<a class="dropdown-item" href="#">Share</a>
+								<a class="dropdown-item" href="#">Delete</a>
+							</div>
 						</div>
 					</div>
-				</div>
-			}
+				}
 
+			</div>
 		</div>
 	</div>
-</div>
 <!--End of main -->
+
