@@ -86,24 +86,22 @@
 			processData: false,
 			contentType: false,
 			success: function (response) {
-				//console.log(response);
 				var url = `/task?slug=${response.Slug}`;
 				window.location.href = url;
 			}
 		});
 	});
 	$("#add-check").click(function () {
-		var form = `<div  class="file-card  w-100 d-flex justify-content-start align-items-center">
+		var form = `<div id="form-create-click" class="file-card  w-100 d-flex justify-content-start align-items-center">
 					<div class="file-info pl-4 py-4 w-100">
 						<div class="input-group pl-5 mb-3">
 							<div class="bar">
 								<i class="fas fa-bars"></i>
 							</div>
-							<form id="check-form" data-type="create"  action="@Url.Action("ChecklistCreate", "task" , new={Model.Task.Id})" method="post">
-								<input class="check" type="checkbox">
+							<form id="check-form" data-type="create"  method="post">
+<input id="checkbox" class="check" type="checkbox" />
 								<input id="text" type="text" class="form-control" placeholder="Enter Text">
-
-								<button type="submit" class="createBtn btn btn-primary my-3">
+								<button type="submit" action="@Url.Action("ChecklistCreate", "task" , new={Model.Task.Id})" class="createBtn btn btn-primary my-3">
 						Create
 						checklist
 					</button>
@@ -111,48 +109,72 @@
 						</div>
 					</div>
 				</div>`;
-		$("#check-body").append(form);
-	});
-	$("#check-form").submit(function (e) {
-		e.preventDefault();
-		var that = $(this);
-	
+		$("#check-body").prepend(form);
+		$(".check").click(function (e) {
+			if ($(this).attr("checked") != "checked") {
+				$(this).attr("checked", "checked");
+			}
+			else {
+				$(this).removeAttr("checked");
+			}
+		});
+		
+		$("#check-form").submit(function (e) {
+			e.preventDefault();
+			var that = $(this);
+			if (that.find(".check").attr("checked") != "checked") {
+				var done = false;
+			}
+			else {
+				done = true;
+			}
+			var id = $("#check-body").data("id");
+			var text = that.find("input:text").val();
+			
 			$.ajax({
 				url: "/task/ChecklistCreate",
 				type: "POST",
 				dataType: "json",
-				data: that.serialize(),
+				data: {
+					Check: done,
+					TaskId: id,
+					Text: text
+				},
 				success: function (response) {
-					console.log(response);
-					//	form = `<div  class="file-card  w-100 d-flex justify-content-start align-items-center">
-					//	<div class="file-info pl-4 py-4 w-100">
-					//		<div class="input-group pl-5 mb-3">
-					//			<div class="bar">
-					//				<i class="fas fa-bars"></i>
-					//			</div>
-					//			<form id="check-form" data-type="edit" method="post" data-id="${response.Id}">
-					//				<input class="check" type="checkbox" ${response.Checked ?checked="checked" : true}>
-					//				<input id="text" type="text" class="form-control" placeholder="Enter Text" value="${response.text}">
+					console.log(done);
+						var card = `<div  class="file-card  w-100 d-flex justify-content-start align-items-center">
+						<div class="file-info pl-4 py-4 w-100">
+							<div class="input-group pl-5 mb-3">
+								<div class="bar">
+									<i class="fas fa-bars"></i>
+								</div>
+								<form id="check-form" data-type="edit" method="post">
+									<input class="check" type="checkbox" ${done ? 'checked = "checked"' : ''}>
+									<input id="text" type="text" class="form-control" placeholder="Enter Text" value="${response.Text}">
 
-					//			</form>
-					//		</div>
-					//	</div>
-					//	<div class="dropdown">
-					//		<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
-					//		   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					//			<i class="fas fa-ellipsis-v"></i>
-					//		</a>
-					//		<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					//			<a class="dropdown-item" href="#">Edit</a>
-					//			<a class="dropdown-item" href="#">Share</a>
-					//			<a class="dropdown-item" href="#">Delete</a>
-					//		</div>
-					//	</div>
-					//</div>`;
-					//	$("#check-body").append(form);
+								</form>
+							</div>
+						</div>
+						<div class="dropdown">
+							<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fas fa-ellipsis-v"></i>
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" href="#">Edit</a>
+								<a class="dropdown-item" href="#">Share</a>
+								<a class="dropdown-item" href="#">Delete</a>
+							</div>
+						</div>
+					</div>`;
+					$("#check-body").prepend(card);
+					$("#check-body").find("#form-create-click").empty();	
+					$("input:checked").next().css({
+						"text-decoration-line": "line-through"
+					});
 				}
 			});
-		
+		});
 	});
 
 

@@ -21,7 +21,7 @@ namespace PMP.Controllers
 				Task = db.Tasks.FirstOrDefault(t => t.Slug == Slug),
 				Activities = db.Activities.ToList()
 			};
-			model.Checklists = db.Checklists.Where(cl => cl.TaskId == model.Task.Id).ToList();
+			model.Checklists = db.Checklists.Where(cl => cl.TaskId == model.Task.Id).OrderByDescending(cl=>cl.Id).ToList();
 			model.Notes = db.Notes.Where(n => n.TaskId == model.Task.Id).ToList();
 			model.Files = db.Files.Where(f => f.Id == model.Task.FileId).ToList();
 			model.TaskMembers = db.TaskMembers.Where(tm => tm.TaskId == model.Task.Id).ToList();
@@ -106,20 +106,17 @@ namespace PMP.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult ChecklistCreate(Checklist checklist, string TaskId)
+		public JsonResult ChecklistCreate(Checklist checklist, string Text, int TaskId, bool Check)
 		{
 			if (!ModelState.IsValid)
 			{
-
 				Response.StatusCode = 400;
-
 				var errorList = ModelState.Values.SelectMany(m => m.Errors)
 								 .Select(e => e.ErrorMessage)
 								 .ToList();
-
 				return Json(errorList, JsonRequestBehavior.AllowGet);
 			}
-			checklist.TaskId = Convert.ToInt32(TaskId);
+			checklist.Checked = Check;
 			db.Checklists.Add(checklist);
 			db.SaveChanges();
 
@@ -127,10 +124,10 @@ namespace PMP.Controllers
 			{
 				checklist.Checked,
 				checklist.Id,
-				checklist.Text,
-				checklist.TaskId
+				checklist.Text
 			}, JsonRequestBehavior.AllowGet);
 		}
+
 	}
 
 }

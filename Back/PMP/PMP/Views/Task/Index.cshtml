@@ -108,7 +108,7 @@
 				<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
 			</form>
 		</div>
-		<div id="check-body" class="page-body">
+		<div id="check-body" data-id="@Model.Task.Id" class="page-body">
 
 			@foreach (Checklist checklist in Model.Checklists.ToList())
 			{
