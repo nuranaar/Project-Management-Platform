@@ -42,11 +42,4 @@ $(document).ready(function () {
 	$("input:checked").next().css({
 		"text-decoration-line": "line-through"
 	});
-
-	//if ($.trim($(".warning-message").html()) == '') {
-	//	$(".warning").css({ "display": "none" });
-	//}
-	////else {
-	////	 $(".warning").css({ "display": "block" });
-	////}
 });

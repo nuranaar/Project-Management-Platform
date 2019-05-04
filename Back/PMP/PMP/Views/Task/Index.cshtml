@@ -122,7 +122,7 @@
 								<input id="checkbox" class="check" @(checklist.Checked ? "checked =checked" : " ") type="checkbox" />
 
 
-	   <input id="text" type="text" class="form-control"
+								<input id="text" type="text" class="form-control"
 									   value="@checklist.Text">
 							</form>
 
@@ -151,7 +151,7 @@
 				<div class="d-flex justify-content-between align-items-center">
 					<h2>Note</h2>
 					<div class="add">
-						<a data-fancybox data-src="#task" class="dropdown-item" href="javascript:;">
+						<a data-fancybox data-src="#note-create" class="dropdown-item" href="javascript:;">
 							<i class="fa fa-plus"></i>
 						</a>
 					</div>
@@ -161,7 +161,7 @@
 					<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
 				</form>
 			</div>
-			<div class="page-body d-flex justify-content-around align-items-center">
+			<div id="note-body" class="page-body d-flex justify-content-around align-items-center">
 				@foreach (Note note in Model.Notes.ToList())
 				{
 					<div class="note-card p-4">
@@ -188,52 +188,74 @@
 
 			</div>
 		</div>
-		<div id="files" class="page mt-5">
-			<div class="page-title d-flex justify-content-between ">
-				<div class="d-flex justify-content-between align-items-center">
-					<h2>Files</h2>
-				</div>
-				<form class=" filterForm my-3">
-					<input type="search" class="form-control filter py-4" placeholder="Filter files">
-					<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
-				</form>
+	</div>
+	<div id="files" class="page mt-5" data-id="@Model.Task.Id">
+		<div class="page-title d-flex justify-content-between ">
+			<div class="d-flex justify-content-between align-items-center">
+				<h2>Files</h2>
 			</div>
-			<div class="page-body ">
-				<div class="upload w-100">
+			<form class="filterForm my-3">
+				<input type="search" class="form-control filter py-4" placeholder="Filter files">
+				<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
+			</form>
+		</div>
+		<div class="page-body ">
+			<div class="upload w-100">
+				<form id="file-upload" class="px-4" enctype="multipart/form-data" method="post">
 					<label>
-						<input type="file">
+						<input type="file" id="fileBase" name="fileBase" class="form-control">
 						<span>Select or drag &amp; drop your files for upload</span>
 					</label>
-				</div>
-				@foreach (PMP.Models.File file in Model.Files.ToList())
-				{
-					<div class="file-card w-100 d-flex justify-content-start align-items-center">
-						<ul class="avatars mt-3">
-							<li><a href=""><i class="far fa-file-alt"></i></a></li>
-							<li><a href=""><img src="~/Public/img/@Model.Users.Find(u=>u.Id==file.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==file.UserId).Name"></a></li>
-						</ul>
-						<div class="file-info pl-4 py-4">
-							<a href="#">
-								<p class="m-0">@file.Name</p>
-							</a>
-							<span>@file.Weight</span>
-						</div>
-						<div class="dropdown">
-							<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
-							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fas fa-ellipsis-v"></i>
-							</a>
-							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item" href="#">Edit</a>
-								<a class="dropdown-item" href="#">Share</a>
-								<a class="dropdown-item" href="#">Delete</a>
-							</div>
+				</form>
+			</div>
+			@foreach (PMP.Models.File file in Model.Files.ToList())
+			{
+				<div class="file-card w-100 d-flex justify-content-start align-items-center">
+					<ul class="avatars mt-3">
+						<li><a href=""><i class="far fa-file-alt"></i></a></li>
+						<li><a href=""><img src="~/Public/img/@Model.Users.Find(u=>u.Id==file.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==file.UserId).Name"></a></li>
+					</ul>
+					<div class="file-info pl-4 py-4">
+						<a href="#">
+							<p class="m-0">@file.Name</p>
+						</a>
+						<span>@file.Weight</span>
+					</div>
+					<div class="dropdown">
+						<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+						   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fas fa-ellipsis-v"></i>
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<a class="dropdown-item" href="#">Edit</a>
+							<a class="dropdown-item" href="#">Share</a>
+							<a class="dropdown-item" href="#">Delete</a>
 						</div>
 					</div>
-				}
+				</div>
+			}
 
+		</div>
+	</div>
+
+	<!--End of main -->
+
+	<div style="display: none; " id="hidden-content">
+		<div id="note-create" class="popup" data-id="@Model.Task.Id">
+			<div class="form">
+				<div class="popup-head px-5 pt-4 pb-2 w-100">
+					<h3>New note</h3>
+				</div>
+				<form id="note-form" class="px-4">
+					<label for="title">Name</label>
+					<input type="text" id="title" name="title" class="form-control" data-type="slug-source"
+						   placeholder="Note title">
+					<label for="desc">Description</label>
+					<textarea id="description" name="desc" class="form-control" rows="3"
+							  placeholder="Note description"></textarea>
+					<hr>
+					<button type="submit" class="createBtn btn btn-primary my-3"> Create note</button>
+				</form>
 			</div>
 		</div>
 	</div>
-<!--End of main -->
-

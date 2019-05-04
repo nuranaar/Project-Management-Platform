@@ -168,6 +168,10 @@
     <Compile Include="Migrations\201905020823568_ChangeRelTaskFiles.Designer.cs">
       <DependentUpon>201905020823568_ChangeRelTaskFiles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905041325055_FileTaskRel.cs" />
+    <Compile Include="Migrations\201905041325055_FileTaskRel.Designer.cs">
+      <DependentUpon>201905041325055_FileTaskRel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Checklist.cs" />
@@ -274,6 +278,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905020823568_ChangeRelTaskFiles.resx">
       <DependentUpon>201905020823568_ChangeRelTaskFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905041325055_FileTaskRel.resx">
+      <DependentUpon>201905041325055_FileTaskRel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

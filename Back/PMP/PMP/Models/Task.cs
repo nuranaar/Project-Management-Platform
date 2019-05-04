@@ -23,10 +23,7 @@ namespace PMP.Models
 
 		public string Slug { get; set; }
 
-		[ForeignKey("File")]
-		public int FileId { get; set; }
-
-		public File File { get; set; }
+		public List<File> Files { get; set; }
 
 		[ForeignKey("TaskStage")]
 		public int TaskStageId { get; set; }

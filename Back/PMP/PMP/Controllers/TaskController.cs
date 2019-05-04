@@ -22,8 +22,8 @@ namespace PMP.Controllers
 				Activities = db.Activities.ToList()
 			};
 			model.Checklists = db.Checklists.Where(cl => cl.TaskId == model.Task.Id).OrderByDescending(cl=>cl.Id).ToList();
-			model.Notes = db.Notes.Where(n => n.TaskId == model.Task.Id).ToList();
-			model.Files = db.Files.Where(f => f.Id == model.Task.FileId).ToList();
+			model.Notes = db.Notes.Where(n => n.TaskId == model.Task.Id).OrderByDescending(n => n.Id).ToList();
+			model.Files = db.Files.Where(f => f.TaskId == model.Task.Id).ToList();
 			model.TaskMembers = db.TaskMembers.Where(tm => tm.TaskId == model.Task.Id).ToList();
 			return View(model);
 		}
@@ -71,15 +71,16 @@ namespace PMP.Controllers
 			startfile.Weight = fileBase.ContentLength.ToString() + "-mb";
 			startfile.Type = fileBase.ContentType;
 
-			db.Files.Add(startfile);
-			db.SaveChanges();
+			
 
 
 			task.UserId = 1;
-			task.FileId = startfile.Id;
 			db.Tasks.Add(task);
 			db.SaveChanges();
 
+			startfile.TaskId = task.Id;
+			db.Files.Add(startfile);
+			db.SaveChanges();
 
 			string[] emails = member.Split(' ');
 			foreach (var email in emails)
@@ -95,18 +96,16 @@ namespace PMP.Controllers
 				db.SaveChanges();
 			}
 			task.TaskStage = db.TaskStages.Find(task.TaskStageId);
-			task.File = db.Files.Find(task.FileId);
 			return Json(new
 			{
 				task.Id,
 				task.Slug,
-				File = task.File.Name,
 				Stage = task.TaskStage.Name
 			}, JsonRequestBehavior.AllowGet);
 		}
 
 		[HttpPost]
-		public JsonResult ChecklistCreate(Checklist checklist, string Text, int TaskId, bool Check)
+		public JsonResult ChecklistCreate(Checklist checklist, bool Check)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -128,6 +127,69 @@ namespace PMP.Controllers
 			}, JsonRequestBehavior.AllowGet);
 		}
 
+		[HttpPost]
+		public JsonResult NoteCreate(Note note, int TaskId)
+		{
+			if (!ModelState.IsValid)
+			{
+				Response.StatusCode = 400;
+				var errorList = ModelState.Values.SelectMany(m => m.Errors)
+								 .Select(e => e.ErrorMessage)
+								 .ToList();
+				return Json(errorList, JsonRequestBehavior.AllowGet);
+			}
+
+			note.TaskId = TaskId;
+			db.Notes.Add(note);
+			db.SaveChanges();
+
+			return Json(new
+			{
+				note.Title,
+				note.Id,
+				note.Desc
+			}, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		public JsonResult FileUpload(Models.File startfile,
+							   HttpPostedFileBase fileBase,
+							   int TaskId)
+		{
+			if (!ModelState.IsValid)
+			{
+				Response.StatusCode = 400;
+				var errorList = ModelState.Values.SelectMany(m => m.Errors)
+								 .Select(e => e.ErrorMessage)
+								 .ToList();
+				return Json(errorList, JsonRequestBehavior.AllowGet);
+			}
+
+			if (fileBase == null)
+			{
+				ModelState.AddModelError("file", "Please select file");
+
+			}
+			string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+			string filename = date + fileBase.FileName;
+			string path = Path.Combine(Server.MapPath("~/Uploads"), filename);
+			fileBase.SaveAs(path);
+
+			startfile.TaskId = TaskId;
+			startfile.UserId = 1;
+			startfile.Name = filename;
+			startfile.Weight = fileBase.ContentLength.ToString() + "-mb";
+			startfile.Type = fileBase.ContentType;
+
+			db.Files.Add(startfile);
+			db.SaveChanges();
+			return Json(new
+			{
+				startfile.Id,
+				startfile.Name,
+				startfile.Weight
+			}, JsonRequestBehavior.AllowGet);
+		}
 	}
 
 }

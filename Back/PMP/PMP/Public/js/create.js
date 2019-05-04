@@ -1,7 +1,6 @@
 ﻿$(document).ready(function () {
 	$("#project-form").submit(function (e) {
 		e.preventDefault();
-
 		$.ajax({
 			url: "/project/projectcreate",
 			type: "post",
@@ -24,11 +23,9 @@
 				//$.fancybox.close();
 			}
 		});
-
 	});
 	$("#team-form").submit(function (e) {
 		e.preventDefault();
-
 		$.ajax({
 			url: "/team/teamcreate",
 			type: "post",
@@ -42,16 +39,11 @@
 		});
 
 	});
-
-
 	$("[data-fancybox]").fancybox({
 		afterShow: function () {
 			GetStages();
 		}
 	});
-
-
-
 	function GetStages() {
 		$.ajax({
 			url: "/task/GetStages",
@@ -86,7 +78,7 @@
 			processData: false,
 			contentType: false,
 			success: function (response) {
-				var url = `/task?slug=${response.Slug}`;
+ 				var url = `/task?slug=${response.Slug}`;
 				window.location.href = url;
 			}
 		});
@@ -141,7 +133,6 @@
 					Text: text
 				},
 				success: function (response) {
-					console.log(done);
 						var card = `<div  class="file-card  w-100 d-flex justify-content-start align-items-center">
 						<div class="file-info pl-4 py-4 w-100">
 							<div class="input-group pl-5 mb-3">
@@ -176,6 +167,71 @@
 			});
 		});
 	});
+	$("#note-form").submit(function (e) {
+		e.preventDefault();
+		var taskid = $("#note-create").data("id");
+		var title = $("#title").val();
+		var description = $("#description").val();
+		$.ajax({
+			url: "/task/NoteCreate",
+			type: "post",
+			dataType: "json",
+			data: {
+				TaskId: taskid,
+				Title: title,
+				Desc: description
+			},
+			success: function (response) {
+				var note = `<div class="note-card p-4">
+						<p>
+							${response.Title}
+						</p>
+						<span>
+							${response.Desc}
+						</span>
+						<div class="dropdown">
+							<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fas fa-ellipsis-v"></i>
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" href="#">Edit</a>
+								<a class="dropdown-item" href="#">Share</a>
+								<a class="dropdown-item" href="#">Delete</a>
+							</div>
+						</div>
+					</div>`;
+				$("#note-body").prepend(note);
+				$.fancybox.close();
+			}
+		});
+	});
 
-
+	$("#files").find("input[type='file']").change(function () {
+		$("#file-upload").submit();
+	});
+	$("#file-upload").submit(function (e) {
+		e.preventDefault();
+		var form = $(this);
+		var formdata = false;
+		if (window.FormData) {
+			formdata = new FormData(form[0]);
+		}
+		var tId = $("#files").data("id");
+		console.log(tId);
+		$.ajax({
+			url: "/task/FileUpload",
+			type: "post",
+			dataType: "json",
+			data: {
+				fileBase: formdata,
+				TaskId: tId
+			},
+			processData: false,
+			contentType: false,
+			success: function (response) {
+				console.log(response);
+			}
+		});
+	});
 });

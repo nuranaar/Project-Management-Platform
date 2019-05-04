@@ -10,7 +10,9 @@ namespace PMP.Models
 	{
 		public int Id { get; set; }
 
-		public int UserId { get; set; }		
+		public int UserId { get; set; }
+
+		public int TaskId { get; set; }
 
 		public string Name { get; set; }
 
@@ -20,10 +22,6 @@ namespace PMP.Models
 
 		public User User { get; set; }
 
-		public List<Task> Tasks { get; set; }
-
-		//[NotMapped]
-		//public HttpPostedFileBase Document { get; set; }
-
+		public Task Task { get; set; }
 	}
 }
