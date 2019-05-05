@@ -5,7 +5,7 @@
 
 <!--Start of header -->
 <div class="header w-100 mt-5">
-	<div class="head">
+	<div class="head" data-id="@Model.Project.Id">
 		<div class="row">
 			<div class="col-6">
 				<h1>@Model.Project.Name </h1>
@@ -17,7 +17,11 @@
 					{
 						<li><a href="#"><img src="~/Public/img/@Model.Users.Find(u=>u.Id==member.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==member.UserId).Name"></a></li>
 					}
-					<li><a href="#"><i class="fa fa-plus"></i></a></li>
+					<li>
+						<a data-fancybox data-src="#member" href="javascript:;">
+							<i class="fa fa-plus"></i>
+						</a>
+					</li>
 				</ul>
 				<div class="progress">
 					<div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25"
@@ -192,40 +196,60 @@
 					<span>Select or drag &amp; drop your files for upload</span>
 				</label>
 			</div>
-@foreach (ProjectMember mem in Model.ProjectMembers.ToList())
-{
-foreach (Task task in Model.Tasks.Where(t=>t.UserId==mem.UserId).ToList())
-{
-	foreach (var file in Model.Files.Where(f => f.UserId == task.UserId).ToList())
-	{
-					<div class="file-card w-100 d-flex justify-content-start align-items-center">
-						<ul class="avatars mt-3">
-							<li><a href="#"><i class="far fa-file-alt"></i></a></li>
-							<li><a href="#"><img src="~/Public/img/@Model.Users.Find(u=>u.Id==file.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==file.UserId).Name"></a></li>
-						</ul>
-						<div class="file-info pl-4 py-4">
-							<a href="#">
-								<p class="m-0">@file.Name</p>
-							</a>
-							<span>@file.Weight</span>
-						</div>
-						<div class="dropdown">
-							<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
-							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fas fa-ellipsis-v"></i>
-							</a>
-							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item" href="#">Edit</a>
-								<a class="dropdown-item" href="#">Share</a>
-								<a class="dropdown-item" href="#">Delete</a>
+			@foreach (ProjectMember mem in Model.ProjectMembers.ToList())
+			{
+				foreach (Task task in Model.Tasks.Where(t => t.UserId == mem.UserId).ToList())
+				{
+					foreach (var file in Model.Files.Where(f => f.UserId == task.UserId).ToList())
+					{
+						<div class="file-card w-100 d-flex justify-content-start align-items-center">
+							<ul class="avatars mt-3">
+								<li><a href="#"><i class="far fa-file-alt"></i></a></li>
+								<li><a href="#"><img src="~/Public/img/@Model.Users.Find(u=>u.Id==file.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==file.UserId).Name"></a></li>
+							</ul>
+							<div class="file-info pl-4 py-4">
+								<a href="#">
+									<p class="m-0">@file.Name</p>
+								</a>
+								<span>@file.Weight</span>
+							</div>
+							<div class="dropdown">
+								<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+								   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fas fa-ellipsis-v"></i>
+								</a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+									<a class="dropdown-item" href="#">Edit</a>
+									<a class="dropdown-item" href="#">Share</a>
+									<a class="dropdown-item" href="#">Delete</a>
+								</div>
 							</div>
 						</div>
-					</div>
 
+					}
 				}
-			}
 			}
 		</div>
 	</div>
 </div>
 <!--End of main -->
+<div style="display: none; " id="hidden-content">
+	<div id="member" class="popup">
+		<div class="form">
+			<div class="popup-head px-5 pt-4 pb-2 w-100">
+				<h3>Add Member</h3>
+			</div>
+			<form id="member-form-project" class="px-4">
+
+				<label for="member">Members</label>
+				<input type="text" id="member" name="member" class="form-control" aria-describedby="projectmember"
+					   placeholder="Enter members email address">
+				<hr>
+				<button type="submit" class="createBtn btn btn-primary my-3">
+					Create
+					team
+				</button>
+			</form>
+		</div>
+	</div>
+</div>

@@ -20,8 +20,11 @@
 					{
 						<li><a href="#"><img src="~/Public/img/@Model.Users.Find(u=>u.Id==member.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==member.UserId).Name"></a></li>
 					}
-
-					<li><a href="#"><i class="fa fa-plus"></i></a></li>
+					<li>
+						<a data-fancybox data-src="#member" href="javascript:;">
+							<i class="fa fa-plus"></i>
+						</a>
+					</li>
 				</ul>
 
 			</div>

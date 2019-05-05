@@ -23,7 +23,7 @@ namespace PMP.Controllers
 			};
 			model.Checklists = db.Checklists.Where(cl => cl.TaskId == model.Task.Id).OrderByDescending(cl=>cl.Id).ToList();
 			model.Notes = db.Notes.Where(n => n.TaskId == model.Task.Id).OrderByDescending(n => n.Id).ToList();
-			model.Files = db.Files.Where(f => f.TaskId == model.Task.Id).ToList();
+			model.Files = db.Files.Where(f => f.TaskId == model.Task.Id).OrderByDescending(n => n.Id).ToList();
 			model.TaskMembers = db.TaskMembers.Where(tm => tm.TaskId == model.Task.Id).ToList();
 			return View(model);
 		}
@@ -177,14 +177,51 @@ namespace PMP.Controllers
 			file.Name = filename;
 			file.Weight = fileBase.ContentLength.ToString() + "-mb";
 			file.Type = fileBase.ContentType;
-
+			file.User = db.Users.Find(file.UserId);
 			db.Files.Add(file);
 			db.SaveChanges();
 			return Json(new
 			{
+				file.User.Photo,
+				User = file.User.Name + " " + file.User.Surname,
 				file.Id,
 				file.Name,
 				file.Weight
+			}, JsonRequestBehavior.AllowGet);
+		}
+		[HttpPost]
+		public JsonResult AddMember(TaskMember taskMember, string member, int TaskId)
+		{
+			if (!ModelState.IsValid)
+			{
+				Response.StatusCode = 400;
+
+				var errorList = ModelState.Values.SelectMany(m => m.Errors)
+								 .Select(e => e.ErrorMessage)
+								 .ToList();
+
+				return Json(errorList, JsonRequestBehavior.AllowGet);
+			}
+			taskMember.TaskId = TaskId;
+
+			string[] emails = member.Split(' ');
+			foreach (var email in emails)
+			{
+				string e = email.Split(',', '\t', ';')[0];
+				var usr = db.Users.FirstOrDefault(u => u.Email == e);
+				if (usr != null)
+				{
+					taskMember.UserId = usr.Id;
+				}
+				db.TaskMembers.Add(taskMember);
+				db.SaveChanges();
+			}
+			taskMember.Task = db.Tasks.Find(taskMember.TaskId);
+			taskMember.User = db.Users.Find(taskMember.UserId);
+			return Json(new
+			{
+				User = taskMember.User.Name + " " + taskMember.User.Surname,
+				taskMember.User.Photo,
 			}, JsonRequestBehavior.AllowGet);
 		}
 	}

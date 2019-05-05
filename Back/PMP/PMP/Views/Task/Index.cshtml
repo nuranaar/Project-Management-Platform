@@ -20,7 +20,11 @@
 					{
 						<li><a href=""><img src="~/Public/img/@Model.Users.Find(u=>u.Id==member.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==member.UserId).Name"></a></li>
 					}
-					<li><a href=""><i class="fa fa-plus"></i></a></li>
+					<li>
+						<a data-fancybox data-src="#member" href="javascript:;">
+							<i class="fa fa-plus"></i>
+						</a>
+					</li>
 				</ul>
 				<div class="progress">
 					<div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25"
@@ -108,7 +112,7 @@
 				<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
 			</form>
 		</div>
-		<div id="check-body"   class="page-body">
+		<div id="check-body" class="page-body">
 			@foreach (Checklist checklist in Model.Checklists.ToList())
 			{
 				<div class="file-card  w-100 d-flex justify-content-start align-items-center">
@@ -188,7 +192,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="files" class="page mt-5"  >
+	<div id="files" class="page mt-5">
 		<div class="page-title d-flex justify-content-between ">
 			<div class="d-flex justify-content-between align-items-center">
 				<h2>Files</h2>
@@ -201,46 +205,49 @@
 		<div class="page-body ">
 			<div class="upload w-100">
 				<form id="file-upload" class="px-4" enctype="multipart/form-data" method="post">
-					<label></label>
+					<label>
 						<input type="file" id="fileBase" name="fileBase" class="form-control">
 						<span>Select or drag &amp; drop your files for upload</span>
-					
+					</label>
+					<input type="text" id="taskid" name="TaskId" class="form-control" style="display:none" value="@Model.Task.Id">
+
 				</form>
 			</div>
-			@foreach (PMP.Models.File file in Model.Files.ToList())
-			{
-				<div class="file-card w-100 d-flex justify-content-start align-items-center">
-					<ul class="avatars mt-3">
-						<li><a href=""><i class="far fa-file-alt"></i></a></li>
-						<li><a href=""><img src="~/Public/img/@Model.Users.Find(u=>u.Id==file.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==file.UserId).Name"></a></li>
-					</ul>
-					<div class="file-info pl-4 py-4">
-						<a href="#">
-							<p class="m-0">@file.Name</p>
-						</a>
-						<span>@file.Weight</span>
-					</div>
-					<div class="dropdown">
-						<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
-						   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fas fa-ellipsis-v"></i>
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" href="#">Edit</a>
-							<a class="dropdown-item" href="#">Share</a>
-							<a class="dropdown-item" href="#">Delete</a>
+			<div id="file-list">
+				@foreach (PMP.Models.File file in Model.Files.ToList())
+				{
+					<div class="file-card w-100 d-flex justify-content-start align-items-center">
+						<ul class="avatars mt-3">
+							<li><a href=""><i class="far fa-file-alt"></i></a></li>
+							<li><a href=""><img src="~/Public/img/@Model.Users.Find(u=>u.Id==file.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==file.UserId).Name"></a></li>
+						</ul>
+						<div class="file-info pl-4 py-4">
+							<a href="#">
+								<p class="m-0">@file.Name</p>
+							</a>
+							<span>@file.Weight</span>
+						</div>
+						<div class="dropdown">
+							<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fas fa-ellipsis-v"></i>
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" href="#">Edit</a>
+								<a class="dropdown-item" href="#">Share</a>
+								<a class="dropdown-item" href="#">Delete</a>
+							</div>
 						</div>
 					</div>
-				</div>
-			}
-
+				}
+			</div>
 		</div>
 	</div>
 
 	<!--End of main -->
 
 	<div style="display: none; " id="hidden-content">
-		<div id="note-create" class="popup"  >
+		<div id="note-create" class="popup">
 			<div class="form">
 				<div class="popup-head px-5 pt-4 pb-2 w-100">
 					<h3>New note</h3>
@@ -254,6 +261,26 @@
 							  placeholder="Note description"></textarea>
 					<hr>
 					<button type="submit" class="createBtn btn btn-primary my-3"> Create note</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div style="display: none; " id="hidden-content">
+		<div id="member" class="popup">
+			<div class="form">
+				<div class="popup-head px-5 pt-4 pb-2 w-100">
+					<h3>Add Member</h3>
+				</div>
+				<form id="member-form-task" class="px-4">
+
+					<label for="member">Members</label>
+					<input type="text" id="member" name="member" class="form-control" aria-describedby="Paskmember"
+						   placeholder="Enter members email address">
+					<hr>
+					<button type="submit" class="createBtn btn btn-primary my-3">
+						Create
+						team
+					</button>
 				</form>
 			</div>
 		</div>

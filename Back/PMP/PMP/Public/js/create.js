@@ -206,12 +206,12 @@
 			}
 		});
 	});
+	//team
 	$("#member-form").submit(function (e) {
 		e.preventDefault();
 		let that = $(this);
 		let teamid = $(".head").data("id");
 		let mem = that.find("input:text").val();
-		console.log(teamid, mem);
 		$.ajax({
 			url: "/team/AddMember",
 			type: "post",
@@ -238,6 +238,52 @@
 						</ul>
 					</div>`;
 				$("#mem-list").prepend(mem);
+				let user = `<li><a href="#"><img src="/Public/img/${response.Photo}" alt="${response.User}"></a></li>`;
+				$(".avatars").prepend(user);
+				$.fancybox.close();
+			}
+		});
+
+	});
+	//task
+	$("#member-form-task").submit(function (e) {
+		e.preventDefault();
+		let that = $(this);
+		let id = $(".head").data("id");
+		let mem = that.find("input:text").val();
+		$.ajax({
+			url: "/task/AddMember",
+			type: "post",
+			dataType: "json",
+			data: {
+				TaskId: id,
+				member: mem
+			},
+			success: function (response) {
+				let user = `<li><a href="#"><img src="/Public/img/${response.Photo}" alt="${response.User}"></a></li>`;
+				$(".avatars").prepend(user);
+				$.fancybox.close();
+			}
+		});
+
+	});
+	//project
+	$("#member-form-project").submit(function (e) {
+		e.preventDefault();
+		let that = $(this);
+		let id = $(".head").data("id");
+		let mem = that.find("input:text").val();
+		$.ajax({
+			url: "/project/AddMember",
+			type: "post",
+			dataType: "json",
+			data: {
+				ProjectId: id,
+				member: mem
+			},
+			success: function (response) {
+				let user = `<li><a href="#"><img src="/Public/img/${response.Photo}" alt="${response.User}"></a></li>`;
+				$(".avatars").prepend(user);
 				$.fancybox.close();
 			}
 		});
@@ -253,20 +299,38 @@
 		if (window.FormData) {
 			formdata = new FormData(form[0]);
 		}
-		let id = $(".head").data("id");
-		console.log(form, formdata);
 		$.ajax({
 			url: "/task/FileUpload",
 			type: "post",
 			dataType: "json",
-			data: {
-				TaskId: id,
-				fileBase: formdata ? formdata : form.serialize()
-			},
+			data:formdata ? formdata : form.serialize(),
 			processData: false,
 			contentType: false,
 			success: function (response) {
-				console.log(response);
+				let card = `<div class="file-card w-100 d-flex justify-content-start align-items-center">
+					<ul class="avatars mt-3">
+						<li><a href=""><i class="far fa-file-alt"></i></a></li>
+						<li><a href=""><img src="/Public/img/${response.Photo}" alt="${response.User}"></a></li>
+					</ul>
+					<div class="file-info pl-4 py-4">
+						<a href="#">
+							<p class="m-0">${response.Name}</p>
+						</a>
+						<span>${response.Weight}</span>
+					</div>
+					<div class="dropdown">
+						<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+						   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fas fa-ellipsis-v"></i>
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<a class="dropdown-item" href="#">Edit</a>
+							<a class="dropdown-item" href="#">Share</a>
+							<a class="dropdown-item" href="#">Delete</a>
+						</div>
+					</div>
+				</div>`;
+				$("#file-list").prepend(card);
 			}
 		});
 	});
