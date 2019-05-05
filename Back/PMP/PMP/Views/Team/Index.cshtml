@@ -8,7 +8,7 @@
 <!--Start of header -->
 <div class="header w-100 mt-5">
 
-	<div class="head">
+	<div class="head" data-id="@Model.Team.Id">
 		<div class="row align-items-center">
 			<div class="col-6">
 				<h1> @Model.Team.Name </h1>
@@ -200,13 +200,18 @@
 		<div class="page-title d-flex justify-content-between ">
 			<div class="d-flex justify-content-between align-items-center">
 				<h2>Members</h2>
+				<div class="add">
+					<a data-fancybox data-src="#member" class="dropdown-item" href="javascript:;">
+						<i class="fa fa-plus"></i>
+					</a>
+				</div>
 			</div>
 			<form class=" filterForm my-3">
 				<input type="search" class="form-control filter py-4" placeholder="Filter member">
 				<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
 			</form>
 		</div>
-		<div class="page-body d-flex justify-content-around ">
+		<div id="mem-list" class="page-body d-flex justify-content-around ">
 			@foreach (TeamMember member in Model.TeamMembers.ToList())
 			{
 				<div class="member-card text-center">
@@ -231,3 +236,23 @@
 	</div>
 </div>
 <!--End of main -->
+<div style="display: none; " id="hidden-content">
+	<div id="member" class="popup">
+		<div class="form">
+			<div class="popup-head px-5 pt-4 pb-2 w-100">
+				<h3>Add Member</h3>
+			</div>
+			<form id="member-form" class="px-4">
+
+				<label for="member">Members</label>
+				<input type="text" id="member" name="member" class="form-control" aria-describedby="teammember"
+					   placeholder="Enter members email address">
+				<hr>
+				<button type="submit" class="createBtn btn btn-primary my-3">
+					Create
+					team
+				</button>
+			</form>
+		</div>
+	</div>
+</div>

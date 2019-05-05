@@ -8,7 +8,7 @@
 <!--Start of header -->
 <div class="header w-100 mt-5">
 
-	<div class="head">
+	<div class="head" data-id="@Model.Task.Id">
 		<div class="row">
 			<div class="col-6">
 				<h1>@Model.Task.Name</h1>
@@ -108,8 +108,7 @@
 				<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
 			</form>
 		</div>
-		<div id="check-body" data-id="@Model.Task.Id" class="page-body">
-
+		<div id="check-body"   class="page-body">
 			@foreach (Checklist checklist in Model.Checklists.ToList())
 			{
 				<div class="file-card  w-100 d-flex justify-content-start align-items-center">
@@ -189,7 +188,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="files" class="page mt-5" data-id="@Model.Task.Id">
+	<div id="files" class="page mt-5"  >
 		<div class="page-title d-flex justify-content-between ">
 			<div class="d-flex justify-content-between align-items-center">
 				<h2>Files</h2>
@@ -202,10 +201,10 @@
 		<div class="page-body ">
 			<div class="upload w-100">
 				<form id="file-upload" class="px-4" enctype="multipart/form-data" method="post">
-					<label>
+					<label></label>
 						<input type="file" id="fileBase" name="fileBase" class="form-control">
 						<span>Select or drag &amp; drop your files for upload</span>
-					</label>
+					
 				</form>
 			</div>
 			@foreach (PMP.Models.File file in Model.Files.ToList())
@@ -241,7 +240,7 @@
 	<!--End of main -->
 
 	<div style="display: none; " id="hidden-content">
-		<div id="note-create" class="popup" data-id="@Model.Task.Id">
+		<div id="note-create" class="popup"  >
 			<div class="form">
 				<div class="popup-head px-5 pt-4 pb-2 w-100">
 					<h3>New note</h3>

@@ -8,9 +8,9 @@
 			data: $(this).serialize(),
 			success: function (response) {
 				//console.log(response.Slug);
-				var url = `/project?slug=${response.Slug}`;
+				const url = `/project?slug=${response.Slug}`;
 				window.location.href = url;
-				//var item = `<li class="nav-item">
+				//let item = `<li class="nav-item">
 				//				<div class="project">
 				//					<div class="curColor">
 				//						<i class="fas fa-circle"></i>
@@ -33,7 +33,7 @@
 			data: $(this).serialize(),
 			success: function (response) {
 
-				var url = `/team?slug=${response.Slug}`;
+				const url = `/team?slug=${response.Slug}`;
 				window.location.href = url;
 			}
 		});
@@ -51,10 +51,10 @@
 			dataType: "json",
 			success: function (resp) {
 				$("select[name='TaskStageId']").empty();
-				var def = `<option value="0">Select stage</option>`;
+				let def = `<option value="0">Select stage</option>`;
 				$("select[name='TaskStageId']").append(def);
 				$.each(resp, function (key, stage) {
-					var opt = `<option value="${stage.Id}">${stage.Name}</option>`;
+					let opt = `<option value="${stage.Id}">${stage.Name}</option>`;
 					$("select[name='TaskStageId']").append(opt);
 				});
 			}
@@ -64,8 +64,8 @@
 	$("#task-form").submit(function (e) {
 		e.preventDefault();
 
-		var form = $(this);
-		var formdata = false;
+		let form = $(this);
+		letformdata = false;
 		if (window.FormData) {
 			formdata = new FormData(form[0]);
 		}
@@ -78,13 +78,13 @@
 			processData: false,
 			contentType: false,
 			success: function (response) {
- 				var url = `/task?slug=${response.Slug}`;
+				const url = `/task?slug=${response.Slug}`;
 				window.location.href = url;
 			}
 		});
 	});
 	$("#add-check").click(function () {
-		var form = `<div id="form-create-click" class="file-card  w-100 d-flex justify-content-start align-items-center">
+		let form = `<div id="form-create-click" class="file-card  w-100 d-flex justify-content-start align-items-center">
 					<div class="file-info pl-4 py-4 w-100">
 						<div class="input-group pl-5 mb-3">
 							<div class="bar">
@@ -110,19 +110,19 @@
 				$(this).removeAttr("checked");
 			}
 		});
-		
 		$("#check-form").submit(function (e) {
 			e.preventDefault();
-			var that = $(this);
+			let that = $(this);
+			let done;
 			if (that.find(".check").attr("checked") != "checked") {
-				var done = false;
+				done = false;
 			}
 			else {
 				done = true;
 			}
-			var id = $("#check-body").data("id");
-			var text = that.find("input:text").val();
-			
+			let id = $(".head").data("id");
+			let text = that.find("input:text").val();
+
 			$.ajax({
 				url: "/task/ChecklistCreate",
 				type: "POST",
@@ -133,7 +133,7 @@
 					Text: text
 				},
 				success: function (response) {
-						var card = `<div  class="file-card  w-100 d-flex justify-content-start align-items-center">
+					let card = `<div  class="file-card  w-100 d-flex justify-content-start align-items-center">
 						<div class="file-info pl-4 py-4 w-100">
 							<div class="input-group pl-5 mb-3">
 								<div class="bar">
@@ -159,7 +159,7 @@
 						</div>
 					</div>`;
 					$("#check-body").prepend(card);
-					$("#check-body").find("#form-create-click").empty();	
+					$("#check-body").find("#form-create-click").empty();
 					$("input:checked").next().css({
 						"text-decoration-line": "line-through"
 					});
@@ -169,9 +169,9 @@
 	});
 	$("#note-form").submit(function (e) {
 		e.preventDefault();
-		var taskid = $("#note-create").data("id");
-		var title = $("#title").val();
-		var description = $("#description").val();
+		let taskid = $(".head").data("id");
+		let title = $("#title").val();
+		let description = $("#description").val();
 		$.ajax({
 			url: "/task/NoteCreate",
 			type: "post",
@@ -182,7 +182,7 @@
 				Desc: description
 			},
 			success: function (response) {
-				var note = `<div class="note-card p-4">
+				let note = `<div class="note-card p-4">
 						<p>
 							${response.Title}
 						</p>
@@ -206,26 +206,62 @@
 			}
 		});
 	});
+	$("#member-form").submit(function (e) {
+		e.preventDefault();
+		let that = $(this);
+		let teamid = $(".head").data("id");
+		let mem = that.find("input:text").val();
+		console.log(teamid, mem);
+		$.ajax({
+			url: "/team/AddMember",
+			type: "post",
+			dataType: "json",
+			data: {
+				TeamId: teamid,
+				member: mem
+			},
+			success: function (response) {
+				let mem = `<div class="member-card text-center">
+					<div class="member-photo mt-5">
+						<img src="/Public/img/${response.Photo}" alt="${response.User}">
+					</div>
+						<div class="member-info mt-3">
+							<a href="#">
+								<h6>${response.User}</h6>
+							</a>
+							<p>${response.Position}</p>
+						</div>
+						<ul class="icons mx-4">
+							<li><i class="fab fa-twitter"></i></li>
+							<li><i class="fab fa-linkedin-in"></i></li>
+							<li><i class="fab fa-facebook-f"></i></li>
+						</ul>
+					</div>`;
+				$("#mem-list").prepend(mem);
+				$.fancybox.close();
+			}
+		});
 
-	$("#files").find("input[type='file']").change(function () {
+	});
+	$("#files").find("input:file").change(function () {
 		$("#file-upload").submit();
 	});
 	$("#file-upload").submit(function (e) {
 		e.preventDefault();
-		var form = $(this);
-		var formdata = false;
+		let form = $(this);
+		let formdata = false;
 		if (window.FormData) {
 			formdata = new FormData(form[0]);
 		}
-		var tId = $("#files").data("id");
-		console.log(tId);
+		let id = $(".head").data("id");
+		console.log(form, formdata);
 		$.ajax({
 			url: "/task/FileUpload",
 			type: "post",
 			dataType: "json",
 			data: {
-				fileBase: formdata,
-				TaskId: tId
+				TaskId: id,
+				fileBase: formdata ? formdata : form.serialize()
 			},
 			processData: false,
 			contentType: false,

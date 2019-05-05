@@ -128,7 +128,7 @@ namespace PMP.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult NoteCreate(Note note, int TaskId)
+		public JsonResult NoteCreate(Note note)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -139,7 +139,6 @@ namespace PMP.Controllers
 				return Json(errorList, JsonRequestBehavior.AllowGet);
 			}
 
-			note.TaskId = TaskId;
 			db.Notes.Add(note);
 			db.SaveChanges();
 
@@ -152,9 +151,8 @@ namespace PMP.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult FileUpload(Models.File startfile,
-							   HttpPostedFileBase fileBase,
-							   int TaskId)
+		public JsonResult FileUpload(Models.File file,
+							   HttpPostedFileBase fileBase, int TaskId)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -174,20 +172,19 @@ namespace PMP.Controllers
 			string filename = date + fileBase.FileName;
 			string path = Path.Combine(Server.MapPath("~/Uploads"), filename);
 			fileBase.SaveAs(path);
+			file.TaskId = TaskId;
+			file.UserId = 1;
+			file.Name = filename;
+			file.Weight = fileBase.ContentLength.ToString() + "-mb";
+			file.Type = fileBase.ContentType;
 
-			startfile.TaskId = TaskId;
-			startfile.UserId = 1;
-			startfile.Name = filename;
-			startfile.Weight = fileBase.ContentLength.ToString() + "-mb";
-			startfile.Type = fileBase.ContentType;
-
-			db.Files.Add(startfile);
+			db.Files.Add(file);
 			db.SaveChanges();
 			return Json(new
 			{
-				startfile.Id,
-				startfile.Name,
-				startfile.Weight
+				file.Id,
+				file.Name,
+				file.Weight
 			}, JsonRequestBehavior.AllowGet);
 		}
 	}
