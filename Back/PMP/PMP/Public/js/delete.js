@@ -24,7 +24,6 @@
 			datatype: "json",
 			data: { Slug: slug },
 			success: function (response) {
-				console.log("delete");
 				that.parents(".task-card[data-slug='" + slug + "']").remove();
 			}
 		});
@@ -39,8 +38,49 @@
 			datatype: "json",
 			data: { Slug: slug },
 			success: function (response) {
-				console.log("delete");
 				that.parents(".team-card[data-slug='" + slug + "']").remove();
+			}
+		});
+	});
+	$(document).on("click", "#delete-checkitem", function (e) {
+		e.preventDefault();
+		let that = $(this);
+		let id = that.parents(".check-card").data("id");
+		$.ajax({
+			url: "/task/checkitemDelete/",
+			type: "post",
+			datatype: "json",
+			data: { Id: id },
+			success: function (response) {
+				that.parents(".check-card[data-id='" + id + "']").remove();
+			}
+		});
+	});
+	$(document).on("click", "#delete-note", function (e) {
+		e.preventDefault();
+		let that = $(this);
+		let id = that.parents(".note-card").data("id");
+		$.ajax({
+			url: "/task/noteDelete/",
+			type: "post",
+			datatype: "json",
+			data: { Id: id },
+			success: function (response) {
+				that.parents(".note-card[data-id='" + id + "']").remove();
+			}
+		});
+	});
+	$(document).on("click", "#delete-file", function (e) {
+		e.preventDefault();
+		let that = $(this);
+		let id = that.parents("#file-card").data("id");
+		$.ajax({
+			url: "/task/fileDelete/",
+			type: "post",
+			datatype: "json",
+			data: { Id: id },
+			success: function (response) {
+				that.parents(".file-card[data-id='" + id + "']").remove();
 			}
 		});
 	});

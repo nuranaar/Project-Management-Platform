@@ -211,7 +211,7 @@
     <Content Include="Public\img\logo.png" />
     <Content Include="Public\js\create.js" />
     <Content Include="Public\js\delete.js" />
-    <Content Include="Public\js\isEmpty.js" />
+    <Content Include="Public\js\edit.js" />
     <Content Include="Public\js\main.js" />
     <Content Include="Public\js\slugify.js" />
     <Content Include="Web.config" />

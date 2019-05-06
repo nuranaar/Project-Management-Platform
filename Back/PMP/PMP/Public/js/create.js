@@ -133,7 +133,7 @@
 					Text: text
 				},
 				success: function (response) {
-					let card = `<div  class="file-card  w-100 d-flex justify-content-start align-items-center">
+					let card = `<div  class="check-card file-card  w-100 d-flex justify-content-start align-items-center" data-id="${response.Id}">
 						<div class="file-info pl-4 py-4 w-100">
 							<div class="input-group pl-5 mb-3">
 								<div class="bar">
@@ -151,9 +151,8 @@
 								<i class="fas fa-ellipsis-v"></i>
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item" href="#">Edit</a>
-								<a class="dropdown-item" href="#">Share</a>
-								<a class="dropdown-item" href="#">Delete</a>
+									<a id="edit-checkitem" class="dropdown-item" href="#">Edit</a>
+							<a id="delete-checkitem" class="dropdown-item" href="#">Delete</a>
 							</div>
 						</div>
 					</div>`;
@@ -181,7 +180,7 @@
 				Desc: description
 			},
 			success: function (response) {
-				let note = `<div class="note-card p-4">
+				let note = `<div class="note-card p-4" data-id="${response.Id}">
 						<p>
 							${response.Title}
 						</p>
@@ -194,9 +193,8 @@
 								<i class="fas fa-ellipsis-v"></i>
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item" href="#">Edit</a>
-								<a class="dropdown-item" href="#">Share</a>
-								<a class="dropdown-item" href="#">Delete</a>
+								<a id="edit-note" class="dropdown-item" href="#">Edit</a>
+								<a id="delete-note" class="dropdown-item" href="#">Delete</a>
 							</div>
 						</div>
 					</div>`;
@@ -306,7 +304,7 @@
 			processData: false,
 			contentType: false,
 			success: function (response) {
-				let card = `<div class="file-card w-100 d-flex justify-content-start align-items-center">
+				let card = `<div id="file-card" class="file-card w-100 d-flex justify-content-start align-items-center" data-id="${response.Id}">
 					<ul class="avatars mt-3">
 						<li><a href=""><i class="far fa-file-alt"></i></a></li>
 						<li><a href=""><img src="/Public/img/${response.Photo}" alt="${response.User}"></a></li>
@@ -323,9 +321,7 @@
 							<i class="fas fa-ellipsis-v"></i>
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" href="#">Edit</a>
-							<a class="dropdown-item" href="#">Share</a>
-							<a class="dropdown-item" href="#">Delete</a>
+								<a id="delete-file" class="dropdown-item" href="#">Delete</a>
 						</div>
 					</div>
 				</div>`;

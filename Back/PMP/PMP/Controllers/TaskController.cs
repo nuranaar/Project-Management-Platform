@@ -264,6 +264,62 @@ namespace PMP.Controllers
 			return Json("", JsonRequestBehavior.AllowGet);
 		}
 
+		[HttpPost]
+		public JsonResult CheckitemDelete(int id)
+		{
+			Checklist checklist = db.Checklists.FirstOrDefault(cl=> cl.Id == id);
+
+			if (checklist == null)
+			{
+				Response.StatusCode = 404;
+				return Json(new
+				{
+					message = "Not Found!"
+				}, JsonRequestBehavior.AllowGet);
+			}
+			
+			db.Checklists.Remove(checklist);
+			db.SaveChanges();
+			return Json("", JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		public JsonResult NoteDelete(int id)
+		{
+			Note note = db.Notes.FirstOrDefault(n => n.Id == id);
+
+			if (note == null)
+			{
+				Response.StatusCode = 404;
+				return Json(new
+				{
+					message = "Not Found!"
+				}, JsonRequestBehavior.AllowGet);
+			}
+
+			db.Notes.Remove(note);
+			db.SaveChanges();
+			return Json("", JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		public JsonResult FileDelete(int id)
+		{
+			var file = db.Files.FirstOrDefault(f => f.Id == id);
+
+			if (file == null)
+			{
+				Response.StatusCode = 404;
+				return Json(new
+				{
+					message = "Not Found!"
+				}, JsonRequestBehavior.AllowGet);
+			}
+
+			db.Files.Remove(file);
+			db.SaveChanges();
+			return Json("", JsonRequestBehavior.AllowGet);
+		}
 	}
 
 }
