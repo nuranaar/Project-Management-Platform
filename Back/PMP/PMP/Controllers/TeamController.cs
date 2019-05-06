@@ -104,5 +104,31 @@ namespace PMP.Controllers
 				teamMember.User.Position
 			}, JsonRequestBehavior.AllowGet);
 		}
+
+		[HttpPost]
+		public JsonResult TeamDelete(string Slug)
+		{
+			Team team = db.Teams.FirstOrDefault(t=> t.Slug == Slug);
+
+			if (team == null)
+			{
+				Response.StatusCode = 404;
+				return Json(new
+				{
+					message = "Not Found!"
+				}, JsonRequestBehavior.AllowGet);
+			}
+
+			var mems = db.TeamMembers.Where(tm => tm.TeamId == team.Id).ToList();
+			foreach (var mem in mems)
+			{
+				db.TeamMembers.Remove(mem);
+
+			}
+			db.SaveChanges();
+			db.Teams.Remove(team);
+			db.SaveChanges();
+			return Json("", JsonRequestBehavior.AllowGet);
+		}
 	}
 }

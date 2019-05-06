@@ -224,6 +224,46 @@ namespace PMP.Controllers
 				taskMember.User.Photo,
 			}, JsonRequestBehavior.AllowGet);
 		}
+
+		[HttpPost]
+		public JsonResult TaskDelete(string Slug)
+		{
+			Task task = db.Tasks.FirstOrDefault(t=> t.Slug == Slug);
+
+			if (task == null)
+			{
+				Response.StatusCode = 404;
+				return Json(new
+				{
+					message = "Not Found!"
+				}, JsonRequestBehavior.AllowGet);
+			}
+			var files = db.Files.Where(n => n.TaskId == task.Id).ToList();
+			foreach (var file in files)
+			{
+				db.Files.Remove(file);
+			}
+			var notes = db.Notes.Where(n => n.TaskId == task.Id).ToList();
+			foreach (var note in notes)
+			{
+				db.Notes.Remove(note);
+			}
+			var checks = db.Checklists.Where(cl => cl.TaskId == task.Id).ToList();
+			foreach (var check in checks)
+			{
+				db.Checklists.Remove(check);
+			}
+			var mems = db.TaskMembers.Where(tm => tm.TaskId == task.Id).ToList();
+			foreach (var mem in mems)
+			{
+				db.TaskMembers.Remove(mem);
+			}
+			db.SaveChanges();
+			db.Tasks.Remove(task);
+			db.SaveChanges();
+			return Json("", JsonRequestBehavior.AllowGet);
+		}
+
 	}
 
 }

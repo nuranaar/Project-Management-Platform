@@ -210,6 +210,7 @@
     <Content Include="Public\img\logo-team.jpg" />
     <Content Include="Public\img\logo.png" />
     <Content Include="Public\js\create.js" />
+    <Content Include="Public\js\delete.js" />
     <Content Include="Public\js\isEmpty.js" />
     <Content Include="Public\js\main.js" />
     <Content Include="Public\js\slugify.js" />

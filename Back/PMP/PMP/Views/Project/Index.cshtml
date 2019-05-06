@@ -115,18 +115,16 @@
 							<div class="@stage.Name-list">
 								@if (stage.Tasks == null)
 								{
-									<div class="add mx-auto text-center" style="width:150px;">
-										<a data-fancybox data-src="#task" class="dropdown-item" href="javascript:;">
-											Add Task
-										</a>
-									</div>
+								<p class="add mx-auto text-center" style="width:150px;">
+									Add Task
+								</p>
 								}
 								else
 								{
 									foreach (Task task in Model.Tasks.Where(t => t.TaskStageId == stage.Id).ToList())
 									{
 
-										<div class="task-card mt-4">
+										<div class="task-card mt-4" data-slug="@task.Slug">
 											<div class="progress">
 												<div class="progress-bar" role="progressbar" style="width: 25%"
 													 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -161,9 +159,8 @@
 														</a>
 														<div class="dropdown-menu"
 															 aria-labelledby="navbarDropdownMenuLink">
-															<a class="dropdown-item" href="#">Edit</a>
-															<a class="dropdown-item" href="#">Share</a>
-															<a class="dropdown-item" href="#">Delete</a>
+															<a id="edit-task" class="dropdown-item" href="#">Edit</a>
+															<a id="delete-task" class="dropdown-item" href="#">Delete</a>
 														</div>
 													</div>
 												</div>

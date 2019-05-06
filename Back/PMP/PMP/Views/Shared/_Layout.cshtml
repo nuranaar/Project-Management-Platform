@@ -67,7 +67,7 @@
 						<div class="pr-list">
 							@foreach (Project project in projects.ToList())
 							{
-								<li class="nav-item">
+								<li class="nav-item" data-slug="@project.Slug">
 									<div class="project">
 										<div class="curColor">
 											<i class="fas fa-circle"></i>
@@ -339,6 +339,7 @@
 	<script src="~/Public/js/main.js"></script>
 	<script src="~/Public/js/slugify.js"></script>
 	<script src="~/Public/js/create.js"></script>
+	<script src="~/Public/js/delete.js"></script>
 
 
 </body>

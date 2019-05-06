@@ -142,7 +142,6 @@
 								<form id="check-form" data-type="edit" method="post">
 									<input class="check" type="checkbox" ${done ? 'checked = "checked"' : ''}>
 									<input id="text" type="text" class="form-control" placeholder="Enter Text" value="${response.Text}">
-
 								</form>
 							</div>
 						</div>

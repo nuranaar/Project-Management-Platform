@@ -67,6 +67,7 @@ namespace PMP.Controllers
 				project.Slug
 			}, JsonRequestBehavior.AllowGet);
 		}
+
 		[HttpPost]
 		public JsonResult AddMember(ProjectMember projectMember, string member, int ProjectId)
 		{
@@ -101,6 +102,32 @@ namespace PMP.Controllers
 				User = projectMember.User.Name + " " + projectMember.User.Surname,
 				projectMember.User.Photo,
 			}, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		public JsonResult ProjectDelete(string Slug)
+		{
+			Project project = db.Projects.FirstOrDefault(p=>p.Slug==Slug);
+
+			if (project == null)
+			{
+				Response.StatusCode = 404;
+				return Json(new
+				{
+					message = "Not Found!"
+				}, JsonRequestBehavior.AllowGet);
+			}
+
+			var mems= db.ProjectMembers.Where(pm => pm.ProjectId == project.Id).ToList();
+			foreach (var mem in mems)
+			{
+				db.ProjectMembers.Remove(mem);
+
+			}
+			db.SaveChanges();
+			db.Projects.Remove(project);
+			db.SaveChanges();
+			return Json("", JsonRequestBehavior.AllowGet);
 		}
 	}
 }
