@@ -121,7 +121,7 @@
 							<div class="bar">
 								<i class="fas fa-bars"></i>
 							</div>
-							<form id="check-form" data-type="edit" data-id="@checklist.Id">
+							<form id="check-form" data-type="update" data-id="@checklist.Id">
 								<input id="checkbox" class="check" @(checklist.Checked ? "checked =checked" : " ") type="checkbox" />
 
 
@@ -179,7 +179,7 @@
 								<i class="fas fa-ellipsis-v"></i>
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<a id="edit-note" class="dropdown-item" href="#">Edit</a>
+								<a id="edit-note" class="dropdown-item" data-src="#note-create" data-fancybox href="javascript:;">Edit</a>
 								<a id="delete-note" class="dropdown-item" href="#">Delete</a>
 							</div>
 						</div>
@@ -248,13 +248,14 @@
 				<div class="popup-head px-5 pt-4 pb-2 w-100">
 					<h3>New note</h3>
 				</div>
-				<form id="note-form" class="px-4">
+				<form id="note-form" class="px-4" data-type="create">
 					<label for="title">Name</label>
 					<input type="text" id="title" name="title" class="form-control" data-type="slug-source"
 						   placeholder="Note title">
 					<label for="desc">Description</label>
 					<textarea id="description" name="desc" class="form-control" rows="3"
 							  placeholder="Note description"></textarea>
+					<div class="type-id" style="display:none"></div>
 					<hr>
 					<button type="submit" class="createBtn btn btn-primary my-3"> Create note</button>
 				</form>

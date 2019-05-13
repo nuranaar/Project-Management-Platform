@@ -84,4 +84,19 @@
 			}
 		});
 	});
+	$(document).on("click", "#delete-member", function (e) {
+		e.preventDefault();
+		let memId = $(this).parent().data("id");
+		$.ajax({
+			url: "/team/MemberDelete/",
+			type: "post",
+			datatype: "json",
+			data: {
+				MemId: memId
+			},
+			success: function (response) {
+				$(`.member-card[data-id="${memId}"]`).remove();
+			}
+		});
+	});
 });

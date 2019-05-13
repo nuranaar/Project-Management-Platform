@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using PMP.ViewModels;
 using PMP.Models;
 using System.IO;
+using System.Data.Entity;
 
 namespace PMP.Controllers
 {
@@ -319,6 +320,164 @@ namespace PMP.Controllers
 			db.Files.Remove(file);
 			db.SaveChanges();
 			return Json("", JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		public JsonResult NoteDetails(int Id)
+		{
+			Note note = db.Notes.Find(Id);
+			if (note == null)
+			{
+				Response.StatusCode = 404;
+				return Json(new
+				{
+					message = "Not Found!"
+				}, JsonRequestBehavior.AllowGet);
+			}
+
+			return Json(new
+			{
+				note.Title,
+				note.Id,
+				note.Desc
+			}, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		public JsonResult NoteEdit(Note note)
+		{
+			Note n = db.Notes.Find(note.Id);
+			n.Desc = note.Desc;
+			n.Title = note.Title;
+			if (!ModelState.IsValid)
+			{
+				Response.StatusCode = 400;
+				var errorList = ModelState.Values.SelectMany(m => m.Errors)
+								 .Select(e => e.ErrorMessage)
+								 .ToList();
+				return Json(errorList, JsonRequestBehavior.AllowGet);
+			}
+
+			db.Entry(n).State = EntityState.Modified;
+			db.SaveChanges();
+
+			return Json(new
+			{
+				n.Title,
+				n.Id,
+				n.Desc
+			}, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		public JsonResult CheckDetails(int Id)
+		{
+			Checklist check = db.Checklists.Find(Id);
+			if (check == null)
+			{
+				Response.StatusCode = 404;
+				return Json(new
+				{
+					message = "Not Found!"
+				}, JsonRequestBehavior.AllowGet);
+			}
+
+			return Json(new
+			{
+				check.Checked,
+				check.Id,
+				check.Text
+			}, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		public JsonResult CheckEdit(int id , string text, bool check)
+		{
+			Checklist checklist = db.Checklists.Find(id);
+			if (!ModelState.IsValid)
+			{
+				Response.StatusCode = 400;
+				var errorList = ModelState.Values.SelectMany(m => m.Errors)
+								 .Select(e => e.ErrorMessage)
+								 .ToList();
+				return Json(errorList, JsonRequestBehavior.AllowGet);
+			}
+
+			checklist.Checked = check;
+			checklist.Text = text;
+			db.Entry(checklist).State = EntityState.Modified;
+
+			db.SaveChanges();
+
+			return Json(new
+			{
+				checklist.Checked,
+				checklist.Id,
+				checklist.Text
+			}, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		public JsonResult TaskDetails(int TaskId)
+		{
+			Task task = db.Tasks.Find(TaskId);
+			task.TaskStage = db.TaskStages.Find(task.TaskStageId);
+			if (!ModelState.IsValid)
+			{
+				Response.StatusCode = 400;
+				var errorList = ModelState.Values.SelectMany(m => m.Errors)
+								 .Select(e => e.ErrorMessage)
+								 .ToList();
+				return Json(errorList, JsonRequestBehavior.AllowGet);
+			}
+
+
+			return Json(new {
+				task.Id,
+				task.Name,
+				task.Slug,
+				task.Desc,
+				Stage=new
+				{
+					task.TaskStage.Id,
+					task.TaskStage.Name
+				}
+			}, JsonRequestBehavior.AllowGet);
+		}
+		[HttpPost]
+		public JsonResult TaskEdit(int Id, string Name, string Desc, int Stage, string Slug)
+		{
+			if (!ModelState.IsValid)
+			{
+				Response.StatusCode = 400;
+				var errorList = ModelState.Values.SelectMany(m => m.Errors)
+								 .Select(e => e.ErrorMessage)
+								 .ToList();
+
+				return Json(errorList, JsonRequestBehavior.AllowGet);
+			}
+			Task task = db.Tasks.Find(Id);
+			task.UserId = 1;
+			task.Name = Name;
+			task.Desc = Desc;
+			task.Slug = Slug;
+			task.TaskStageId = Stage;
+			db.Entry(task).State = EntityState.Modified;
+			db.SaveChanges();
+			task.User = db.Users.Find(task.UserId);
+			task.TaskStage = db.TaskStages.Find(task.TaskStageId);
+			return Json(new
+			{
+				task.Id,
+				task.Name,
+				task.Slug,
+				task.Desc,
+				TaskStage = new
+				{
+					task.TaskStage.Id,
+					task.TaskStage.Name
+				}
+			}, JsonRequestBehavior.AllowGet);
 		}
 	}
 

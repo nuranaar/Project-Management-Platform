@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using PMP.ViewModels;
 using PMP.Models;
+using System.Data.Entity;
 
 namespace PMP.Controllers
 {
@@ -28,6 +29,7 @@ namespace PMP.Controllers
 
 			return View(model);
         }
+
 		[HttpPost]
 		public JsonResult TeamCreate(Team team, TeamMember teamMember, string member)
 		{
@@ -42,7 +44,7 @@ namespace PMP.Controllers
 				return Json(errorList, JsonRequestBehavior.AllowGet);
 			}
 
-			team.UserId = 2;
+			team.UserId = 1;
 
 			db.Teams.Add(team);
 			db.SaveChanges();
@@ -98,11 +100,35 @@ namespace PMP.Controllers
 			}
 			teamMember.Team = db.Teams.Find(teamMember.TeamId);
 			teamMember.User = db.Users.Find(teamMember.UserId);
+
 			return Json(new {
+				teamMember.Id,
 				User=teamMember.User.Name+" "+teamMember.User.Surname,
 				teamMember.User.Photo,
 				teamMember.User.Position
 			}, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		public JsonResult MemberDelete(int MemId)
+		{
+
+			if (!ModelState.IsValid)
+			{
+				Response.StatusCode = 400;
+
+				var errorList = ModelState.Values.SelectMany(m => m.Errors)
+								 .Select(e => e.ErrorMessage)
+								 .ToList();
+
+				return Json(errorList, JsonRequestBehavior.AllowGet);
+			}
+
+			TeamMember mem = db.TeamMembers.Find(MemId);
+
+			db.TeamMembers.Remove(mem);
+			db.SaveChanges();
+			return Json("", JsonRequestBehavior.AllowGet);
 		}
 
 		[HttpPost]
@@ -129,6 +155,56 @@ namespace PMP.Controllers
 			db.Teams.Remove(team);
 			db.SaveChanges();
 			return Json("", JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		public JsonResult TeamDetails(int TeamId)
+		{
+			Team team = db.Teams.FirstOrDefault(t => t.Id == TeamId);
+			if (team == null)
+			{
+				Response.StatusCode = 404;
+				return Json(new {
+						message ="Not Found!"
+					}, JsonRequestBehavior.AllowGet);
+			}
+
+			
+			
+			return Json(new
+			{
+				team.Id,
+				team.Name,
+				team.Slug,
+				team.Desc
+			}, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		public JsonResult TeamEdit(Team team)
+		{
+			team.UserId = 1;
+			if (!ModelState.IsValid)
+			{
+				Response.StatusCode = 400;
+
+				var errorList = ModelState.Values.SelectMany(m => m.Errors)
+								 .Select(e => e.ErrorMessage)
+								 .ToList();
+
+				return Json(errorList, JsonRequestBehavior.AllowGet);
+			}
+
+			db.Entry(team).State = EntityState.Modified;
+			db.SaveChanges();
+			team.User = db.Users.Find(team.UserId);
+			return Json(new
+			{
+				team.Id,
+				team.Name,
+				team.Slug,
+				team.Desc
+			}, JsonRequestBehavior.AllowGet);
 		}
 	}
 }

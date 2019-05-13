@@ -1,42 +1,104 @@
 ﻿$(document).ready(function () {
 	$("#project-form").submit(function (e) {
 		e.preventDefault();
-		$.ajax({
-			url: "/project/projectcreate",
-			type: "post",
-			dataType: "json",
-			data: $(this).serialize(),
-			success: function (response) {
-				//console.log(response.Slug);
-				const url = `/project?slug=${response.Slug}`;
-				window.location.href = url;
-				//let item = `<li class="nav-item">
-				//				<div class="project">
-				//					<div class="curColor">
-				//						<i class="fas fa-circle"></i>
-				//					</div>
-				//					<a class="nav-link" href="@Url.Action("index", "project", new { slug = ${response.Slug})">${response.Name}</a>
-				//				</div>
-				//			</li>`;
-				//$(".pr-list").after(item);
-				//$(".menu").removeClass("act");
-				//$.fancybox.close();
-			}
-		});
+
+		if ($(this).data("type") == "create") {
+
+			$.ajax({
+				url: "/project/projectcreate",
+				type: "post",
+				dataType: "json",
+				data: $(this).serialize(),
+				success: function (response) {
+					const url = `/project?slug=${response.Slug}`;
+					window.location.href = url;
+				}
+			});
+		} else {
+			var name = $("#project-form").find("input[name='name']").val();
+			var slug = $("#project-form").find("input[name='slug']").val();
+			var desc = $("#project-form").find("textarea[name='desc']").val();
+			var id = $("#project-form").find("input[name='id']").val();
+			$.ajax({
+				url: "/project/ProjectEdit",
+				type: "post",
+				dataType: "json",
+				data: {
+					Id: id,
+					Name: name,
+					Slug: slug,
+					Desc: desc
+				},
+				success: function (response) {
+					$(`div[data-id="${response.Id}"]`).find(".title").find("span").text(response.Name);
+					$(`div[data-id="${response.Id}"]`).find("p").text(response.Desc);
+					$.fancybox.close();
+					$("#project-form").find("input[name='name']").val('');
+					$("#project-form").find("textarea[name='desc']").val('');
+					$("#project-form").attr("data-type", "create");
+					$("#project-form").find(".type-id").remove();
+					$("#project-form").find(".createBtn").text("Create project");
+					$("#project").find(".popup-head").html(`<h3>New project</h3>`);
+					let mem = `<label for="member">Members</label>
+						<input type="text" id="member" name="member" class="form-control" aria-describedby="projectMember"
+							   placeholder="Add project members">
+
+
+						<div class="row">
+							<div class="col-6">
+								<label for="StartTime">Start date</label>
+								<input type="date" id="StartTime" name="StartTime" class="form-control"
+									   aria-describedby="StartTime">
+							</div>
+							<div class="col-6">
+								<label for="EndTime">End date</label>
+								<input type="date" id="EndTime" name="EndTime" class="form-control"
+									   aria-describedby="EndTime">
+							</div>
+						</div>`;
+					$(".mem-input").append(mem);
+
+				}
+			});
+
+		}
 	});
 	$("#team-form").submit(function (e) {
 		e.preventDefault();
-		$.ajax({
-			url: "/team/teamcreate",
-			type: "post",
-			dataType: "json",
-			data: $(this).serialize(),
-			success: function (response) {
+		if ($(this).data("type") == "create") {
 
-				const url = `/team?slug=${response.Slug}`;
-				window.location.href = url;
-			}
-		});
+			$.ajax({
+				url: "/team/teamcreate",
+				type: "post",
+				dataType: "json",
+				data: $(this).serialize(),
+				success: function (response) {
+					const url = `/team?slug=${response.Slug}`;
+					window.location.href = url;
+				}
+			});
+		} else {
+			$.ajax({
+				url: "/team/TeamEdit",
+				type: "post",
+				dataType: "json",
+				data: $(this).serialize(),
+				success: function (response) {
+					$(`div[data-id="${response.Id}"]`).find("span").text(response.Name);
+					$(`div[data-id="${response.Id}"]`).find("p").text(response.Desc);
+					$.fancybox.close();
+					$("#team-form").find("input[name='name']").val('');
+					$("#team-form").find("textarea[name='desc']").val('');
+					$("#team-form").attr("data-type", "create");
+					$("#team-form").find(".type-id").remove();
+					$("#team-form").find(".createBtn").text("Create team");
+					$("#team").find(".popup-head").html(`<h3>New Team</h3>`);
+					$(".mem-input").css({ "display": "block" });
+
+				}
+			});
+
+		}
 
 	});
 	$("[data-fancybox]").fancybox({
@@ -65,26 +127,51 @@
 		e.preventDefault();
 
 		let form = $(this);
-		letformdata = false;
+		let formdata = false;
 		if (window.FormData) {
 			formdata = new FormData(form[0]);
 		}
-
-		$.ajax({
-			url: "/task/TaskCreate",
-			type: "post",
-			dataType: "json",
-			data: formdata ? formdata : form.serialize(),
-			processData: false,
-			contentType: false,
-			success: function (response) {
-				const url = `/task?slug=${response.Slug}`;
-				window.location.href = url;
-			}
-		});
+		if ($(this).data("type") == "create") {
+			$.ajax({
+				url: "/task/TaskCreate",
+				type: "post",
+				dataType: "json",
+				data: formdata ? formdata : form.serialize(),
+				processData: false,
+				contentType: false,
+				success: function (response) {
+					const url = `/task?slug=${response.Slug}`;
+					window.location.href = url;
+				}
+			});
+		} else {
+			var name = $("#task-form").find("input[name='name']").val();
+			var slug = $("#task-form").find("input[name='slug']").val();
+			var desc = $("#task-form").find("textarea[name='desc']").val();
+			var stage = $("#task-form").find("select[name='TaskStageId']").val();
+			var id = $("#task-form").find("input[name='id']").val();
+			$.ajax({
+				url: "/task/TaskEdit",
+				type: "post",
+				dataType: "json",
+				data: {
+					Id: id,
+					Name: name,
+					Slug: slug,
+					Desc: desc,
+					Stage: stage
+				},
+				success: function (response) {
+					const url = `/task?slug=${response.Slug}`;
+					window.location.href = url;
+				}
+			});
+		}
 	});
-	$("#add-check").click(function () {
-		let form = `<div id="form-create-click" class="file-card  w-100 d-flex justify-content-start align-items-center">
+
+	$("#add-check").click(function (e) {
+		e.preventDefault();
+		let form = `<div id="form-create-click" class="file-card w-100 d-flex justify-content-start align-items-center">
 					<div class="file-info pl-4 py-4 w-100">
 						<div class="input-group pl-5 mb-3">
 							<div class="bar">
@@ -93,16 +180,15 @@
 							<form id="check-form" data-type="create"  method="post">
 <input id="checkbox" class="check" type="checkbox" />
 								<input id="text" type="text" class="form-control" placeholder="Enter Text">
-								<button type="submit" action="@Url.Action("ChecklistCreate", "task" , new={Model.Task.Id})" class="createBtn btn btn-primary my-3">
+								<button type="submit" class="createBtn btn btn-primary my-3">
 						Create
-						checklist
 					</button>
 							</form>
 						</div>
 					</div>
 				</div>`;
 		$("#check-body").prepend(form);
-		$(".check").click(function (e) {
+		$(".check").click(function () {
 			if ($(this).attr("checked") != "checked") {
 				$(this).attr("checked", "checked");
 			}
@@ -120,28 +206,28 @@
 			else {
 				done = true;
 			}
-			let id = $(".head").data("id");
+			let tid = $(".head").data("id");
 			let text = that.find("input:text").val();
-
-			$.ajax({
-				url: "/task/ChecklistCreate",
-				type: "POST",
-				dataType: "json",
-				data: {
-					Check: done,
-					TaskId: id,
-					Text: text
-				},
-				success: function (response) {
-					let card = `<div  class="check-card file-card  w-100 d-flex justify-content-start align-items-center" data-id="${response.Id}">
+			if ($(this).data("type") == "create") {
+				$.ajax({
+					url: "/task/ChecklistCreate",
+					type: "POST",
+					dataType: "json",
+					data: {
+						Check: done,
+						TaskId: tid,
+						Text: text
+					},
+					success: function (response) {
+						let card = `<div  class="check-card file-card  w-100 d-flex justify-content-start align-items-center" data-id="${response.Id}">
 						<div class="file-info pl-4 py-4 w-100">
 							<div class="input-group pl-5 mb-3">
 								<div class="bar">
 									<i class="fas fa-bars"></i>
 								</div>
-								<form id="check-form" data-type="edit" method="post">
-									<input class="check" type="checkbox" ${done ? 'checked = "checked"' : ''}>
-									<input id="text" type="text" class="form-control" placeholder="Enter Text" value="${response.Text}">
+								<form id="check-form" data-type="update" method="post">
+									<input name="checked" class="check" type="checkbox" ${done ? 'checked = "checked"' : ''}>
+									<input name="text" id="text" type="text" class="form-control" placeholder="Enter Text" value="${response.Text}">
 								</form>
 							</div>
 						</div>
@@ -156,13 +242,46 @@
 							</div>
 						</div>
 					</div>`;
-					$("#check-body").prepend(card);
-					$("#check-body").find("#form-create-click").empty();
-					$("input:checked").next().css({
-						"text-decoration-line": "line-through"
-					});
-				}
-			});
+						$("#check-body").prepend(card);
+						$("#check-body").find("#form-create-click").remove();
+						$("input:checked").next().css({
+							"text-decoration-line": "line-through"
+						});
+					}
+				});
+			}
+
+		});
+	});
+	$(document).on("click", "#edit-checkitem",function (e) {
+		e.preventDefault();
+		let that=$(this).parents(".check-card");
+		let edit = `<button type="submit" class="createBtn btn btn-primary my-3">
+						Update
+					</button>`;
+		that.find("#check-form").append(edit);
+		$("#check-form").submit(function (e) {
+			e.preventDefault();
+			let form = $(this);
+			let Id = form.parents(".check-card").data("id");
+			let texts = form.find("input:text").val();
+			var checking = $(".check").prop('checked')
+			
+			if ($(this).data("type") == "update") {
+				$.ajax({
+					url: "/task/CheckEdit",
+					type: "POST",
+					dataType: "json",
+					data: {
+						id: Id,
+						check: checking,
+						text: texts
+					},
+					success: function (response) {
+						$(`.check-card[data-id="${response.Id}"]`).find("button").remove();
+					}
+				});
+			}
 		});
 	});
 	$("#note-form").submit(function (e) {
@@ -170,17 +289,19 @@
 		let taskid = $(".head").data("id");
 		let title = $("#title").val();
 		let description = $("#description").val();
-		$.ajax({
-			url: "/task/NoteCreate",
-			type: "post",
-			dataType: "json",
-			data: {
-				TaskId: taskid,
-				Title: title,
-				Desc: description
-			},
-			success: function (response) {
-				let note = `<div class="note-card p-4" data-id="${response.Id}">
+		let id = $(this).find("#id").val()
+		if ($(this).data("type") == "create") {
+			$.ajax({
+				url: "/task/NoteCreate",
+				type: "post",
+				dataType: "json",
+				data: {
+					TaskId: taskid,
+					Title: title,
+					Desc: description
+				},
+				success: function (response) {
+					let note = `<div class="note-card p-4" data-id="${response.Id}">
 						<p>
 							${response.Title}
 						</p>
@@ -193,15 +314,36 @@
 								<i class="fas fa-ellipsis-v"></i>
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<a id="edit-note" class="dropdown-item" href="#">Edit</a>
+								<a id="edit-note" class="dropdown-item" data-src="#note-create" data-fancybox href="javascript:;">Edit</a>
 								<a id="delete-note" class="dropdown-item" href="#">Delete</a>
 							</div>
 						</div>
 					</div>`;
-				$("#note-body").prepend(note);
-				$.fancybox.close();
-			}
-		});
+					$("#note-body").prepend(note);
+					$.fancybox.close();
+				}
+			});
+		} else {
+			$.ajax({
+				url: "/task/NoteEdit",
+				type: "post",
+				dataType: "json",
+				data: {
+					Id: id,
+					Title: title,
+					Desc: description
+				},
+				success: function (response) {
+					$(`.note-card[data-id="${response.Id}"]`).find("p").text(response.Title)
+					$(`.note-card[data-id="${response.Id}"]`).find("span").text(response.Desc)
+					$.fancybox.close();
+					$("#note-form").find(".type-id").remove();
+					$("#note-form").attr("data-type", "create");
+					$("#note-create").find(".popup-head").html(`<h3>New note</h3>`);
+					$("#note-form").find(".createBtn").text("Create note");
+				}
+			});
+		}
 	});
 	//team
 	$("#member-form").submit(function (e) {
@@ -218,7 +360,8 @@
 				member: mem
 			},
 			success: function (response) {
-				let mem = `<div class="member-card text-center">
+				let mem = `<div class="member-card text-center" data-id="${response.Id}">
+<a id="delete-member" class="del" href="#"><i class="fas fa-times"></i></a>
 					<div class="member-photo mt-5">
 						<img src="/Public/img/${response.Photo}" alt="${response.User}">
 					</div>
@@ -297,10 +440,10 @@
 			formdata = new FormData(form[0]);
 		}
 		$.ajax({
-			url: "/task/FileUpload",
+			url: "/task/FileUpload/",
 			type: "post",
 			dataType: "json",
-			data:formdata ? formdata : form.serialize(),
+			data: formdata ? formdata : form.serialize(),
 			processData: false,
 			contentType: false,
 			success: function (response) {

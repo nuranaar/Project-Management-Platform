@@ -515,6 +515,13 @@ main #members .page-body {
 main #members .page-body .member-card {
   width: 256px;
   height: 306px;
+  position: relative;
+}
+
+main #members .page-body .member-card .del {
+  position: absolute;
+  right: 15px;
+  top: 6px;
 }
 
 main #members .page-body .member-card .member-photo img {

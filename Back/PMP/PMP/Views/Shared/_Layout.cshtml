@@ -137,44 +137,45 @@
 				<div class="popup-head px-5 pt-4 pb-2 w-100">
 					<h3>New Task</h3>
 				</div>
-				<form class="px-4" id="task-form" enctype="multipart/form-data" method="post">
+				<form data-type="create" class="px-4" id="task-form" enctype="multipart/form-data" method="post">
 
 					<label for="name">Name</label>
 					<input type="text" id="name" name="name" data-type="slug-source" class="form-control" aria-describedby="taskName"
 						   placeholder="Task name">
-					<div class="form-group" style="display:none">
+					<div class="form-group slug-id" style="display:none">
 						<label for="slug">Slug</label>
 						<input type="text" id="slug" name="slug" data-type="slug-input" class="form-control" aria-describedby="taskSlug"
 							   placeholder="Task slug">
 					</div>
-					<label for="TaskStageId">Qrup</label>
+					<label for="TaskStageId">Task Stage</label>
 					<select name="TaskStageId" id="TaskStageId" class="form-control"></select>
 
 					<label for="desc">Description</label>
 					<textarea id="desc" name="desc" class="form-control" rows="3"
 							  placeholder="Task description"></textarea>
+					<div class="mem-input">
+						<label for="member">Members</label>
+						<input type="text" id="member" name="member" class="form-control" aria-describedby="TaskMember"
+							   placeholder="Add task members">
 
-					<label for="member">Members</label>
-					<input type="text" id="member" name="member" class="form-control" aria-describedby="TaskMember"
-						   placeholder="Add task members">
+						<div class="row">
+							<div class="col-6">
+								<label for="StartTime">Start date</label>
+								<input type="date" id="StartTime" name="StartTime" class="form-control"
+									   aria-describedby="StartTime">
 
-					<div class="row">
-						<div class="col-6">
-							<label for="StartTime">Start date</label>
-							<input type="date" id="StartTime" name="StartTime" class="form-control"
-								   aria-describedby="StartTime">
+							</div>
+							<div class="col-6">
+								<label for="EndTime">End date</label>
+								<input type="date" id="EndTime" name="EndTime" class="form-control"
+									   aria-describedby="EndTime">
 
+							</div>
 						</div>
-						<div class="col-6">
-							<label for="EndTime">End date</label>
-							<input type="date" id="EndTime" name="EndTime" class="form-control"
-								   aria-describedby="EndTime">
 
-						</div>
+						<label for="fileBase">Starting files</label>
+						<input type="file" id="fileBase" name="fileBase" class="form-control" />
 					</div>
-					
-					<label for="fileBase">Starting files</label>
-					<input type="file" id="fileBase" name="fileBase" class="form-control" />
 					<hr>
 					@*<div class="row">
 							<div class="col-6">
@@ -216,11 +217,11 @@
 				<div class="popup-head px-5 pt-4 pb-2 w-100">
 					<h3>New Project</h3>
 				</div>
-				<form id="project-form" method="post" class=" px-4">
+				<form id="project-form" method="post" class=" px-4" data-type="create">
 					<label for="name">Name</label>
 					<input type="text" id="name" name="name" data-type="slug-source" required class="form-control" aria-describedby="projectName"
 						   placeholder="Project name">
-					<div class="form-group" style="display:none">
+					<div class="form-group slug-id" style="display:none">
 						<label for="slug">Slug</label>
 						<input type="text" id="slug" name="slug" data-type="slug-input" class="form-control" aria-describedby="projectSlug"
 							   placeholder="Project slug">
@@ -228,44 +229,48 @@
 					<label for="desc">Description</label>
 					<textarea id="desc" name="desc" class="form-control" rows="3"
 							  placeholder="Project description"></textarea>
-					<label for="member">Members</label>
-					<input type="text" id="member" name="member" class="form-control" aria-describedby="projectMember"
-						   placeholder="Add team members">
-					<div class="row">
-						<div class="col-6">
-							<label for="StartTime">Start date</label>
-							<input type="date" id="StartTime" name="StartTime" required class="form-control"
-								   aria-describedby="StartTime">
-						</div>
-						<div class="col-6">
-							<label for="EndTime">End date</label>
-							<input type="date" id="EndTime" name="EndTime" required class="form-control"
-								   aria-describedby="EndTime">
+					<div class="form-group mem-input">
+						<label for="member">Members</label>
+						<input type="text" id="member" name="member" class="form-control" aria-describedby="projectMember"
+							   placeholder="Add project members">
+
+
+						<div class="row">
+							<div class="col-6">
+								<label for="StartTime">Start date</label>
+								<input type="date" id="StartTime" name="StartTime" class="form-control"
+									   aria-describedby="StartTime">
+							</div>
+							<div class="col-6">
+								<label for="EndTime">End date</label>
+								<input type="date" id="EndTime" name="EndTime" class="form-control"
+									   aria-describedby="EndTime">
+							</div>
 						</div>
 					</div>
 					<hr>
 					<div class="row">
 						@*<div class="col-6">
-								<p>Private project</p>
-								<p class="desc">
-									Lorem Ipsum is simply dummy text of the printing and typesetting
-									industry.
-								</p>
-								<div class="custom-control custom-switch">
-									<input type="checkbox" class="custom-control-input" id="customSwitch1">
-									<label class="custom-control-label" for="customSwitch1"></label>
-								</div>
-							</div>*@
+				<p>Private project</p>
+				<p class="desc">
+					Lorem Ipsum is simply dummy text of the printing and typesetting
+					industry.
+				</p>
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="customSwitch1">
+					<label class="custom-control-label" for="customSwitch1"></label>
+				</div>
+			</div>*@
 						@*<div class=" col-12">
-									<div class="warning">
-										<i class="fas fa-exclamation-triangle"></i>
-										<span>Warning</span>
-										<p class="desc p-2">
-											@Html.ValidationSummary(true, "", new { @class = "warning-message text-danger" })
-										</p>
-									</div>
-								</div>
-							</div>*@
+					<div class="warning">
+						<i class="fas fa-exclamation-triangle"></i>
+						<span>Warning</span>
+						<p class="desc p-2">
+							@Html.ValidationSummary(true, "", new { @class = "warning-message text-danger" })
+						</p>
+					</div>
+				</div>
+			</div>*@
 						<button type="submit" class="createBtn btn btn-primary my-3">
 							Create
 							project
@@ -282,25 +287,29 @@
 				<div class="popup-head px-5 pt-4 pb-2 w-100">
 					<h3>New Team</h3>
 				</div>
-				<form id="team-form" class="px-4">
+				<form id="team-form" class="px-4" data-type="create">
 					<label for="name">Name</label>
 					<input type="text" id="name" name="name" class="form-control" required aria-describedby="teamName" data-type="slug-source"
 						   placeholder="Team name">
 
-					<div class="form-group" style="display:none">
+					<div class="form-group slug-id" style="display:none">
 						<label for="slug">Slug</label>
 						<input type="text" id="slug" name="slug" data-type="slug-input" required class="form-control" aria-describedby="teamSlug"
 							   placeholder="Team slug">
+
+
 					</div>
 
 					<label for="desc">Description</label>
 					<textarea id="desc" name="desc" class="form-control" required rows="3"
 							  placeholder="Team description"></textarea>
 
-					<label for="member">Members</label>
-					<input type="text" id="member" name="member" class="form-control" aria-describedby="teammember"
-						   placeholder="Add team members">
-					<hr>
+					<div class="form-group mem-input">
+						<label for="member">Members</label>
+						<input type="text" id="member" name="member" class="form-control" aria-describedby="teammember"
+							   placeholder="Add team members">
+						<hr>
+					</div>
 					<div class="row">
 						@*<div class="col-6">
 								<p>Private project</p>
@@ -340,6 +349,7 @@
 	<script src="~/Public/js/slugify.js"></script>
 	<script src="~/Public/js/create.js"></script>
 	<script src="~/Public/js/delete.js"></script>
+	<script src="~/Public/js/edit.js"></script>
 
 
 </body>

@@ -42,4 +42,6 @@ $(document).ready(function () {
 	$("input:checked").next().css({
 		"text-decoration-line": "line-through"
 	});
+
+		
 });

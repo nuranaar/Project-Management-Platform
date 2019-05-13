@@ -145,7 +145,12 @@ main {
         @extend %card_hover;
         width: 256px;
         height: 306px;
-
+        position: relative;
+        .del{
+          position: absolute;
+    right: 15px;
+    top: 6px;
+        }
         .member-photo {
           img {
             width: 100px;

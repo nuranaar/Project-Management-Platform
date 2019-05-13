@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using PMP.ViewModels;
 using PMP.Models;
+using System.Data.Entity;
 
 namespace PMP.Controllers
 {
@@ -128,6 +129,63 @@ namespace PMP.Controllers
 			db.Projects.Remove(project);
 			db.SaveChanges();
 			return Json("", JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		public JsonResult ProjectDetails(int ProjectId)
+		{
+			Project project = db.Projects.FirstOrDefault(t => t.Id == ProjectId);
+			if (project == null)
+			{
+				Response.StatusCode = 404;
+				return Json(new
+				{
+					message = "Not Found!"
+				}, JsonRequestBehavior.AllowGet);
+			}
+
+
+
+			return Json(new
+			{
+				project.Id,
+				project.Name,
+				project.Slug,
+				project.Desc,
+				project.StartTime,
+				project.EndTime
+			}, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		public JsonResult ProjectEdit(Project project)
+		{
+			if (!ModelState.IsValid)
+			{
+				Response.StatusCode = 400;
+				var errorList = ModelState.Values.SelectMany(m => m.Errors)
+								 .Select(e => e.ErrorMessage)
+								 .ToList();
+
+				return Json(errorList, JsonRequestBehavior.AllowGet);
+			}
+			Project pr = db.Projects.Find(project.Id);
+			pr.UserId = 1;
+			pr.Name = project.Name;
+			pr.Slug = project.Slug;
+			pr.StartTime = project.StartTime;
+			pr.EndTime = project.EndTime;
+			pr.Desc = project.Desc;	
+			db.Entry(pr).State = EntityState.Modified;
+			db.SaveChanges();
+			project.User = db.Users.Find(project.UserId);
+			return Json(new
+			{
+				project.Id,
+				project.Name,
+				project.Slug,
+				project.Desc
+			}, JsonRequestBehavior.AllowGet);
 		}
 	}
 }

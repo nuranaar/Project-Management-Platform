@@ -45,23 +45,18 @@
 		<div class="page-body d-flex justify-content-around ">
 			@foreach (Team team in Model.Teams.ToList())
 			{
-
-
-				<div class="team-card" data-slug="@team.Slug">
-
+				<div class="team-card" data-slug="@team.Slug" data-id="@team.Id">
 					<div class="card-title">
-
 						<a class="click-title title" href="@Url.Action("index", "team", new { slug = team.Slug })">
 							<span>@team.Name</span>
 						</a>
-
 						<div class="dropdown">
 							<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
 							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fas fa-ellipsis-v"></i>
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<a id="edit-team" class="dropdown-item" href="#">Edit</a>
+								<a id="edit-team" class="dropdown-item" href="javascript:;" data-fancybox data-src="#team">Edit</a>
 								<a id="delete-team" class="dropdown-item" href="#">Delete</a>
 							</div>
 						</div>
@@ -77,9 +72,7 @@
 							</ul>
 						</div>
 					</div>
-
 				</div>
-
 			}
 
 		</div>
@@ -102,7 +95,7 @@
 		<div class="page-body d-flex justify-content-around ">
 			@foreach (Project project in Model.Projects.ToList())
 			{
-				<div class="project-card" data-slug="@project.Slug">
+				<div class="project-card" data-slug="@project.Slug" data-id="@project.Id">
 					<div class="progress">
 						<div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25"
 							 aria-valuemin="0" aria-valuemax="100"></div>
@@ -121,7 +114,7 @@
 								<i class="fas fa-ellipsis-v"></i>
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<a id="edit-project" class="dropdown-item" href="#">Edit</a>
+								<a id="edit-project" class="dropdown-item" href="javascript:;" data-fancybox data-src="#project">Edit</a>
 								<a id="delete-project" class="dropdown-item" href="#">Delete</a>
 							</div>
 						</div>
@@ -177,7 +170,7 @@
 							{
 								foreach (Task task in Model.Tasks.Where(t => t.TaskStageId == stage.Id).ToList())
 								{
-									<div class="task-card mt-4" data-slug="@task.Slug">
+									<div class="task-card mt-4" data-slug="@task.Slug" data-id="@task.Id">
 										<div class="progress">
 											<div class="progress-bar" role="progressbar" style="width: 25%"
 												 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -212,7 +205,7 @@
 													</a>
 													<div class="dropdown-menu"
 														 aria-labelledby="navbarDropdownMenuLink">
-														<a id="edit-task" class="dropdown-item" href="#">Edit</a>
+														<a id="edit-task" class="dropdown-item" href="javascript:;" data-fancybox data-src="#task">Edit</a>
 														<a id="delete-task" class="dropdown-item" href="#">Delete</a>
 													</div>
 												</div>
