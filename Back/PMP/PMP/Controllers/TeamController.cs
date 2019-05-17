@@ -62,13 +62,22 @@ namespace PMP.Controllers
 				db.TeamMembers.Add(teamMember);
 				db.SaveChanges();
 			}
-			
+
+			Activity act = new Activity()
+			{
+				UserId = team.UserId,
+				Desc = "create team " + team.Name,
+				Date = DateTime.Now
+			};
+			db.Activities.Add(act);
+			db.SaveChanges();
 			return Json(new
 			{
 				team.Id,
 				team.Name,
 				team.Slug
 			}, JsonRequestBehavior.AllowGet);
+
 		}
 
 		[HttpPost]
@@ -154,6 +163,14 @@ namespace PMP.Controllers
 			db.SaveChanges();
 			db.Teams.Remove(team);
 			db.SaveChanges();
+			Activity act = new Activity()
+			{
+				UserId = team.UserId,
+				Desc = "delete team " + team.Name,
+				Date = DateTime.Now
+			};
+			db.Activities.Add(act);
+			db.SaveChanges();
 			return Json("", JsonRequestBehavior.AllowGet);
 		}
 
@@ -198,6 +215,14 @@ namespace PMP.Controllers
 			db.Entry(team).State = EntityState.Modified;
 			db.SaveChanges();
 			team.User = db.Users.Find(team.UserId);
+			Activity act = new Activity()
+			{
+				UserId = team.UserId,
+				Desc = "uptade team " + team.Name,
+				Date = DateTime.Now
+			};
+			db.Activities.Add(act);
+			db.SaveChanges();
 			return Json(new
 			{
 				team.Id,

@@ -702,6 +702,10 @@ main #members .page-body .member-card .icons li i {
   top: 17px;
 }
 
+.kanban #tasks {
+  width: 877px;
+}
+
 .kanban #tasks .page-body .task-list {
   display: -webkit-box;
   display: -ms-flexbox;

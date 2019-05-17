@@ -49,14 +49,9 @@
 
 <div class="row mb-5">
 	<div id="activity" class="page mt-5">
-		<div class="page-title d-flex justify-content-between ">
-			<div class="d-flex justify-content-between align-items-center">
+		<div class="page-title ">
 				<h2>Activity</h2>
-			</div>
-			<form class=" filterForm my-3">
-				<input type="search" class="form-control filter py-4" placeholder="Filter activity">
-				<button type="submit" class="btn filterBtn"><i class="fas fa-search"></i></button>
-			</form>
+			
 		</div>
 		<div class="page-body ">
 			@foreach (TaskMember member in Model.TaskMembers.ToList())
@@ -67,30 +62,18 @@
 				{
 					<div class="act-card w-100 d-flex justify-content-start align-items-center">
 						<ul class="avatars mt-3">
-							<li><a href=""><i class="fas fa-star"></i></a></li>
-
-							<li><a href=""><img src="~/Public/img/@Model.Users.Find(u=>u.Id==act.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==act.UserId).Name"></a></li>
+							<li><a href="#"><i class="fas fa-star"></i></a></li>
+							<li><a href="#"><img src="~/Public/img/@Model.Users.Find(u=>u.Id==act.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==act.UserId).Name"></a></li>
 						</ul>
 						<div class="act-info pl-4 py-4">
 							<a href="#">
-								<p class="m-0">Michael completed the task <span>task</span></p>
-
+								<p class="m-0">@Model.Users.Find(u => u.Id == act.UserId).Name @act.Desc</p>
 							</a>
 							<span>
-								@act.Date.ToString("MMM dd")
+								@act.Date.ToString("MM.dd.yyyy, hh:mm")
 							</span>
 						</div>
-						<div class="dropdown">
-							<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
-							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fas fa-ellipsis-v"></i>
-							</a>
-							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item" href="#">Edit</a>
-								<a class="dropdown-item" href="#">Share</a>
-								<a class="dropdown-item" href="#">Delete</a>
-							</div>
-						</div>
+					
 					</div>
 
 				}

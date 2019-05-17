@@ -20,12 +20,25 @@ namespace PMP.Controllers
 			{
 				Users = db.Users.ToList(),
 				Task = db.Tasks.FirstOrDefault(t => t.Slug == Slug),
-				Activities = db.Activities.ToList()
+				Activities = db.Activities.OrderByDescending(a => a.Date).ToList()
 			};
-			model.Checklists = db.Checklists.Where(cl => cl.TaskId == model.Task.Id).OrderByDescending(cl=>cl.Id).ToList();
+			model.Checklists = db.Checklists.Where(cl => cl.TaskId == model.Task.Id).OrderByDescending(cl => cl.Id).ToList();
 			model.Notes = db.Notes.Where(n => n.TaskId == model.Task.Id).OrderByDescending(n => n.Id).ToList();
 			model.Files = db.Files.Where(f => f.TaskId == model.Task.Id).OrderByDescending(n => n.Id).ToList();
 			model.TaskMembers = db.TaskMembers.Where(tm => tm.TaskId == model.Task.Id).ToList();
+			return View(model);
+		}
+
+		public ActionResult Kanban()
+		{
+			int userId = 1;
+			KanbanVm model = new KanbanVm()
+			{
+				Users = db.Users.ToList(),
+				Tasks = db.Tasks.Where(t => t.UserId == userId).ToList(),
+				TaskStages = db.TaskStages.ToList(),
+				TaskMembers = db.TaskMembers.ToList()
+			};
 			return View(model);
 		}
 		public JsonResult GetStages()
@@ -72,9 +85,6 @@ namespace PMP.Controllers
 			startfile.Weight = fileBase.ContentLength.ToString() + "-mb";
 			startfile.Type = fileBase.ContentType;
 
-			
-
-
 			task.UserId = 1;
 			db.Tasks.Add(task);
 			db.SaveChanges();
@@ -97,6 +107,14 @@ namespace PMP.Controllers
 				db.SaveChanges();
 			}
 			task.TaskStage = db.TaskStages.Find(task.TaskStageId);
+			Activity act = new Activity()
+			{
+				UserId = task.UserId,
+				Desc = "create task " + task.Name,
+				Date = DateTime.Now
+			};
+			db.Activities.Add(act);
+			db.SaveChanges();
 			return Json(new
 			{
 				task.Id,
@@ -119,7 +137,16 @@ namespace PMP.Controllers
 			checklist.Checked = Check;
 			db.Checklists.Add(checklist);
 			db.SaveChanges();
+			checklist.Task = db.Tasks.Find(checklist.TaskId);
 
+			Activity act = new Activity()
+			{
+				UserId = checklist.Task.UserId,
+				Desc = "add checkitem to task " + checklist.Task.Name,
+				Date = DateTime.Now
+			};
+			db.Activities.Add(act);
+			db.SaveChanges();
 			return Json(new
 			{
 				checklist.Checked,
@@ -142,7 +169,15 @@ namespace PMP.Controllers
 
 			db.Notes.Add(note);
 			db.SaveChanges();
-
+			note.Task = db.Tasks.Find(note.TaskId);
+			Activity act = new Activity()
+			{
+				UserId = note.Task.UserId,
+				Desc = "add note to task " + note.Task.Name,
+				Date = DateTime.Now
+			};
+			db.Activities.Add(act);
+			db.SaveChanges();
 			return Json(new
 			{
 				note.Title,
@@ -180,6 +215,14 @@ namespace PMP.Controllers
 			file.Type = fileBase.ContentType;
 			file.User = db.Users.Find(file.UserId);
 			db.Files.Add(file);
+			db.SaveChanges();
+			Activity act = new Activity()
+			{
+				UserId = file.Task.UserId,
+				Desc = "add new file to task " + file.Task.Name,
+				Date = DateTime.Now
+			};
+			db.Activities.Add(act);
 			db.SaveChanges();
 			return Json(new
 			{
@@ -229,7 +272,7 @@ namespace PMP.Controllers
 		[HttpPost]
 		public JsonResult TaskDelete(string Slug)
 		{
-			Task task = db.Tasks.FirstOrDefault(t=> t.Slug == Slug);
+			Task task = db.Tasks.FirstOrDefault(t => t.Slug == Slug);
 
 			if (task == null)
 			{
@@ -262,13 +305,21 @@ namespace PMP.Controllers
 			db.SaveChanges();
 			db.Tasks.Remove(task);
 			db.SaveChanges();
+			Activity act = new Activity()
+			{
+				UserId = task.UserId,
+				Desc = "detete task " + task.Name,
+				Date = DateTime.Now
+			};
+			db.Activities.Add(act);
+			db.SaveChanges();
 			return Json("", JsonRequestBehavior.AllowGet);
 		}
 
 		[HttpPost]
 		public JsonResult CheckitemDelete(int id)
 		{
-			Checklist checklist = db.Checklists.FirstOrDefault(cl=> cl.Id == id);
+			Checklist checklist = db.Checklists.FirstOrDefault(cl => cl.Id == id);
 
 			if (checklist == null)
 			{
@@ -278,7 +329,7 @@ namespace PMP.Controllers
 					message = "Not Found!"
 				}, JsonRequestBehavior.AllowGet);
 			}
-			
+
 			db.Checklists.Remove(checklist);
 			db.SaveChanges();
 			return Json("", JsonRequestBehavior.AllowGet);
@@ -391,7 +442,7 @@ namespace PMP.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult CheckEdit(int id , string text, bool check)
+		public JsonResult CheckEdit(int id, string text, bool check)
 		{
 			Checklist checklist = db.Checklists.Find(id);
 			if (!ModelState.IsValid)
@@ -432,12 +483,13 @@ namespace PMP.Controllers
 			}
 
 
-			return Json(new {
+			return Json(new
+			{
 				task.Id,
 				task.Name,
 				task.Slug,
 				task.Desc,
-				Stage=new
+				Stage = new
 				{
 					task.TaskStage.Id,
 					task.TaskStage.Name
@@ -466,6 +518,14 @@ namespace PMP.Controllers
 			db.SaveChanges();
 			task.User = db.Users.Find(task.UserId);
 			task.TaskStage = db.TaskStages.Find(task.TaskStageId);
+			Activity act = new Activity()
+			{
+				UserId = task.UserId,
+				Desc = "update task " + task.Name,
+				Date = DateTime.Now
+			};
+			db.Activities.Add(act);
+			db.SaveChanges();
 			return Json(new
 			{
 				task.Id,

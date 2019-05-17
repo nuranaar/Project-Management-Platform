@@ -186,6 +186,7 @@
     <Compile Include="Models\TeamMember.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\KanbanVm.cs" />
     <Compile Include="ViewModels\ProjectVm.cs" />
     <Compile Include="ViewModels\TaskVm.cs" />
     <Compile Include="ViewModels\TeamVm.cs" />
@@ -251,6 +252,7 @@
     <Content Include="Public\css\style.css.map" />
     <Content Include="Public\css\style.scss" />
     <Content Include="Views\Task\Index.cshtml" />
+    <Content Include="Views\Task\Kanban.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

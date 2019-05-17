@@ -21,8 +21,8 @@ namespace PMP.Controllers
 				Tasks = db.Tasks.ToList(),
 				TaskMembers = db.TaskMembers.ToList(),
 				TaskStages = db.TaskStages.ToList(),
-				Activities = db.Activities.ToList(),
-				Files=db.Files.ToList(),
+				Activities = db.Activities.OrderByDescending(a => a.Date).ToList(),
+				Files = db.Files.ToList(),
 			};
 			model.ProjectMembers = db.ProjectMembers.Where(m => m.ProjectId == model.Project.Id).ToList();
 			
@@ -60,7 +60,14 @@ namespace PMP.Controllers
 				db.ProjectMembers.Add(projectMember);
 				db.SaveChanges();
 			}
-			
+			Activity act = new Activity()
+			{
+				UserId = project.UserId,
+				Desc = "create project " + project.Name,
+				Date = DateTime.Now
+			};
+			db.Activities.Add(act);
+			db.SaveChanges();
 			return Json(new
 			{
 				project.Id,
@@ -128,6 +135,14 @@ namespace PMP.Controllers
 			db.SaveChanges();
 			db.Projects.Remove(project);
 			db.SaveChanges();
+			Activity act = new Activity()
+			{
+				UserId = project.UserId,
+				Desc = "delete project " + project.Name,
+				Date = DateTime.Now
+			};
+			db.Activities.Add(act);
+			db.SaveChanges();
 			return Json("", JsonRequestBehavior.AllowGet);
 		}
 
@@ -179,6 +194,14 @@ namespace PMP.Controllers
 			db.Entry(pr).State = EntityState.Modified;
 			db.SaveChanges();
 			project.User = db.Users.Find(project.UserId);
+			Activity act = new Activity()
+			{
+				UserId = project.UserId,
+				Desc = "update project " + project.Name,
+				Date = DateTime.Now
+			};
+			db.Activities.Add(act);
+			db.SaveChanges();
 			return Json(new
 			{
 				project.Id,

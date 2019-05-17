@@ -21,6 +21,7 @@ namespace PMP.Controllers
 				Projects = db.Projects.Where(p => p.UserId == userId).OrderByDescending(p => p.StartTime).ToList(),
 				Teams = db.Teams.Where(t => t.UserId == userId).ToList(),
 				Tasks = db.Tasks.Where(t => t.UserId == userId).ToList(),
+				Checklists=db.Checklists.ToList(),
 				TaskStages = db.TaskStages.ToList(),
 				TeamMembers = db.TeamMembers.ToList(),
 				TaskMembers = db.TaskMembers.ToList(),

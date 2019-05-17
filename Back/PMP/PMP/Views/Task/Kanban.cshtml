@@ -1,0 +1,101 @@
+﻿@model KanbanVm
+@{
+	ViewBag.Title = "Kanban";
+}
+
+<!--Start of header -->
+<div class="header w-100 mt-5">
+	<div class="head d-flex justify-content-center">
+		<div class="row">
+			<div class="col-12">
+				<h1> System Update </h1>
+				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!--End of header -->
+<!--Start of Main -->
+
+<div class="row mb-5">
+	<div class="kanban">
+		<div id="tasks" class="page mt-5" style="display: inline-block">
+			<div class="page-body">
+				<ul class="task-list pl-0">
+					@foreach (TaskStage stage in Model.TaskStages.ToList())
+					{
+						<li>
+							<div id="@stage.Name" class="task-stage pb-4">
+								<h5 class="stage pb-0">@stage.Name</h5>
+								<div class="@stage.Name-list">
+									<div class="scroll-task">
+										@if (stage.Tasks == null)
+										{
+											<p class="add mx-auto text-center" style="width:150px;">
+												Add Task
+											</p>
+										}
+										else
+										{
+											foreach (Task task in Model.Tasks.Where(t => t.TaskStageId == stage.Id).ToList())
+											{
+												<div class="task-card mt-4" data-slug="@task.Slug" data-id="@task.Id">
+													<div class="progress">
+														<div class="progress-bar" role="progressbar" style="width: 25%"
+															 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-12 p-4 pl-5">
+															<a class="slug" href="@Url.Action("index", "task", new { slug = task.Slug })">
+																<h6>@task.Name</h6>
+															</a>
+															<p>@task.Desc</p>
+														</div>
+														<div class="col-12 p-4 d-flex justify-content-between align-items-center">
+															<div class="mt-2">
+																<i class="far fa-check-square"></i><span>4/10</span>
+															</div>
+															<ul class="avatars">
+																@foreach (TaskMember member in Model.TaskMembers.Where(t => t.TaskId == task.Id).ToList())
+																{
+																	<li>
+																		<a href="#"><img src="~/Public/img/@Model.Users.Find(u => u.Id == member.UserId).Photo" alt="@Model.Users.Find(u => u.Id == member.UserId).Name"></a>
+																	</li>
+																}
+
+															</ul>
+															<div class="dropdown">
+																<a class="nav-link" href="#" id="navbarDropdownMenuLink"
+																   role="button" data-toggle="dropdown" aria-haspopup="true"
+																   aria-expanded="false">
+																	<i class="fas fa-ellipsis-v"></i>
+																</a>
+																<div class="dropdown-menu"
+																	 aria-labelledby="navbarDropdownMenuLink">
+																	<a id="edit-task" class="dropdown-item" href="javascript:;" data-fancybox data-src="#task">Edit</a>
+																	<a id="delete-task" class="dropdown-item" href="#">Delete</a>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											}
+										}
+									</div>
+									<div class="add text-center mt-3">
+										<a data-fancybox data-src="#task" class="btn btn-primary px-5" href="javascript:;" style="color:white">
+											Add Task
+										</a>
+									</div>
+								</div>
+							</div>
+						</li>
+					}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<!--End of main -->
