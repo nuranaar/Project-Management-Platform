@@ -1,6 +1,11 @@
 ﻿@model TaskVm
 @{
 	ViewBag.Title = "Index";
+	DateTime now = DateTime.Now;
+	string span=null;
+	var Taskdue = Model.Task.EndTime.Subtract(Model.Task.StartTime);
+	var Taskpass = now.Subtract(Model.Task.StartTime);
+	var progress = (100 * Convert.ToInt32(Taskpass.Days)) / Convert.ToInt32(Taskdue.Days);
 }
 
 
@@ -16,7 +21,7 @@
 			</div>
 			<div class="col-6">
 				<ul class="avatars">
-					@foreach (TaskMember member in Model.TaskMembers.ToList())
+					@foreach (TaskMember member in Model.TaskMembers.Where(m=>m.TaskId==Model.Task.Id).ToList())
 					{
 						<li><a href=""><img src="~/Public/img/@Model.Users.Find(u=>u.Id==member.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==member.UserId).Name"></a></li>
 					}
@@ -27,12 +32,20 @@
 					</li>
 				</ul>
 				<div class="progress">
-					<div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25"
+					<div class="progress-bar" role="progressbar" style="width: @progress%" aria-valuenow="@progress"
 						 aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
 				<div class="progInfo d-flex justify-content-between">
-					<div><i class="far fa-check-square"></i><span>4/10</span></div>
-					<div class="due"><i class="far fa-clock"></i><span>Due 7 days</span></div>
+
+					@if (Taskpass <= Taskdue)
+					{
+						<div class="mt-2"><i class="far fa-check-square"></i><span>@(Taskpass.Days > 30 ? Math.Round(Taskpass.TotalDays / 30) : Taskpass.Days) @(Taskpass.Days > 30 ? span = "months" : span = "days")</span></div>
+					}
+					else
+					{
+				<div class="mt-2"><i class="far fa-check-square"></i><span> Complated</span></div>
+					}
+				<div class="due"><i class="far fa-clock"></i><span>Due @Taskdue.Days days</span></div>
 				</div>
 			</div>
 		</div>
@@ -80,8 +93,8 @@
 			}
 		</div>
 	</div>
-	<div id="checklist" class="page">
-		<div class="page-title d-flex justify-content-between ">
+	<div id="checklist" class="page mt-5">
+		<div class="page-title">
 			<div class="d-flex justify-content-between align-items-center">
 				<h2>Checklist</h2>
 				<div class="add" id="add-check">
@@ -90,13 +103,10 @@
 					</a>
 				</div>
 			</div>
-			<form class=" filterForm my-3">
-				<input type="search" class="form-control filter py-4" placeholder="Filter checklist">
-				<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
-			</form>
+			
 		</div>
 		<div id="check-body" class="page-body">
-			@foreach (Checklist checklist in Model.Checklists.ToList())
+			@foreach (Checklist checklist in Model.Checklists.Where(c=>c.TaskId==Model.Task.Id).ToList())
 			{
 				<div class="check-card file-card  w-100 d-flex justify-content-start align-items-center" data-id="@checklist.Id">
 					<div class="file-info pl-4 py-4 w-100">
@@ -132,7 +142,7 @@
 		</div>
 
 		<div id="note" class="page mt-5" style="display:inline-block;">
-			<div class="page-title d-flex justify-content-between ">
+			<div class="page-title">
 				<div class="d-flex justify-content-between align-items-center">
 					<h2>Note</h2>
 					<div class="add">
@@ -141,13 +151,10 @@
 						</a>
 					</div>
 				</div>
-				<form class="filterForm my-3">
-					<input type="search" class="form-control filter py-4" placeholder="Filter notes">
-					<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
-				</form>
+
 			</div>
 			<div id="note-body" class="page-body d-flex justify-content-around align-items-center">
-				@foreach (Note note in Model.Notes.ToList())
+				@foreach (Note note in Model.Notes.Where(n=>n.TaskId==Model.Task.Id).ToList())
 				{
 					<div class="note-card p-4" data-id="@note.Id">
 						<p>
@@ -168,8 +175,6 @@
 						</div>
 					</div>
 				}
-
-
 			</div>
 		</div>
 	</div>
@@ -178,10 +183,7 @@
 			<div class="d-flex justify-content-between align-items-center">
 				<h2>Files</h2>
 			</div>
-			<form class="filterForm my-3">
-				<input type="search" class="form-control filter py-4" placeholder="Filter files">
-				<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
-			</form>
+
 		</div>
 		<div class="page-body ">
 			<div class="upload w-100">
@@ -195,7 +197,7 @@
 				</form>
 			</div>
 			<div id="file-list">
-				@foreach (PMP.Models.File file in Model.Files.ToList())
+				@foreach (PMP.Models.File file in Model.Files.Where(f=>f.TaskId==Model.Task.Id).ToList())
 				{
 					<div id="file-card" class="file-card w-100 d-flex justify-content-start align-items-center" data-id="@file.Id">
 						<ul class="avatars mt-3">

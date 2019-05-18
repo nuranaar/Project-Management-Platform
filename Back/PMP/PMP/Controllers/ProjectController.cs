@@ -23,6 +23,7 @@ namespace PMP.Controllers
 				TaskStages = db.TaskStages.ToList(),
 				Activities = db.Activities.OrderByDescending(a => a.Date).ToList(),
 				Files = db.Files.ToList(),
+				Checklists=db.Checklists.ToList()
 			};
 			model.ProjectMembers = db.ProjectMembers.Where(m => m.ProjectId == model.Project.Id).ToList();
 			

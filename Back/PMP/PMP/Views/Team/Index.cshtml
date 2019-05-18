@@ -42,7 +42,7 @@
 
 <div class="row mb-5">
 	<div id="projects" class="page mt-5">
-		<div class="page-title d-flex justify-content-between ">
+		<div class="page-title ">
 			<div class="d-flex justify-content-between align-items-center">
 				<h2>Projects</h2>
 				<div class="add">
@@ -51,10 +51,7 @@
 					</a>
 				</div>
 			</div>
-			<form class=" filterForm my-3">
-				<input type="search" class="form-control filter py-4" placeholder="Filter projects">
-				<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
-			</form>
+			
 		</div>
 		<div class="page-body d-flex justify-content-around ">
 			@foreach (TeamMember member in Model.TeamMembers.ToList())

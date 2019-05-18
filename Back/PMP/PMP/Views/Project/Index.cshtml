@@ -2,6 +2,7 @@
 @{
 	ViewBag.Title = "Index";
 	DateTime now = DateTime.Now;
+	string span=null;
 	var due = Model.Project.EndTime.Subtract(Model.Project.StartTime);
 	var pass = now.Subtract(Model.Project.StartTime);
 	var bar = (100 * Convert.ToInt32(pass.Days)) / Convert.ToInt32(due.Days);
@@ -46,15 +47,19 @@
 					</div>
 				}
 			<div class="progInfo d-flex justify-content-between">
+
+
 				@if (pass <= due)
 				{
-					<div><i class="far fa-check-square"></i><span>@pass.Days / @due.Days</span></div>
+					<div class="mt-2"><i class="far fa-check-square"></i><span>@(pass.Days > 30 ? Math.Round(pass.TotalDays / 30) : pass.Days) @(pass.Days > 30 ? span = "months" : span = "days")</span></div>
+
 				}
 				else
 				{
-					<div><i class="far fa-check-square"></i><span>@due.Days / @due.Days complate</span></div>
+					<div class="mt-2"><i class="far fa-check-square"></i><span> Complated</span></div>
+
 				}
-				<div class="due"><i class="far fa-clock"></i><span>Due @due.Days days</span></div>
+				<div class="due"><i class="far fa-clock"></i><span>Due @(due.Days > 30 ? Math.Round(due.TotalDays / 30) : due.Days) @(due.Days > 30 ? span = "months" : span = "days")</span></div>
 
 			</div>
 
@@ -139,7 +144,14 @@
 
 										<div class="task-card mt-4" data-slug="@task.Slug" data-id="@task.Id">
 											<div class="progress">
-												<div class="progress-bar" role="progressbar" style="width: 25%"
+												@{
+													var Taskdue = task.EndTime.Subtract(task.StartTime);
+													var Taskpass = now.Subtract(task.StartTime);
+													var progress = (100 * Convert.ToInt32(Taskpass.Days)) / Convert.ToInt32(Taskdue.Days);
+
+
+												}
+												<div class="progress-bar" role="progressbar" style="width:  @progress%"
 													 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 											</div>
 											<div class="row">
@@ -160,9 +172,6 @@
 														}
 
 													</ul>
-													<div class="mt-2">
-														<i class="far fa-check-square"></i><span>4/10</span>
-													</div>
 
 													<div class="dropdown">
 														<a class="nav-link" href="#" id="navbarDropdownMenuLink"
@@ -205,9 +214,8 @@
 			</div>
 			@foreach (ProjectMember mem in Model.ProjectMembers.ToList())
 			{
-				foreach (Task task in Model.Tasks.Where(t => t.UserId == mem.UserId).ToList())
-				{
-					foreach (var file in Model.Files.Where(f => f.UserId == task.UserId).ToList())
+				
+					foreach (var file in Model.Files.Where(f => f.UserId == mem.UserId).ToList())
 					{
 						<div class="file-card w-100 d-flex justify-content-start align-items-center">
 							<ul class="avatars mt-3">
@@ -224,7 +232,7 @@
 						</div>
 
 					}
-				}
+				
 			}
 		</div>
 	</div>

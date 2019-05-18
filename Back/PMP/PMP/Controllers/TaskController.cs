@@ -20,12 +20,13 @@ namespace PMP.Controllers
 			{
 				Users = db.Users.ToList(),
 				Task = db.Tasks.FirstOrDefault(t => t.Slug == Slug),
-				Activities = db.Activities.OrderByDescending(a => a.Date).ToList()
-			};
-			model.Checklists = db.Checklists.Where(cl => cl.TaskId == model.Task.Id).OrderByDescending(cl => cl.Id).ToList();
-			model.Notes = db.Notes.Where(n => n.TaskId == model.Task.Id).OrderByDescending(n => n.Id).ToList();
-			model.Files = db.Files.Where(f => f.TaskId == model.Task.Id).OrderByDescending(n => n.Id).ToList();
-			model.TaskMembers = db.TaskMembers.Where(tm => tm.TaskId == model.Task.Id).ToList();
+				Activities = db.Activities.OrderByDescending(a => a.Date).ToList(),
+				Checklists=db.Checklists.OrderByDescending(c => c.Id).ToList(),
+				Notes = db.Notes.OrderByDescending(n => n.Id).ToList(),
+				Files = db.Files.OrderByDescending(f => f.Id).ToList(),
+				TaskMembers = db.TaskMembers.ToList()
+		};
+
 			return View(model);
 		}
 
@@ -456,10 +457,10 @@ namespace PMP.Controllers
 
 			checklist.Checked = check;
 			checklist.Text = text;
+			checklist.Task = db.Tasks.Find(checklist.TaskId);
+
 			db.Entry(checklist).State = EntityState.Modified;
-
 			db.SaveChanges();
-
 			return Json(new
 			{
 				checklist.Checked,

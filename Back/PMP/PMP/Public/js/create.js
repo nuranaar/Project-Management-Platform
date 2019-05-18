@@ -199,13 +199,7 @@
 		$("#check-form").submit(function (e) {
 			e.preventDefault();
 			let that = $(this);
-			let done;
-			if (that.find(".check").attr("checked") != "checked") {
-				done = false;
-			}
-			else {
-				done = true;
-			}
+			let checking = $(".check").prop('checked');
 			let tid = $(".head").data("id");
 			let text = that.find("input:text").val();
 			if ($(this).data("type") == "create") {
@@ -214,7 +208,7 @@
 					type: "POST",
 					dataType: "json",
 					data: {
-						Check: done,
+						Check: checking,
 						TaskId: tid,
 						Text: text
 					},
@@ -226,7 +220,7 @@
 									<i class="fas fa-bars"></i>
 								</div>
 								<form id="check-form" data-type="update" method="post">
-									<input name="checked" class="check" type="checkbox" ${done ? 'checked = "checked"' : ''}>
+									<input name="checked" class="check" type="checkbox" ${checking ? 'checked = "checked"' : ''}>
 									<input name="text" id="text" type="text" class="form-control" placeholder="Enter Text" value="${response.Text}">
 								</form>
 							</div>
@@ -260,14 +254,15 @@
 						Update
 					</button>`;
 		that.find("#check-form").append(edit);
-		$("#check-form").submit(function (e) {
+		$(document).on("submit","#check-form" ,function (e) {
 			e.preventDefault();
 			let form = $(this);
 			let Id = form.parents(".check-card").data("id");
 			let texts = form.find("input:text").val();
-			var checking = $(".check").prop('checked')
-			
-			if ($(this).data("type") == "update") {
+			var checking = $(".check").prop('checked');
+
+			if (form.data("type") == "update") {
+
 				$.ajax({
 					url: "/task/CheckEdit",
 					type: "POST",
@@ -279,6 +274,7 @@
 					},
 					success: function (response) {
 						$(`.check-card[data-id="${response.Id}"]`).find("button").remove();
+
 					}
 				});
 			}

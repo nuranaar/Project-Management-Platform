@@ -23,5 +23,7 @@ namespace PMP.ViewModels
 		public List<File> Files { get; set; }
 
 		public List<Activity> Activities { get; set; }
+
+		public List<Checklist> Checklists { get; set; }
 	}
 }

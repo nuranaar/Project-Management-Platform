@@ -1,5 +1,7 @@
 ﻿@model UserVm
 @{
+	DateTime now = DateTime.Now;
+string a;
 
 }
 
@@ -88,11 +90,24 @@
 		<div class="page-body d-flex justify-content-around ">
 			@foreach (Project project in Model.Projects.ToList())
 			{
+				var due = project.EndTime.Subtract(project.StartTime);
+				var pass = now.Subtract(project.StartTime);
+				var bar = (100 * Convert.ToInt32(pass.Days)) / Convert.ToInt32(due.Days);
 				<div class="project-card" data-slug="@project.Slug" data-id="@project.Id">
-					<div class="progress">
-						<div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100"
-							 aria-valuemin="0" aria-valuemax="100"></div>
-					</div>
+					@if (project.EndTime < now)
+					{
+						<div class="progress">
+							<div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="10"
+								 aria-valuemin="0" aria-valuemax="100"></div>
+						</div>
+					}
+					else
+					{
+						<div class="progress">
+							<div class="progress-bar" role="progressbar" style="width: @bar%" aria-valuenow="10"
+								 aria-valuemin="0" aria-valuemax="100"></div>
+						</div>
+					}
 					<div class="card-title">
 						<div class="curColor">
 							<i class="fas fa-circle"></i>
@@ -115,18 +130,18 @@
 					<div class="card-body pt-1">
 						<p>@project.Desc</p>
 						<div class="card-info">
-							<ul class="avatars">
-								@foreach (ProjectMember member in Model.ProjectMembers.Where(p => p.ProjectId == project.Id).ToList())
-								{
-									<li><a href="#"><img src="~/Public/img/@Model.Users.Find(u=>u.Id==member.UserId).Photo" alt=""></a></li>
-								}
-							</ul>
+							<div class="card-info d-flex justify-content-between">
+								<ul class="avatars">
+									@foreach (ProjectMember member in Model.ProjectMembers.Where(p => p.ProjectId == project.Id).ToList())
+									{
+										<li><a href="#"><img src="~/Public/img/@Model.Users.Find(u=>u.Id==member.UserId).Photo" alt=""></a></li>
+									}
+								</ul>
+							</div>
 						</div>
-					</div>
 				</div>
-
+				</div>
 			}
-
 		</div>
 	</div>
 	<div id="tasks" class="page mt-5">
@@ -139,7 +154,6 @@
 					</a>
 				</div>
 			</div>
-			
 		</div>
 		<div class="page-body">
 			<ul class="task-list pl-0">
@@ -162,13 +176,9 @@
 									<div class="task-card mt-4" data-slug="@task.Slug" data-id="@task.Id">
 										<div class="progress">
 											@{
-												int count = Model.Checklists.Where(c => c.TaskId == task.Id).ToList().Count();
-												int checkedCount = Model.Checklists.Where(c => c.TaskId == task.Id && c.Checked == true).ToList().Count();
-												int progress = 0;
-												if (count > 0)
-												{
-													progress= (100 * checkedCount) / count;
-												}
+												var Taskdue = task.EndTime.Subtract(task.StartTime);
+												var Taskpass = now.Subtract(task.StartTime);
+												var progress = (100 * Convert.ToInt32(Taskpass.Days)) / Convert.ToInt32(Taskdue.Days);
 											}
 											<div class="progress-bar" role="progressbar" style="width:  @progress%"
 												 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -191,10 +201,6 @@
 													}
 
 												</ul>
-												<div class="mt-2">
-													<i class="far fa-check-square"></i><span> @checkedCount / @count</span>
-												</div>
-
 												<div class="dropdown">
 													<a class="nav-link" href="#" id="navbarDropdownMenuLink"
 													   role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -210,22 +216,13 @@
 											</div>
 										</div>
 									</div>
-
-
-
-
-
 								}
-
 							}
 						</div>
-
 					</li>
 				}
 			</ul>
-
 		</div>
 	</div>
-
 </div>
 <!--End of main -->
