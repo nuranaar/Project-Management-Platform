@@ -235,10 +235,10 @@
 				</div>
 				<form id="note-form" class="px-4" data-type="create">
 					<label for="title">Name</label>
-					<input type="text" id="title" name="title" class="form-control" data-type="slug-source"
+					<input type="text" id="title" name="title" class="form-control" data-type="slug-source" required="50"
 						   placeholder="Note title">
 					<label for="desc">Description</label>
-					<textarea id="description" name="desc" class="form-control" rows="3"
+					<textarea id="description" name="desc" class="form-control" rows="3" required maxlength="150"
 							  placeholder="Note description"></textarea>
 					<div class="type-id" style="display:none"></div>
 					<hr>
@@ -256,7 +256,7 @@
 				<form id="member-form-task" class="px-4">
 
 					<label for="member">Members</label>
-					<input type="text" id="member" name="member" class="form-control" aria-describedby="Paskmember"
+					<input type="text" id="member" name="member" class="form-control" aria-describedby="Paskmember" required
 						   placeholder="Enter members email address">
 					<hr>
 					<button type="submit" class="createBtn btn btn-primary my-3">

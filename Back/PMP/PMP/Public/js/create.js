@@ -179,7 +179,7 @@
 							</div>
 							<form id="check-form" data-type="create"  method="post">
 <input id="checkbox" class="check" type="checkbox" />
-								<input id="text" type="text" class="form-control" placeholder="Enter Text">
+								<input id="text" type="text" class="form-control" placeholder="Enter Text" required maxlength="100">
 								<button type="submit" class="createBtn btn btn-primary my-3">
 						Create
 					</button>

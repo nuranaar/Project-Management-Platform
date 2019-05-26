@@ -7,9 +7,11 @@ using PMP.ViewModels;
 using PMP.Models;
 using System.IO;
 using System.Data.Entity;
+using PMP.Filter;
 
 namespace PMP.Controllers
 {
+	[Auth]
 	public class TaskController : BaseController
 	{
 		// GET: Task
@@ -32,7 +34,7 @@ namespace PMP.Controllers
 
 		public ActionResult Kanban()
 		{
-			int userId = 1;
+			int userId = Convert.ToInt32(Session["UserId"]);
 			KanbanVm model = new KanbanVm()
 			{
 				Users = db.Users.ToList(),

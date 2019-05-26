@@ -130,12 +130,17 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\SettingController.cs" />
+    <Compile Include="Controllers\SignController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="DAL\PMPcontext.cs" />
+    <Compile Include="Filter\Auth.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Admin.cs" />
+    <Compile Include="Helpers\Password.cs" />
     <Compile Include="Migrations\201904221659432_Init.cs" />
     <Compile Include="Migrations\201904221659432_Init.Designer.cs">
       <DependentUpon>201904221659432_Init.cs</DependentUpon>
@@ -171,6 +176,30 @@
     <Compile Include="Migrations\201905041325055_FileTaskRel.cs" />
     <Compile Include="Migrations\201905041325055_FileTaskRel.Designer.cs">
       <DependentUpon>201905041325055_FileTaskRel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905231611064_AddAttrforTask.cs" />
+    <Compile Include="Migrations\201905231611064_AddAttrforTask.Designer.cs">
+      <DependentUpon>201905231611064_AddAttrforTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905240701270_AddAttrs.cs" />
+    <Compile Include="Migrations\201905240701270_AddAttrs.Designer.cs">
+      <DependentUpon>201905240701270_AddAttrs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905241334427_AddAttrs1.cs" />
+    <Compile Include="Migrations\201905241334427_AddAttrs1.Designer.cs">
+      <DependentUpon>201905241334427_AddAttrs1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905251122211_DelUserSlug.cs" />
+    <Compile Include="Migrations\201905251122211_DelUserSlug.Designer.cs">
+      <DependentUpon>201905251122211_DelUserSlug.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905260931287_AttrsUser.cs" />
+    <Compile Include="Migrations\201905260931287_AttrsUser.Designer.cs">
+      <DependentUpon>201905260931287_AttrsUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905260934106_AttrsUser1.cs" />
+    <Compile Include="Migrations\201905260934106_AttrsUser1.Designer.cs">
+      <DependentUpon>201905260934106_AttrsUser1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -253,6 +282,9 @@
     <Content Include="Public\css\style.scss" />
     <Content Include="Views\Task\Index.cshtml" />
     <Content Include="Views\Task\Kanban.cshtml" />
+    <Content Include="Views\Setting\Index.cshtml" />
+    <Content Include="Views\Sign\Index.cshtml" />
+    <Content Include="Views\Sign\Signup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -284,6 +316,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905041325055_FileTaskRel.resx">
       <DependentUpon>201905041325055_FileTaskRel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905231611064_AddAttrforTask.resx">
+      <DependentUpon>201905231611064_AddAttrforTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905240701270_AddAttrs.resx">
+      <DependentUpon>201905240701270_AddAttrs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905241334427_AddAttrs1.resx">
+      <DependentUpon>201905241334427_AddAttrs1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905251122211_DelUserSlug.resx">
+      <DependentUpon>201905251122211_DelUserSlug.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905260931287_AttrsUser.resx">
+      <DependentUpon>201905260931287_AttrsUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905260934106_AttrsUser1.resx">
+      <DependentUpon>201905260934106_AttrsUser1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

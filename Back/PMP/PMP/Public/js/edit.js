@@ -100,4 +100,51 @@
 		});
 	});
 
+	$(".password-submit").click(function (e) {
+		e.preventDefault();
+
+		let current = $(`input[name='current']`).val();
+		let newpw = $(`input[name='new']`).val();
+		let confirm = $(`input[name='confirm']`).val();
+		let id = $(this).parents(".password-form").data("id");
+		if (current == "" || newpw == "" || confirm == "") {
+			let err = `<div class="validation-summary-errors text-danger" data-valmsg-summary="true"><ul><li>Fill in all the fields.</li></ul></div>`;
+			$(this).before(err);
+		}
+		else {
+			if (newpw != confirm) {
+				let er = `<div class="validation-summary-errors text-danger" data-valmsg-summary="true"><ul><li>Your password and confirmation password do not match.</li></ul></div>`;
+				$(this).before(er);
+			}
+			else {
+				$.ajax({
+					url: "/Setting/EditPassword/",
+					type: "post",
+					dataType: "json",
+					data: {
+						Current: current,
+						New: newpw,
+						Confirm: confirm,
+						Id:id
+					},
+					success: function (response) {
+						console.log(response);
+						if (response == true) {
+							let er = `<div class="validation-summary-errors text-success" data-valmsg-summary="true"><ul><li>Password changed.</li></ul></div>`;
+							$(".password-submit").before(er);
+						}
+						else {
+							let er = `<div class="validation-summary-errors text-danger" data-valmsg-summary="true"><ul><li>Password incorrect.</li></ul></div>`;
+							$(".password-submit").before(er);
+						}
+					}
+				});
+			}
+		}
+		setTimeout(function () {
+			$(".validation-summary-errors").remove()
+		}
+			, 4000);
+	});
+	
 });

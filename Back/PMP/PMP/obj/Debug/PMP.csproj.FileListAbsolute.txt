@@ -91,3 +91,9 @@ C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Mig
 C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.ProjectTaskRelationDel1.resources
 C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.ChangeRelTaskFiles.resources
 C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.FileTaskRel.resources
+C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.AddAttrforTask.resources
+C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.AddAttrs.resources
+C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.AddAttrs1.resources
+C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.DelUserSlug.resources
+C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.AttrsUser.resources
+C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.AttrsUser1.resources

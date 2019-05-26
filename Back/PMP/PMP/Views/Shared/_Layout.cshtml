@@ -28,34 +28,11 @@
 				<nav class="navbar">
 					<ul class="nav flex-column">
 						<li class="nav-item">
-							<a class="nav-link" href="#"><img class="logo my-2" src="~/Public/img/logo.png" alt="Logo"></a>
+							<a class="nav-link" href="@Url.Action("index","home")"><img class="logo my-2" src="~/Public/img/logo.png" alt="Logo"></a>
 						</li>
-						<li class="nav-item mt-2">
-							<a class="nav-link" href="#">Team</a>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Project
-							</a>
-							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item" href="#">Tasks</a>
-								<a class="dropdown-item" href="#">Files</a>
-								<a class="dropdown-item" href="#">Activity</a>
-							</div>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Task
-							</a>
-							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item" href="#">Files</a>
-								<a class="dropdown-item" href="#">Activity</a>
-							</div>
-						</li>
+						
 						<li class="nav-item">
-							<a class="nav-link" href="#">Kanban Board</a>
+							<a class="nav-link" href="@Url.Action("kanban","task")">Kanban Board</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="#">Chat</a>
@@ -78,12 +55,7 @@
 							}
 						</div>
 						<hr>
-						<li class="nav-item">
-							<form class=" searchForm my-3">
-								<input type="search" class="form-control search py-4" placeholder="Search">
-								<button type="submit" class="btn searchBtn"> <i class="fas fa-search"></i></button>
-							</form>
-						</li>
+
 
 						<li class="nav-item dropdown">
 							<a class="nav-link btn btn-primary menuBtn" href="#" role="button" data-toggle="dropdown"
@@ -106,17 +78,20 @@
 										   href="javascript:;">Task</a>
 									</li>
 								</ul>
-
-
-
 							</div>
 						</li>
 						<li class="nav-item ml-5">
 							<div class="onlineUser m-4">
-								<img src="~/Public/img/avatar-male-1.jpg" alt="user">
+								<img src="~/Public/img/avatar-male-1.jpg" alt="user" class=" dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
 								<div class="onlineIcon">
 									<i class="fas fa-circle"></i>
 								</div>
+
+								<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="top:-40px">
+									<a class="dropdown-item" href="@Url.Action("index", "setting")">Settings</a>
+									<a class="dropdown-item" href="@Url.Action("logout", "sign")">Log Out</a>
+								</div>
+
 							</div>
 						</li>
 					</ul>
@@ -125,7 +100,8 @@
 		</div>
 		<!--end of Navbar -->
 		<main>
-			<div class="container">
+			<div class="container ">
+
 				@RenderBody()
 			</div>
 		</main>
@@ -139,67 +115,45 @@
 				</div>
 				<form data-type="create" class="px-4" id="task-form" enctype="multipart/form-data" method="post">
 
-					<label for="name">Name</label>
-					<input type="text" id="name" name="name" data-type="slug-source" class="form-control" aria-describedby="taskName"
-						   placeholder="Task name">
+					<label for="nameTask">Name</label>
+					<input type="text" id="nameTask" name="name" data-type="slug-source" class="form-control" aria-describedby="taskName" maxlength="50"
+						   placeholder="Task name" required>
 					<div class="form-group slug-id" style="display:none">
-						<label for="slug">Slug</label>
-						<input type="text" id="slug" name="slug" data-type="slug-input" class="form-control" aria-describedby="taskSlug"
+						<label for="slugTask">Slug</label>
+						<input type="text" id="slugTask" name="slug" data-type="slug-input" class="form-control" aria-describedby="taskSlug"
 							   placeholder="Task slug">
 					</div>
 					<label for="TaskStageId">Task Stage</label>
-					<select name="TaskStageId" id="TaskStageId" class="form-control"></select>
+					<select name="TaskStageId" id="TaskStageId" class="form-control" required></select>
 
-					<label for="desc">Description</label>
-					<textarea id="desc" name="desc" class="form-control" rows="3"
-							  placeholder="Task description"></textarea>
+					<label for="descTask">Description</label>
+					<textarea id="descTask" name="desc" class="form-control" rows="3"
+							  placeholder="Task description" maxlength="250"></textarea>
 					<div class="mem-input">
-						<label for="member">Members</label>
-						<input type="text" id="member" name="member" class="form-control" aria-describedby="TaskMember"
-							   placeholder="Add task members">
+						<label for="memberTask">Members</label>
+						<input type="text" id="memberTask" name="member" class="form-control" aria-describedby="TaskMember"
+							   placeholder="Add task members" required>
 
 						<div class="row">
 							<div class="col-6">
-								<label for="StartTime">Start date</label>
-								<input type="date" id="StartTime" name="StartTime" class="form-control"
-									   aria-describedby="StartTime">
+								<label for="StartTimeTask">Start date</label>
+								<input type="date" id="StartTimeTask" name="StartTime" class="form-control"
+									   aria-describedby="StartTime" required>
 
 							</div>
 							<div class="col-6">
-								<label for="EndTime">End date</label>
-								<input type="date" id="EndTime" name="EndTime" class="form-control"
-									   aria-describedby="EndTime">
+								<label for="EndTimeTask">End date</label>
+								<input type="date" id="EndTimeTask" name="EndTime" class="form-control"
+									   aria-describedby="EndTime" required>
 
 							</div>
 						</div>
 
 						<label for="fileBase">Starting files</label>
-						<input type="file" id="fileBase" name="fileBase" class="form-control" />
+						<input type="file" id="fileBase" name="fileBase" class="form-control" required />
 					</div>
 					<hr>
-					@*<div class="row">
-							<div class="col-6">
-								<p>Private team</p>
-								<p class="desc">
-									Lorem Ipsum is simply dummy text of the printing and typesetting
-									industry.
-								</p>
-								<div class="custom-control custom-switch">
-									<input type="checkbox" class="custom-control-input" id="customSwitch1">
-									<label class="custom-control-label" for="customSwitch1"></label>
-								</div>
-							</div>
-							<div class=" col-6">
-								<div class="warning">
-									<i class="fas fa-exclamation-triangle"></i>
-									<span>Warning</span>
-									<p class="desc p-2">
-										Lorem Ipsum is simply dummy text of the printing and typesetting
-										industry.
-									</p>
-								</div>
-							</div>
-						</div>*@
+
 
 					<button type="submit" class="createBtn btn btn-primary my-3">
 						Create
@@ -218,59 +172,39 @@
 					<h3>New Project</h3>
 				</div>
 				<form id="project-form" method="post" class=" px-4" data-type="create">
-					<label for="name">Name</label>
-					<input type="text" id="name" name="name" data-type="slug-source" required class="form-control" aria-describedby="projectName"
+					<label for="nameProj">Name</label>
+					<input type="text" id="nameProj" name="name" data-type="slug-source" required class="form-control" aria-describedby="projectName" maxlength="50"
 						   placeholder="Project name">
 					<div class="form-group slug-id" style="display:none">
-						<label for="slug">Slug</label>
-						<input type="text" id="slug" name="slug" data-type="slug-input" class="form-control" aria-describedby="projectSlug"
+						<label for="slugProj">Slug</label>
+						<input type="text" id="slugProj" name="slug" data-type="slug-input" class="form-control" aria-describedby="projectSlug"
 							   placeholder="Project slug">
 					</div>
-					<label for="desc">Description</label>
-					<textarea id="desc" name="desc" class="form-control" rows="3"
+					<label for="descProj">Description</label>
+					<textarea id="descProj" name="desc" class="form-control" rows="3" maxlength="250"
 							  placeholder="Project description"></textarea>
 					<div class="form-group mem-input">
-						<label for="member">Members</label>
-						<input type="text" id="member" name="member" class="form-control" aria-describedby="projectMember"
+						<label for="memberProj">Members</label>
+						<input type="text" id="memberProj" name="member" class="form-control" aria-describedby="projectMember" required
 							   placeholder="Add project members">
 
 
 						<div class="row">
 							<div class="col-6">
-								<label for="StartTime">Start date</label>
-								<input type="date" id="StartTime" name="StartTime" class="form-control"
+								<label for="StartTimeProj">Start date</label>
+								<input type="date" id="StartTimeProj" name="StartTime" class="form-control" required
 									   aria-describedby="StartTime">
 							</div>
 							<div class="col-6">
-								<label for="EndTime">End date</label>
-								<input type="date" id="EndTime" name="EndTime" class="form-control"
+								<label for="EndTimeProj">End date</label>
+								<input type="date" id="EndTimeProj" name="EndTime" class="form-control" required
 									   aria-describedby="EndTime">
 							</div>
 						</div>
 					</div>
 					<hr>
 					<div class="row">
-						@*<div class="col-6">
-				<p>Private project</p>
-				<p class="desc">
-					Lorem Ipsum is simply dummy text of the printing and typesetting
-					industry.
-				</p>
-				<div class="custom-control custom-switch">
-					<input type="checkbox" class="custom-control-input" id="customSwitch1">
-					<label class="custom-control-label" for="customSwitch1"></label>
-				</div>
-			</div>*@
-						@*<div class=" col-12">
-					<div class="warning">
-						<i class="fas fa-exclamation-triangle"></i>
-						<span>Warning</span>
-						<p class="desc p-2">
-							@Html.ValidationSummary(true, "", new { @class = "warning-message text-danger" })
-						</p>
-					</div>
-				</div>
-			</div>*@
+
 						<button type="submit" class="createBtn btn btn-primary my-3">
 							Create
 							project
@@ -288,49 +222,30 @@
 					<h3>New Team</h3>
 				</div>
 				<form id="team-form" class="px-4" data-type="create">
-					<label for="name">Name</label>
-					<input type="text" id="name" name="name" class="form-control" required aria-describedby="teamName" data-type="slug-source"
+					<label for="nameTeam">Name</label>
+					<input type="text" id="nameTeam" name="name" class="form-control" required aria-describedby="teamName" data-type="slug-source" maxlength="50"
 						   placeholder="Team name">
 
 					<div class="form-group slug-id" style="display:none">
-						<label for="slug">Slug</label>
-						<input type="text" id="slug" name="slug" data-type="slug-input" required class="form-control" aria-describedby="teamSlug"
+						<label for="slugTeam">Slug</label>
+						<input type="text" id="slugTeam" name="slug" data-type="slug-input" class="form-control" aria-describedby="teamSlug"
 							   placeholder="Team slug">
 
 
 					</div>
 
-					<label for="desc">Description</label>
-					<textarea id="desc" name="desc" class="form-control" required rows="3"
+					<label for="descTeam">Description</label>
+					<textarea id="descTeam" name="desc" class="form-control" rows="3" maxlength="250"
 							  placeholder="Team description"></textarea>
 
 					<div class="form-group mem-input">
-						<label for="member">Members</label>
-						<input type="text" id="member" name="member" class="form-control" aria-describedby="teammember"
+						<label for="memberTeam">Members</label>
+						<input type="text" id="memberTeam" name="member" class="form-control" aria-describedby="teammember" required
 							   placeholder="Add team members">
 						<hr>
 					</div>
 					<div class="row">
-						@*<div class="col-6">
-								<p>Private project</p>
-								<p class="desc">
-									Lorem Ipsum is simply dummy text of the printing and typesetting
-									industry.
-								</p>
-								<div class="custom-control custom-switch">
-									<input type="checkbox" class="custom-control-input" id="customSwitch1">
-									<label class="custom-control-label" for="customSwitch1"></label>
-								</div>
-							</div>*@
-						@*<div class=" col-12">
-								<div class="warning">
-									<i class="fas fa-exclamation-triangle"></i>
-									<span>Warning</span>
-									<p class="desc p-2">
-										@Html.ValidationSummary(true, "", new { @class = "warning-message text-danger" })
-									</p>
-								</div>
-							</div>*@
+
 					</div>
 					<button type="submit" class="createBtn btn btn-primary my-3">
 						Create
