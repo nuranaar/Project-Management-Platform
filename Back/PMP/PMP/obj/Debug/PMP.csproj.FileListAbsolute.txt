@@ -97,3 +97,4 @@ C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Mig
 C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.DelUserSlug.resources
 C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.AttrsUser.resources
 C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.AttrsUser1.resources
+C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.Attr.resources

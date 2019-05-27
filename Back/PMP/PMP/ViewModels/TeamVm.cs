@@ -8,6 +8,8 @@ namespace PMP.ViewModels
 {
 	public class TeamVm
 	{
+		public User Admin { get; set; }
+
 		public List<User> Users { get; set; }
 
 		public Team Team { get; set; }

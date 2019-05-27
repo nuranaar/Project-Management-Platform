@@ -4,12 +4,16 @@ using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using PMP.DAL;
+using PMP.Filter;
 using PMP.Models;
 
 namespace PMP.Controllers
 {
-	public class SignController : BaseController
+	public class SignController : Controller
 	{
+		protected readonly PMPcontext db = new PMPcontext();
+
 		// GET: Sign
 		public ActionResult Index()
 		{
@@ -49,14 +53,26 @@ namespace PMP.Controllers
 		
 		public ActionResult Signup()
 		{
-
 			return View();
 		}
 		[HttpPost]
 		public ActionResult Signup(User user)
 		{
-
-			return View();
+			if (ModelState.IsValid)
+			{
+				User us = db.Users.FirstOrDefault(u => u.Email == user.Email);
+				if ( us!= null)
+				{
+					ModelState.AddModelError("hasUser", "You already have an account with this email.");
+					return View(user);
+				}
+				user.Password = Crypto.HashPassword(user.Password);
+				db.Users.Add(user);
+				db.SaveChanges();
+				Session["signin"] = true;
+				Session["UserId"] = user.Id;
+			}
+			return RedirectToAction("index","home");
 		}
 		public ActionResult Logout()
 		{

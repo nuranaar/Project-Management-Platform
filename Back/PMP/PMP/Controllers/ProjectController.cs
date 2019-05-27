@@ -6,18 +6,23 @@ using System.Web.Mvc;
 using PMP.ViewModels;
 using PMP.Models;
 using System.Data.Entity;
+using PMP.Filter;
 
 namespace PMP.Controllers
 {
+	[Auth]
     public class ProjectController : BaseController
     {
         // GET: Projects
-        public ActionResult Index(string Slug)
+        public ActionResult Index(string Slug, int AdminId)
         {
+			int userId = Convert.ToInt32(Session["UserId"]);
+
 			ProjectVm model = new ProjectVm()
 			{
+				Admin = db.Users.FirstOrDefault(u=>u.Id==userId),
 				Users = db.Users.ToList(),
-				Project = db.Projects.FirstOrDefault(p => p.Slug == Slug),
+				Project = db.Projects.FirstOrDefault(p => p.Slug == Slug && p.UserId==AdminId),
 				Tasks = db.Tasks.ToList(),
 				TaskMembers = db.TaskMembers.ToList(),
 				TaskStages = db.TaskStages.ToList(),
@@ -43,7 +48,7 @@ namespace PMP.Controllers
 				return Json(errorList, JsonRequestBehavior.AllowGet);
 			}
 
-			project.UserId = 1;
+			project.UserId = Convert.ToInt32(Session["UserId"]);
 			
 			db.Projects.Add(project);
 			db.SaveChanges();
@@ -73,7 +78,8 @@ namespace PMP.Controllers
 			{
 				project.Id,
 				project.Name,
-				project.Slug
+				project.Slug,
+				project.UserId
 			}, JsonRequestBehavior.AllowGet);
 		}
 
@@ -186,7 +192,7 @@ namespace PMP.Controllers
 				return Json(errorList, JsonRequestBehavior.AllowGet);
 			}
 			Project pr = db.Projects.Find(project.Id);
-			pr.UserId = 1;
+			pr.UserId = Convert.ToInt32(Session["UserId"]);
 			pr.Name = project.Name;
 			pr.Slug = project.Slug;
 			pr.StartTime = project.StartTime;

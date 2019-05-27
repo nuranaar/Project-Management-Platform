@@ -201,6 +201,10 @@
     <Compile Include="Migrations\201905260934106_AttrsUser1.Designer.cs">
       <DependentUpon>201905260934106_AttrsUser1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905271134359_Attr.cs" />
+    <Compile Include="Migrations\201905271134359_Attr.Designer.cs">
+      <DependentUpon>201905271134359_Attr.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Checklist.cs" />
@@ -266,6 +270,11 @@
     <Content Include="Views\Team\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Project\Index.cshtml" />
+    <Content Include="Views\Task\Index.cshtml" />
+    <Content Include="Views\Task\Kanban.cshtml" />
+    <Content Include="Views\Setting\Index.cshtml" />
+    <Content Include="Views\Sign\Index.cshtml" />
+    <Content Include="Views\Sign\Signup.cshtml" />
     <Content Include="Public\css\parts\_chat.scss" />
     <Content Include="Public\css\parts\_common.scss" />
     <Content Include="Public\css\parts\_kanban.scss" />
@@ -280,11 +289,6 @@
     <Content Include="Public\css\parts\_variable.scss" />
     <Content Include="Public\css\style.css.map" />
     <Content Include="Public\css\style.scss" />
-    <Content Include="Views\Task\Index.cshtml" />
-    <Content Include="Views\Task\Kanban.cshtml" />
-    <Content Include="Views\Setting\Index.cshtml" />
-    <Content Include="Views\Sign\Index.cshtml" />
-    <Content Include="Views\Sign\Signup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -334,6 +338,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905260934106_AttrsUser1.resx">
       <DependentUpon>201905260934106_AttrsUser1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905271134359_Attr.resx">
+      <DependentUpon>201905271134359_Attr.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

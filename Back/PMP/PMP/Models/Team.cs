@@ -19,7 +19,7 @@ namespace PMP.Models
 		public string Name { get; set; }
 
 		[Column(TypeName = "ntext")]
-		[Required, StringLength(50)]
+		[Required, StringLength(250)]
 		public string Desc { get; set; }
 
 		public string Slug { get; set; }

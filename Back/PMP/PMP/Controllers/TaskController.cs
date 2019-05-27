@@ -15,13 +15,15 @@ namespace PMP.Controllers
 	public class TaskController : BaseController
 	{
 		// GET: Task
-		public ActionResult Index(string Slug)
+		public ActionResult Index(string Slug, int AdminId )
 		{
+			int userId = Convert.ToInt32(Session["UserId"]);
 
 			TaskVm model = new TaskVm()
 			{
+				Admin = db.Users.FirstOrDefault(u => u.Id == userId),
 				Users = db.Users.ToList(),
-				Task = db.Tasks.FirstOrDefault(t => t.Slug == Slug),
+				Task = db.Tasks.FirstOrDefault(t => t.Slug == Slug && t.UserId==AdminId),
 				Activities = db.Activities.OrderByDescending(a => a.Date).ToList(),
 				Checklists=db.Checklists.OrderByDescending(c => c.Id).ToList(),
 				Notes = db.Notes.OrderByDescending(n => n.Id).ToList(),
@@ -58,7 +60,6 @@ namespace PMP.Controllers
 		[HttpPost]
 		public JsonResult TaskCreate(Task task,
 							   TaskMember taskMember,
-							   Models.File startfile,
 							   HttpPostedFileBase fileBase,
 							   string member)
 		{
@@ -82,13 +83,18 @@ namespace PMP.Controllers
 			string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
 			string filename = date + fileBase.FileName;
 			string path = Path.Combine(Server.MapPath("~/Uploads"), filename);
-			startfile.UserId = 1;
+			Models.File startfile = new Models.File();
+			startfile.UserId = Convert.ToInt32(Session["UserId"]);
 			fileBase.SaveAs(path);
 			startfile.Name = filename;
 			startfile.Weight = fileBase.ContentLength.ToString() + "-mb";
 			startfile.Type = fileBase.ContentType;
 
-			task.UserId = 1;
+			task.UserId = Convert.ToInt32(Session["UserId"]);
+			if (db.Tasks.FirstOrDefault(t => t.Slug == task.Slug && t.UserId==task.UserId) != null)
+			{
+				task.Slug = task.Slug + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+			}
 			db.Tasks.Add(task);
 			db.SaveChanges();
 
@@ -212,7 +218,7 @@ namespace PMP.Controllers
 			string path = Path.Combine(Server.MapPath("~/Uploads"), filename);
 			fileBase.SaveAs(path);
 			file.TaskId = TaskId;
-			file.UserId = 1;
+			file.UserId = Convert.ToInt32(Session["UserId"]);
 			file.Name = filename;
 			file.Weight = fileBase.ContentLength.ToString() + "-mb";
 			file.Type = fileBase.ContentType;
@@ -512,10 +518,17 @@ namespace PMP.Controllers
 				return Json(errorList, JsonRequestBehavior.AllowGet);
 			}
 			Task task = db.Tasks.Find(Id);
-			task.UserId = 1;
+			task.UserId = Convert.ToInt32(Session["UserId"]);
 			task.Name = Name;
 			task.Desc = Desc;
-			task.Slug = Slug;
+			if (db.Tasks.FirstOrDefault(t => t.Slug == Slug && t.UserId==task.UserId) != null)
+			{
+				task.Slug = Slug + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+			}
+			else
+			{
+				task.Slug = Slug;
+			}
 			task.TaskStageId = Stage;
 			db.Entry(task).State = EntityState.Modified;
 			db.SaveChanges();

@@ -4,9 +4,7 @@
     .team-card {
       @extend %card;
       @extend %card_hover;
-
       width: 400px;
-
       .card-title {
         position: relative;
         height: 63px;

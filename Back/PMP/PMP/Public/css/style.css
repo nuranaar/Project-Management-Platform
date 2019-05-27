@@ -8,6 +8,20 @@
   text-decoration: none;
 }
 
+.dropdown-item:active {
+  background-color: #fbfbfb !important;
+  color: #fff;
+}
+
+.dropdown-item:visited {
+  background-color: #fbfbfb !important;
+}
+
+.dropdown-item:focus {
+  background-color: #fbfbfb !important;
+  outline: none;
+}
+
 hr {
   border-color: #fbfbfb;
 }
@@ -39,10 +53,6 @@ main #projects .page-body .project-card:hover, main #members .page-body .member-
   position: relative;
   -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
           box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
-}
-
-.card-body {
-  padding: 0 30px;
 }
 
 body {
@@ -174,9 +184,14 @@ body {
   border-radius: 100%;
 }
 
-.progress {
-  height: 5px;
-  border-radius: 10px 10px 0 0;
+p.desc {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.curColor {
+  color: #007bff;
 }
 
 .sides {
@@ -382,6 +397,7 @@ body {
 }
 
 main {
+  width: 1106px;
   height: 100vh;
   padding: 0 106px !important;
   overflow-y: auto;
@@ -392,7 +408,7 @@ main {
 }
 
 main .header .head .progress {
-  border-radius: 5px !important;
+  height: 5px;
 }
 
 main .header .head .progInfo {
@@ -417,7 +433,12 @@ main #projects .page-body {
 
 main #projects .page-body .project-card {
   width: 400px;
-  border-radius: 7px;
+  overflow: hidden;
+}
+
+main #projects .page-body .project-card .progress {
+  height: 5px;
+  border-radius: 0;
 }
 
 main #projects .page-body .project-card .card-title {
@@ -487,19 +508,21 @@ main #tasks .page-body .task-list .task-stage .stage {
 }
 
 main #tasks .page-body .task-list .task-stage .task-card {
-  border-radius: 7px;
+  overflow: hidden;
+  border-radius: 10px;
   background-color: #fff;
   width: 90%;
   margin: auto;
 }
 
+main #tasks .page-body .task-list .task-stage .task-card .progress {
+  height: 3px;
+  border-radius: 0;
+}
+
 main #tasks .page-body .task-list .task-stage .task-card h6 {
   font-weight: 700;
   color: #212529;
-}
-
-main #tasks .page-body .task-list .task-stage .task-card h6:hover {
-  color: #007bff;
 }
 
 main #tasks .page-body .task-list .task-stage .task-card i,
@@ -513,15 +536,15 @@ main #members .page-body {
 }
 
 main #members .page-body .member-card {
+  position: relative;
   width: 256px;
   height: 306px;
-  position: relative;
 }
 
 main #members .page-body .member-card .del {
   position: absolute;
-  right: 15px;
-  top: 6px;
+  top: 3px;
+  right: 10px;
 }
 
 main #members .page-body .member-card .member-photo img {
@@ -700,10 +723,6 @@ main #members .page-body .member-card .icons li i {
   position: absolute;
   right: 15px;
   top: 17px;
-}
-
-.kanban #tasks {
-  width: 877px;
 }
 
 .kanban #tasks .page-body .task-list {

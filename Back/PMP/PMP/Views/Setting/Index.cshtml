@@ -23,8 +23,15 @@
 				
 				<div class="form-group">
 					<label>
-						<input type="file" style="display: none;">
-						<img src="~/Public/img/@Model.Photo" alt="@Model.Name @Model.Surname">
+						<input type="file" name="photo" style="display: none;">
+						@if (Model.Photo == null)
+						{
+							<img src="~/Public/img/user_male2-512.png" alt="@Model.Name @Model.Surname">
+						}
+						else
+						{
+							<img src="~/Uploads/@Model.Photo" alt="@Model.Name @Model.Surname">
+						}
 					</label>
 				</div>
 				<div class="d-flex justify-content-between">

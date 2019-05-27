@@ -4,7 +4,22 @@
   &:hover {
     color: $main_color;
     text-decoration: none;
+    
   }
+}
+.dropdown-item{
+  &:active{
+      background-color:$bg_color !important;
+        color: #fff;
+      
+  }
+&:visited{
+  background-color:$bg_color !important;
+}
+&:focus{
+  background-color:$bg_color !important;
+  outline:none;
+}
 }
 hr {
   border-color: $bg_color;
@@ -22,7 +37,6 @@ hr {
   margin-top: 30px;
   border-radius: 7px;
   background-color: #fff;
- 
 }
 %card_hover {
   &:hover {
@@ -31,9 +45,7 @@ hr {
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
   }
 }
-.card-body{
-  padding: 0 30px;
-}
+
 body {
   background-color: $bg_color;
   font-weight: 700;
@@ -150,8 +162,13 @@ body {
     }
   }
 }
-
-.progress{
-  height: 5px;
-  border-radius: 10px 10px 0 0 ;
+p {
+  &.desc{
+    white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  }
+}
+.curColor{
+  color: $main_color;
 }

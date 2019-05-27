@@ -22,7 +22,7 @@
 				<ul class="avatars">
 					@foreach (ProjectMember member in Model.ProjectMembers.ToList())
 					{
-						<li><a href="#"><img src="~/Public/img/@Model.Users.Find(u => u.Id == member.UserId).Photo" alt="@Model.Users.Find(u => u.Id == member.UserId).Name"></a></li>
+						<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == member.UserId).Photo" alt="@Model.Users.Find(u => u.Id == member.UserId).Name"></a></li>
 					}
 
 					<li>
@@ -94,7 +94,7 @@
 					<div class="act-card w-100 d-flex justify-content-start align-items-center">
 						<ul class="avatars mt-3">
 							<li><a href="#"><i class="fas fa-star"></i></a></li>
-							<li><a href="#"><img src="~/Public/img/@Model.Users.Find(u=>u.Id==act.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==act.UserId).Name"></a></li>
+							<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u=>u.Id==act.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==act.UserId).Name"></a></li>
 						</ul>
 						<div class="act-info pl-4 py-4">
 							<a href="#">
@@ -139,55 +139,58 @@
 								}
 								else
 								{
-									foreach (Task task in Model.Tasks.Where(t => t.TaskStageId == stage.Id).ToList())
+									foreach (ProjectMember member in Model.ProjectMembers.ToList())
 									{
+										foreach (Task task in Model.Tasks.Where(t => t.TaskStageId == stage.Id && t.UserId==member.UserId).ToList())
+										{
 
-										<div class="task-card mt-4" data-slug="@task.Slug" data-id="@task.Id">
-											<div class="progress">
-												@{
-													var Taskdue = task.EndTime.Subtract(task.StartTime);
-													var Taskpass = now.Subtract(task.StartTime);
-													var progress = (100 * Convert.ToInt32(Taskpass.Days)) / Convert.ToInt32(Taskdue.Days);
+											<div class="task-card mt-4" data-slug="@task.Slug" data-id="@task.Id">
+												<div class="progress">
+													@{
+														var Taskdue = task.EndTime.Subtract(task.StartTime);
+														var Taskpass = now.Subtract(task.StartTime);
+														var progress = (100 * Convert.ToInt32(Taskpass.Days)) / Convert.ToInt32(Taskdue.Days);
 
 
-												}
-												<div class="progress-bar" role="progressbar" style="width:  @progress%"
-													 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-											</div>
-											<div class="row">
-												<div class="col-6 p-4 pl-5">
-													<a class="slug" href="@Url.Action("index", "task", new { slug = task.Slug })">
-														<h6>@task.Name</h6>
-													</a>
-
-													<p>@task.Desc</p>
+													}
+													<div class="progress-bar" role="progressbar" style="width:  @progress%"
+														 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
-												<div class="col-6 p-4 d-flex justify-content-between align-items-center">
-													<ul class="avatars">
-														@foreach (TaskMember member in Model.TaskMembers.Where(t => t.TaskId == task.Id).ToList())
-														{
-															<li>
-																<a href="#"><img src="~/Public/img/@Model.Users.Find(u => u.Id == member.UserId).Photo" alt="@Model.Users.Find(u => u.Id == member.UserId).Name"></a>
-															</li>
-														}
-
-													</ul>
-
-													<div class="dropdown">
-														<a class="nav-link" href="#" id="navbarDropdownMenuLink"
-														   role="button" data-toggle="dropdown" aria-haspopup="true"
-														   aria-expanded="false">
-															<i class="fas fa-ellipsis-v"></i>
+												<div class="row">
+													<div class="col-6 p-4 pl-5">
+														<a class="slug" href="@Url.Action("index", "task", new { slug = task.Slug, adminId = task.UserId })">
+															<h6>@task.Name</h6>
 														</a>
-														<div class="dropdown-menu"
-															 aria-labelledby="navbarDropdownMenuLink">
-															<a id="edit-task" class="dropdown-item" href="javascript:;" data-fancybox data-src="#task">Edit</a>
-															<a id="delete-task" class="dropdown-item" href="#">Delete</a>
+
+														<p class="desc">@task.Desc</p>
+													</div>
+													<div class="col-6 p-4 d-flex justify-content-between align-items-center">
+														<ul class="avatars">
+															@foreach (TaskMember mem in Model.TaskMembers.Where(t => t.TaskId == task.Id).ToList())
+															{
+																<li>
+																	<a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == mem.UserId).Photo" alt="@Model.Users.Find(u => u.Id == mem.UserId).Name"></a>
+																</li>
+															}
+
+														</ul>
+
+														<div class="dropdown">
+															<a class="nav-link" href="#" id="navbarDropdownMenuLink"
+															   role="button" data-toggle="dropdown" aria-haspopup="true"
+															   aria-expanded="false">
+																<i class="fas fa-ellipsis-v"></i>
+															</a>
+															<div class="dropdown-menu"
+																 aria-labelledby="navbarDropdownMenuLink">
+																<a id="edit-task" class="dropdown-item" href="javascript:;" data-fancybox data-src="#task">Edit</a>
+																<a id="delete-task" class="dropdown-item" href="#">Delete</a>
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
-										</div>
+										}
 									}
 								}
 							</div>
@@ -212,15 +215,17 @@
 					<span>Select or drag &amp; drop your files for upload</span>
 				</label>
 			</div>
-			@foreach (ProjectMember mem in Model.ProjectMembers.ToList())
+			@if (Model.Admin.Files != null)
 			{
-				
+				foreach (ProjectMember mem in Model.ProjectMembers.ToList())
+				{
+
 					foreach (var file in Model.Files.Where(f => f.UserId == mem.UserId).ToList())
 					{
 						<div class="file-card w-100 d-flex justify-content-start align-items-center">
 							<ul class="avatars mt-3">
 								<li><a href="#"><i class="far fa-file-alt"></i></a></li>
-								<li><a href="#"><img src="~/Public/img/@Model.Users.Find(u=>u.Id==file.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==file.UserId).Name"></a></li>
+								<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u=>u.Id==file.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==file.UserId).Name"></a></li>
 							</ul>
 							<div class="file-info pl-4 py-4">
 								<a href="#">
@@ -232,13 +237,21 @@
 						</div>
 
 					}
-				
+
+				}
 			}
+			else
+			{
+				<p class="add mx-auto text-center w-100" style="color:#bdbac2">
+					Add Files
+				</p>
+			}
+			
 		</div>
 	</div>
 </div>
 <!--End of main -->
-<div style="display: none; " id="hidden-content">
+<div style="display: none;" id="hidden-content">
 	<div id="member" class="popup">
 		<div class="form">
 			<div class="popup-head px-5 pt-4 pb-2 w-100">

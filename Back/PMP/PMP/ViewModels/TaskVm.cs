@@ -8,6 +8,8 @@ namespace PMP.ViewModels
 {
 	public class TaskVm
 	{
+		public User Admin { get; set; }
+
 		public List<User> Users { get; set; }
 
 		public Task Task { get; set; }

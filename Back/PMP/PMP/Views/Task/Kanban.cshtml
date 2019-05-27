@@ -47,13 +47,13 @@
 														</div>
 													</div>
 													<div class="row">
-														<div class="col-12 p-4 pl-5">
+														<div class="col-12 py-3 px-5">
 															<a class="slug" href="@Url.Action("index", "task", new { slug = task.Slug })">
 																<h6>@task.Name</h6>
 															</a>
-															<p>@task.Desc</p>
+															<p class="desc">@task.Desc</p>
 														</div>
-														<div class="col-12 p-4 d-flex justify-content-between align-items-center">
+														<div class="col-12 px-4 pb-3 d-flex justify-content-between align-items-center">
 															<div class="mt-2">
 																<i class="far fa-check-square"></i><span>4/10</span>
 															</div>
@@ -61,7 +61,7 @@
 																@foreach (TaskMember member in Model.TaskMembers.Where(t => t.TaskId == task.Id).ToList())
 																{
 																	<li>
-																		<a href="#"><img src="~/Public/img/@Model.Users.Find(u => u.Id == member.UserId).Photo" alt="@Model.Users.Find(u => u.Id == member.UserId).Name"></a>
+																		<a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == member.UserId).Photo" alt="@Model.Users.Find(u => u.Id == member.UserId).Name"></a>
 																	</li>
 																}
 

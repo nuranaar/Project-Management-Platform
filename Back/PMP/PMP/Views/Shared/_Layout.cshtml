@@ -1,7 +1,8 @@
 ﻿@{
 	List<Project> projects = ViewBag.Project as List<Project>;
-	Project pr = ViewBag.Pr as Project;
 	Task task = ViewBag.Task as Task;
+	List<User> users = ViewBag.User as List<User>;
+	User user = users.Find(u => u.Id == Convert.ToInt32(HttpContext.Current.Session["UserId"]));
 }
 
 <!DOCTYPE html>
@@ -30,7 +31,9 @@
 						<li class="nav-item">
 							<a class="nav-link" href="@Url.Action("index","home")"><img class="logo my-2" src="~/Public/img/logo.png" alt="Logo"></a>
 						</li>
-						
+						<li class="nav-item">
+							<a class="nav-link" href="@Url.Action("index","home")">Home</a>
+						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="@Url.Action("kanban","task")">Kanban Board</a>
 						</li>
@@ -42,17 +45,29 @@
 							<h5 class="ml-3">Projects</h5>
 						</li>
 						<div class="pr-list">
-							@foreach (Project project in projects.ToList())
+							@if (user.Projects != null)
 							{
-								<li class="nav-item" data-slug="@project.Slug">
-									<div class="project">
-										<div class="curColor">
-											<i class="fas fa-circle"></i>
+								foreach (Project project in projects.Where(p => p.UserId == Convert.ToInt32(HttpContext.Current.Session["UserId"])).ToList())
+								{
+
+									<li class="nav-item" data-slug="@project.Slug">
+										<div class="project">
+											<div class="curColor">
+												<i class="fas fa-circle"></i>
+											</div>
+											<a class="nav-link" href="@Url.Action("index", "project", new { slug = project.Slug,adminId=project.UserId })">@project.Name</a>
 										</div>
-										<a class="nav-link" href="@Url.Action("index", "project", new { slug = project.Slug })">@project.Name</a>
-									</div>
-								</li>
+									</li>
+								}
 							}
+							else
+							{
+								<p class="add mx-auto text-center w-100" style="color:#bdbac2">
+									Add Project
+								</p>
+							}
+
+
 						</div>
 						<hr>
 
@@ -82,7 +97,16 @@
 						</li>
 						<li class="nav-item ml-5">
 							<div class="onlineUser m-4">
-								<img src="~/Public/img/avatar-male-1.jpg" alt="user" class=" dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+								@if (user != null)
+								{
+									<img src="~/Uploads/@user.Photo" alt="user" class=" dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+
+								}
+								else
+								{
+									<img src="~/Public/img/user_male2-512.png" alt="user" class=" dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+
+								}
 								<div class="onlineIcon">
 									<i class="fas fa-circle"></i>
 								</div>

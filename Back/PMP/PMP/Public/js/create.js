@@ -10,7 +10,7 @@
 				dataType: "json",
 				data: $(this).serialize(),
 				success: function (response) {
-					const url = `/project?slug=${response.Slug}`;
+					const url = `/project?slug=${response.Slug}&adminId=${response.UserId}`;
 					window.location.href = url;
 				}
 			});
@@ -73,7 +73,7 @@
 				dataType: "json",
 				data: $(this).serialize(),
 				success: function (response) {
-					const url = `/team?slug=${response.Slug}`;
+					const url = `/team?slug=${response.Slug}&adminId=${response.UserId}`;
 					window.location.href = url;
 				}
 			});
@@ -162,7 +162,7 @@
 					Stage: stage
 				},
 				success: function (response) {
-					const url = `/task?slug=${response.Slug}`;
+					const url = `/task?slug=${response.Slug}&adminId=${response.UserId}`;
 					window.location.href = url;
 				}
 			});
@@ -359,7 +359,7 @@
 				let mem = `<div class="member-card text-center" data-id="${response.Id}">
 <a id="delete-member" class="del" href="#"><i class="fas fa-times"></i></a>
 					<div class="member-photo mt-5">
-						<img src="/Public/img/${response.Photo}" alt="${response.User}">
+						<img src="/Uploads/${response.Photo}" alt="${response.User}">
 					</div>
 						<div class="member-info mt-3">
 							<a href="#">
@@ -374,7 +374,7 @@
 						</ul>
 					</div>`;
 				$("#mem-list").prepend(mem);
-				let user = `<li><a href="#"><img src="/Public/img/${response.Photo}" alt="${response.User}"></a></li>`;
+				let user = `<li><a href="#"><img src="/Uploads/${response.Photo}" alt="${response.User}"></a></li>`;
 				$(".avatars").prepend(user);
 				$.fancybox.close();
 			}
@@ -396,7 +396,7 @@
 				member: mem
 			},
 			success: function (response) {
-				let user = `<li><a href="#"><img src="/Public/img/${response.Photo}" alt="${response.User}"></a></li>`;
+				let user = `<li><a href="#"><img src="/Uploads/${response.Photo}" alt="${response.User}"></a></li>`;
 				$(".avatars").prepend(user);
 				$.fancybox.close();
 			}
@@ -418,7 +418,7 @@
 				member: mem
 			},
 			success: function (response) {
-				let user = `<li><a href="#"><img src="/Public/img/${response.Photo}" alt="${response.User}"></a></li>`;
+				let user = `<li><a href="#"><img src="/Uploads/${response.Photo}" alt="${response.User}"></a></li>`;
 				$(".avatars").prepend(user);
 				$.fancybox.close();
 			}
@@ -446,7 +446,7 @@
 				let card = `<div id="file-card" class="file-card w-100 d-flex justify-content-start align-items-center" data-id="${response.Id}">
 					<ul class="avatars mt-3">
 						<li><a href=""><i class="far fa-file-alt"></i></a></li>
-						<li><a href=""><img src="/Public/img/${response.Photo}" alt="${response.User}"></a></li>
+						<li><a href=""><img src="/Uploads/${response.Photo}" alt="${response.User}"></a></li>
 					</ul>
 					<div class="file-info pl-4 py-4">
 						<a href="#">

@@ -12,9 +12,9 @@ using System.Web.Helpers;
 
 namespace PMP.Controllers
 {
+	[Auth]
 	public class SettingController : BaseController
 	{
-		[Auth]
 		// GET: Setting
 		public ActionResult Index()
 		{

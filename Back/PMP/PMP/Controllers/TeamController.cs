@@ -6,21 +6,25 @@ using System.Web.Mvc;
 using PMP.ViewModels;
 using PMP.Models;
 using System.Data.Entity;
+using PMP.Filter;
 
 namespace PMP.Controllers
 {
+	[Auth]
     public class TeamController : BaseController
     {
         // GET: Team
-        public ActionResult Index(string Slug)
+        public ActionResult Index(string Slug, int AdminId)
         {
+			int userId = Convert.ToInt32(Session["UserId"]);
 
 			TeamVm model = new TeamVm()
 			{
-				Users=db.Users.ToList(),
-				Team=db.Teams.FirstOrDefault(t=>t.Slug==Slug),
-				Tasks=db.Tasks.ToList(),
-				TaskStages=db.TaskStages.ToList(),
+				Admin = db.Users.FirstOrDefault(u=>u.Id==userId),
+				Users = db.Users.ToList(),
+				Team=db.Teams.FirstOrDefault(t=>t.Slug==Slug && t.UserId==AdminId),
+				Tasks = db.Tasks.ToList(),
+				TaskStages = db.TaskStages.ToList(),
 				TaskMembers = db.TaskMembers.ToList(),
 				Projects= db.Projects.OrderByDescending(p => p.StartTime).ToList(),
 				ProjectMembers = db.ProjectMembers.ToList()
@@ -44,7 +48,7 @@ namespace PMP.Controllers
 				return Json(errorList, JsonRequestBehavior.AllowGet);
 			}
 
-			team.UserId = 1;
+			team.UserId = Convert.ToInt32(Session["UserId"]);
 
 			db.Teams.Add(team);
 			db.SaveChanges();
@@ -75,7 +79,8 @@ namespace PMP.Controllers
 			{
 				team.Id,
 				team.Name,
-				team.Slug
+				team.Slug,
+				team.UserId
 			}, JsonRequestBehavior.AllowGet);
 
 		}
@@ -200,7 +205,7 @@ namespace PMP.Controllers
 		[HttpPost]
 		public JsonResult TeamEdit(Team team)
 		{
-			team.UserId = 1;
+			team.UserId = Convert.ToInt32(Session["UserId"]);
 			if (!ModelState.IsValid)
 			{
 				Response.StatusCode = 400;

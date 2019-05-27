@@ -184,6 +184,16 @@ body {
   border-radius: 100%;
 }
 
+p.desc {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.curColor {
+  color: #007bff;
+}
+
 .sides {
   display: -webkit-box;
   display: -ms-flexbox;

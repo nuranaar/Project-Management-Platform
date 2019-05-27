@@ -17,7 +17,7 @@ namespace PMP.Controllers
 
 			UserVm model = new UserVm()
 			{
-				Admin = db.Users.Find(userId),
+				Admin = db.Users.FirstOrDefault(u=>u.Id==userId),
 				Users = db.Users.ToList(),
 				Projects = db.Projects.Where(p => p.UserId == userId).OrderByDescending(p => p.StartTime).ToList(),
 				Teams = db.Teams.Where(t => t.UserId == userId).ToList(),
