@@ -53,6 +53,14 @@ namespace PMP.Controllers
 			db.Projects.Add(project);
 			db.SaveChanges();
 
+			ProjectMember projMem = new ProjectMember()
+			{
+				UserId = project.UserId,
+				ProjectId = project.Id
+			};
+			db.ProjectMembers.Add(projMem);
+			db.SaveChanges();
+
 			string[] emails = member.Split( ' ');
 			foreach (var email in emails)
 			{
@@ -192,29 +200,25 @@ namespace PMP.Controllers
 				return Json(errorList, JsonRequestBehavior.AllowGet);
 			}
 			Project pr = db.Projects.Find(project.Id);
-			pr.UserId = Convert.ToInt32(Session["UserId"]);
 			pr.Name = project.Name;
 			pr.Slug = project.Slug;
-			pr.StartTime = project.StartTime;
-			pr.EndTime = project.EndTime;
 			pr.Desc = project.Desc;	
-			db.Entry(pr).State = EntityState.Modified;
+			db.Entry(pr).State = EntityState.Modified; 
 			db.SaveChanges();
-			project.User = db.Users.Find(project.UserId);
 			Activity act = new Activity()
 			{
-				UserId = project.UserId,
-				Desc = "update project " + project.Name,
+				UserId = pr.UserId,
+				Desc = "update project " + pr.Name,
 				Date = DateTime.Now
 			};
 			db.Activities.Add(act);
 			db.SaveChanges();
 			return Json(new
 			{
-				project.Id,
-				project.Name,
-				project.Slug,
-				project.Desc
+				pr.Id,
+				pr.Name,
+				pr.Slug,
+				pr.Desc
 			}, JsonRequestBehavior.AllowGet);
 		}
 	}

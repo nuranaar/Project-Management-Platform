@@ -93,7 +93,11 @@
 					$("#team-form").find(".type-id").remove();
 					$("#team-form").find(".createBtn").text("Create team");
 					$("#team").find(".popup-head").html(`<h3>New Team</h3>`);
-					$(".mem-input").css({ "display": "block" });
+					let meminput = `<label for="memberTeam">Members</label>
+						<input type="text" id="memberTeam" name="member" class="form-control" aria-describedby="teammember" required
+							   placeholder="Add team members">
+						<hr>`;
+					$(".mem-input").append(meminput);
 
 				}
 			});
@@ -177,7 +181,7 @@
 							<div class="bar">
 								<i class="fas fa-bars"></i>
 							</div>
-							<form id="check-form" data-type="create"  method="post">
+							<form class="w-100" id="check-form" data-type="create"  method="post">
 <input id="checkbox" class="check" type="checkbox" />
 								<input id="text" type="text" class="form-control" placeholder="Enter Text" required maxlength="100">
 								<button type="submit" class="createBtn btn btn-primary my-3">
@@ -219,7 +223,7 @@
 								<div class="bar">
 									<i class="fas fa-bars"></i>
 								</div>
-								<form id="check-form" data-type="update" method="post">
+								<form class="w-100" id="check-form" data-type="update" method="post">
 									<input name="checked" class="check" type="checkbox" ${checking ? 'checked = "checked"' : ''}>
 									<input name="text" id="text" type="text" class="form-control" placeholder="Enter Text" value="${response.Text}">
 								</form>

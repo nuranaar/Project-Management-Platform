@@ -42,44 +42,47 @@ string a;
 			
 		</div>
 		<div class="page-body d-flex justify-content-around ">
-			@if (Model.Admin.Teams != null)
+			@if (Model.Admin.TeamMembers != null)
 			{
-				foreach (Team team in Model.Teams.ToList())
+				foreach (TeamMember teamMember in Model.TeamMembers.Where(tm => tm.UserId == Convert.ToInt32(HttpContext.Current.Session["UserId"])).ToList())
 				{
-					<div class="team-card" data-slug="@team.Slug" data-id="@team.Id">
-						<div class="card-title">
-							<a class="click-title title" href="@Url.Action("index", "team", new { slug = team.Slug, adminId=team.UserId })">
-								<span>@team.Name</span>
-							</a>
-							<div class="dropdown">
-								<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
-								   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<i class="fas fa-ellipsis-v"></i>
+					foreach (Team team in Model.Teams.Where(t => t.Id == teamMember.TeamId).ToList())
+					{
+						<div class="team-card" data-slug="@team.Slug" data-id="@team.Id">
+							<div class="card-title">
+								<a class="click-title title" href="@Url.Action("index", "team", new { slug = team.Slug, adminId = team.UserId })">
+									<span>@team.Name</span>
 								</a>
-								<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-									<a id="edit-team" class="dropdown-item" href="javascript:;" data-fancybox data-src="#team">Edit</a>
-									<a id="delete-team" class="dropdown-item" href="#">Delete</a>
+								<div class="dropdown">
+									<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+									   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fas fa-ellipsis-v"></i>
+									</a>
+									<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+										<a id="edit-team" class="dropdown-item" href="javascript:;" data-fancybox data-src="#team">Edit</a>
+										<a id="delete-team" class="dropdown-item" href="#">Delete</a>
+									</div>
+								</div>
+							</div>
+							<div class="card-body pt-1">
+								<p class="desc"> @team.Desc</p>
+								<div class="card-info d-flex justify-content-between">
+									<ul class="avatars">
+										@foreach (TeamMember member in Model.TeamMembers.Where(t => t.TeamId == team.Id).ToList())
+										{
+											<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == member.UserId).Photo" alt="@Model.Users.Find(u => u.Id == member.UserId).Name"></a></li>
+										}
+									</ul>
 								</div>
 							</div>
 						</div>
-						<div class="card-body pt-1">
-							<p class="desc"> @team.Desc</p>
-							<div class="card-info d-flex justify-content-between">
-								<ul class="avatars">
-									@foreach (TeamMember member in Model.TeamMembers.Where(t => t.TeamId == team.Id).ToList())
-									{
-										<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u=>u.Id==member.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==member.UserId).Name"></a></li>
-									}
-								</ul>
-							</div>
-						</div>
-					</div>
+					}
 				}
 			}
 			else
 			{
 				<p class="add mx-auto text-center w-100" style="color:#bdbac2">
-					Add team
+				Add team
 				</p>
 			}
 
@@ -99,61 +102,64 @@ string a;
 			</div>
 				</div>
 		<div class="page-body d-flex justify-content-around ">
-			@if (Model.Admin.Projects != null)
+			@if (Model.Admin.ProjectMembers != null)
 			{
-				foreach (Project project in Model.Projects.ToList())
+				foreach (ProjectMember projectMember in Model.ProjectMembers.Where(pm => pm.UserId == Convert.ToInt32(HttpContext.Current.Session["UserId"])).ToList())
 				{
-					var due = project.EndTime.Subtract(project.StartTime);
-					var pass = now.Subtract(project.StartTime);
-					var bar = (100 * Convert.ToInt32(pass.Days)) / Convert.ToInt32(due.Days);
-					<div class="project-card" data-slug="@project.Slug" data-id="@project.Id">
-						@if (project.EndTime < now)
-						{
-							<div class="progress">
-								<div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="10"
-									 aria-valuemin="0" aria-valuemax="100"></div>
-							</div>
-						}
-						else
-						{
-							<div class="progress">
-								<div class="progress-bar" role="progressbar" style="width: @bar%" aria-valuenow="10"
-									 aria-valuemin="0" aria-valuemax="100"></div>
-							</div>
-						}
-						<div class="card-title">
-							<div class="curColor">
-								<i class="fas fa-circle"></i>
-							</div>
-							<a class="click-title title" href="@Url.Action("index", "project", new { slug = project.Slug, adminId=project.UserId })">
-								<span>@project.Name</span>
-							</a>
-
-							<div class="dropdown">
-								<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
-								   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<i class="fas fa-ellipsis-v"></i>
+					foreach (Project project in Model.Projects.Where(p => p.Id == projectMember.ProjectId).ToList())
+					{
+						var due = project.EndTime.Subtract(project.StartTime);
+						var pass = now.Subtract(project.StartTime);
+						var bar = (100 * Convert.ToInt32(pass.Days)) / Convert.ToInt32(due.Days);
+						<div class="project-card" data-slug="@project.Slug" data-id="@project.Id">
+							@if (project.EndTime < now)
+							{
+								<div class="progress">
+									<div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="10"
+										 aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+							}
+							else
+							{
+								<div class="progress">
+									<div class="progress-bar" role="progressbar" style="width: @bar%" aria-valuenow="10"
+										 aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+							}
+							<div class="card-title">
+								<div class="curColor">
+									<i class="fas fa-circle"></i>
+								</div>
+								<a class="click-title title" href="@Url.Action("index", "project", new { slug = project.Slug, adminId=project.UserId })">
+									<span>@project.Name</span>
 								</a>
-								<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-									<a id="edit-project" class="dropdown-item" href="javascript:;" data-fancybox data-src="#project">Edit</a>
-									<a id="delete-project" class="dropdown-item" href="#">Delete</a>
+
+								<div class="dropdown">
+									<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+									   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fas fa-ellipsis-v"></i>
+									</a>
+									<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+										<a id="edit-project" class="dropdown-item" href="javascript:;" data-fancybox data-src="#project">Edit</a>
+										<a id="delete-project" class="dropdown-item" href="#">Delete</a>
+									</div>
+								</div>
+							</div>
+							<div class="card-body pt-1">
+								<p class="desc">@project.Desc</p>
+								<div class="card-info">
+									<div class="card-info d-flex justify-content-between">
+										<ul class="avatars">
+											@foreach (ProjectMember member in Model.ProjectMembers.Where(p => p.ProjectId == project.Id).ToList())
+											{
+												<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u=>u.Id==member.UserId).Photo" alt=""></a></li>
+											}
+										</ul>
+									</div>
 								</div>
 							</div>
 						</div>
-						<div class="card-body pt-1">
-							<p class="desc">@project.Desc</p>
-							<div class="card-info">
-								<div class="card-info d-flex justify-content-between">
-									<ul class="avatars">
-										@foreach (ProjectMember member in Model.ProjectMembers.Where(p => p.ProjectId == project.Id).ToList())
-										{
-											<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u=>u.Id==member.UserId).Photo" alt=""></a></li>
-										}
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
+					}
 				}
 			}
 			else
@@ -162,7 +168,7 @@ string a;
 					Add project
 				</p>
 			}
-			
+
 		</div>
 	</div>
 	 <div id="tasks" class="page mt-5">
@@ -192,51 +198,63 @@ string a;
 							}
 							else
 							{
-								foreach (Task task in Model.Tasks.Where(t => t.TaskStageId == stage.Id).ToList())
+								if (Model.Admin.TaskMembers != null)
 								{
-									<div class="task-card mt-4" data-slug="@task.Slug" data-id="@task.Id">
-										<div class="progress">
-											@{
-												var Taskdue = task.EndTime.Subtract(task.StartTime);
-												var Taskpass = now.Subtract(task.StartTime);
-												var progress = (100 * Convert.ToInt32(Taskpass.Days)) / Convert.ToInt32(Taskdue.Days);
-											}
-											<div class="progress-bar" role="progressbar" style="width:  @progress%"
-												 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-										<div class="row">
-											<div class="col-6 p-4 pl-5">
-												<a href="@Url.Action("index", "task", new { slug = task.Slug, adminId=task.UserId })">
-													<h6>@task.Name</h6>
-												</a>
-
-												<p class="desc">@task.Desc</p>
-											</div>
-											<div class="col-6 p-4 d-flex justify-content-between align-items-center">
-												<ul class="avatars">
-													@foreach (TaskMember member in Model.TaskMembers.Where(t => t.TaskId == task.Id).ToList())
-													{
-														<li>
-															<a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == member.UserId).Photo" alt="@Model.Users.Find(u => u.Id == member.UserId).Name"></a>
-														</li>
+									foreach (TaskMember taskMember in Model.TaskMembers.Where(tm => tm.UserId == Convert.ToInt32(HttpContext.Current.Session["UserId"])).ToList())
+									{
+										foreach (Task task in Model.Tasks.Where(t => t.Id == taskMember.TaskId && t.TaskStageId == stage.Id).ToList())
+										{
+											<div class="task-card mt-4" data-slug="@task.Slug" data-id="@task.Id">
+												<div class="progress">
+													@{
+														var Taskdue = task.EndTime.Subtract(task.StartTime);
+														var Taskpass = now.Subtract(task.StartTime);
+														var progress = (100 * Convert.ToInt32(Taskpass.Days)) / Convert.ToInt32(Taskdue.Days);
 													}
+													<div class="progress-bar" role="progressbar" style="width:  @progress%"
+														 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+												<div class="row">
+													<div class="col-6 p-4 pl-5">
+														<a href="@Url.Action("index", "task", new { slug = task.Slug, adminId = task.UserId })">
+															<h6>@task.Name</h6>
+														</a>
 
-												</ul>
-												<div class="dropdown">
-													<a class="nav-link" href="#" id="navbarDropdownMenuLink"
-													   role="button" data-toggle="dropdown" aria-haspopup="true"
-													   aria-expanded="false">
-														<i class="fas fa-ellipsis-v"></i>
-													</a>
-													<div class="dropdown-menu"
-														 aria-labelledby="navbarDropdownMenuLink">
-														<a id="edit-task" class="dropdown-item" href="javascript:;" data-fancybox data-src="#task">Edit</a>
-														<a id="delete-task" class="dropdown-item" href="#">Delete</a>
+														<p class="desc">@task.Desc</p>
+													</div>
+													<div class="col-6 p-4 d-flex justify-content-between align-items-center">
+														<ul class="avatars">
+															@foreach (TaskMember member in Model.TaskMembers.Where(t => t.TaskId == task.Id).ToList())
+															{
+																<li>
+																	<a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == member.UserId).Photo" alt="@Model.Users.Find(u => u.Id == member.UserId).Name"></a>
+																</li>
+															}
+
+														</ul>
+														<div class="dropdown">
+															<a class="nav-link" href="#" id="navbarDropdownMenuLink"
+															   role="button" data-toggle="dropdown" aria-haspopup="true"
+															   aria-expanded="false">
+																<i class="fas fa-ellipsis-v"></i>
+															</a>
+															<div class="dropdown-menu"
+																 aria-labelledby="navbarDropdownMenuLink">
+																<a id="edit-task" class="dropdown-item" href="javascript:;" data-fancybox data-src="#task">Edit</a>
+																<a id="delete-task" class="dropdown-item" href="#">Delete</a>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-									</div>
+										}
+									}
+								}
+								else
+								{
+									<p class="add mx-auto text-center w-100" >
+										Add task
+									</p>
 								}
 							}
 						</div>

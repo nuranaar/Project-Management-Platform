@@ -42,6 +42,8 @@ $(document).ready(function () {
 	$("input:checked").next().css({
 		"text-decoration-line": "line-through"
 	});
-
+	$(document).on("click", "html", function () {
+		$(this).find(".menu").removeClass("act");
+	});
 		
 });

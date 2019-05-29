@@ -19,7 +19,7 @@ namespace PMP.Controllers
 			{
 				Admin = db.Users.FirstOrDefault(u=>u.Id==userId),
 				Users = db.Users.ToList(),
-				Projects = db.Projects.Where(p => p.UserId == userId).OrderByDescending(p => p.StartTime).ToList(),
+				Projects = db.Projects.OrderByDescending(p => p.StartTime).ToList(),
 				Teams = db.Teams.Where(t => t.UserId == userId).ToList(),
 				Tasks = db.Tasks.Where(t => t.UserId == userId).ToList(),
 				Checklists = db.Checklists.ToList(),

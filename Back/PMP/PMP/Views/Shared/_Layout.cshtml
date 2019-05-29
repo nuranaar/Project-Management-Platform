@@ -1,5 +1,6 @@
 ﻿@{
 	List<Project> projects = ViewBag.Project as List<Project>;
+	List<ProjectMember> projectMembers = ViewBag.ProjectMem as List<ProjectMember>;
 	Task task = ViewBag.Task as Task;
 	List<User> users = ViewBag.User as List<User>;
 	User user = users.Find(u => u.Id == Convert.ToInt32(HttpContext.Current.Session["UserId"]));
@@ -22,6 +23,7 @@
 </head>
 
 <body>
+
 	<div class="sides">
 		<!--Start of Navbar -->
 		<div class="navigation">
@@ -45,19 +47,21 @@
 							<h5 class="ml-3">Projects</h5>
 						</li>
 						<div class="pr-list">
-							@if (user.Projects != null)
+							@if (user.ProjectMembers != null)
 							{
-								foreach (Project project in projects.Where(p => p.UserId == Convert.ToInt32(HttpContext.Current.Session["UserId"])).ToList())
+								foreach (ProjectMember projectMember in projectMembers.Where(pm => pm.UserId == Convert.ToInt32(HttpContext.Current.Session["UserId"])).ToList())
 								{
-
-									<li class="nav-item" data-slug="@project.Slug">
-										<div class="project">
-											<div class="curColor">
-												<i class="fas fa-circle"></i>
+									foreach (Project project in projects.Where(p => p.Id == projectMember.ProjectId).ToList())
+									{
+										<li class="nav-item" data-slug="@project.Slug">
+											<div class="project">
+												<div class="curColor">
+													<i class="fas fa-circle"></i>
+												</div>
+												<a class="nav-link" href="@Url.Action("index", "project", new { slug = project.Slug, adminId = project.UserId })">@project.Name</a>
 											</div>
-											<a class="nav-link" href="@Url.Action("index", "project", new { slug = project.Slug,adminId=project.UserId })">@project.Name</a>
-										</div>
-									</li>
+										</li>
+									}
 								}
 							}
 							else
@@ -268,9 +272,7 @@
 							   placeholder="Add team members">
 						<hr>
 					</div>
-					<div class="row">
 
-					</div>
 					<button type="submit" class="createBtn btn btn-primary my-3">
 						Create
 						team
@@ -289,7 +291,19 @@
 	<script src="~/Public/js/create.js"></script>
 	<script src="~/Public/js/delete.js"></script>
 	<script src="~/Public/js/edit.js"></script>
-
+	<!--Start of Tawk.to Script-->
+	@*<script type="text/javascript">
+		var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+		(function () {
+			var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+			s1.async = true;
+			s1.src = 'https://embed.tawk.to/5cee6935a667a0210d59fd46/default';
+			s1.charset = 'UTF-8';
+			s1.setAttribute('crossorigin', '*');
+			s0.parentNode.insertBefore(s1, s0);
+		})();
+	</script>*@
+	<!--End of Tawk.to Script-->
 
 </body>
 

@@ -53,6 +53,14 @@ namespace PMP.Controllers
 			db.Teams.Add(team);
 			db.SaveChanges();
 
+			TeamMember teamMem = new TeamMember()
+			{
+				UserId = team.UserId,
+				TeamId = team.Id
+			};
+			db.TeamMembers.Add(teamMem);
+			db.SaveChanges();
+
 			string[] emails = member.Split(' ');
 			foreach (var email in emails)
 			{
@@ -203,9 +211,9 @@ namespace PMP.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult TeamEdit(Team team)
+		public JsonResult TeamEdit(Team teams)
 		{
-			team.UserId = Convert.ToInt32(Session["UserId"]);
+
 			if (!ModelState.IsValid)
 			{
 				Response.StatusCode = 400;
@@ -216,10 +224,11 @@ namespace PMP.Controllers
 
 				return Json(errorList, JsonRequestBehavior.AllowGet);
 			}
-
+			Team team = db.Teams.FirstOrDefault(t => t.Id == teams.Id);
+			team.Desc = teams.Desc;
+			team.Name = teams.Name;
 			db.Entry(team).State = EntityState.Modified;
 			db.SaveChanges();
-			team.User = db.Users.Find(team.UserId);
 			Activity act = new Activity()
 			{
 				UserId = team.UserId,

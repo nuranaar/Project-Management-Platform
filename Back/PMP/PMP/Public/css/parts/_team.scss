@@ -122,6 +122,11 @@ main {
               height: 3px;
               border-radius: 0;
             }
+            .dropdown-menu{
+              top: -23px !important;
+              left: -114px !important;
+              transform: none !important;
+            }
             p {
               @extend %desc;
             }

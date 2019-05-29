@@ -51,7 +51,7 @@
 					</a>
 				</div>
 			</div>
-			
+
 		</div>
 		<div class="page-body d-flex justify-content-around ">
 			@if (Model.Projects != null)
@@ -85,7 +85,7 @@
 								</div>
 							</div>
 							<div class="card-body pt-1">
-								<p>@project.Desc</p>
+								<p class="desc">@project.Desc</p>
 								<div class="card-info d-flex justify-content-between">
 									<div class="mt-2"><i class="far fa-check-square"></i><span>4/10</span></div>
 									<ul class="avatars">
@@ -106,13 +106,13 @@
 					Add project
 				</p>
 			}
-			
+
 
 
 		</div>
 	</div>
 	<div id="tasks" class="page mt-5">
-		<div class="page-title d-flex justify-content-between ">
+		<div class="page-title">
 			<div class="d-flex justify-content-between align-items-center">
 				<h2>Tasks</h2>
 				<div class="add">
@@ -121,10 +121,6 @@
 					</a>
 				</div>
 			</div>
-			<form class=" filterForm my-3">
-				<input type="search" class="form-control filter py-4" placeholder="Filter tasks">
-				<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
-			</form>
 		</div>
 		<div class="page-body">
 			<ul class="task-list pl-0">
@@ -137,14 +133,14 @@
 								@if (stage.Tasks == null)
 								{
 									<p class="add mx-auto text-center" style="width:150px;">
-											Add Task
+										Add Task
 									</p>
 								}
 								else
 								{
 									foreach (TeamMember member in Model.TeamMembers.ToList())
 									{
-										foreach (Task task in Model.Tasks.Where(t => t.TaskStageId == stage.Id && (t.UserId==member.UserId) ).ToList())
+										foreach (Task task in Model.Tasks.Where(t => t.TaskStageId == stage.Id && (t.UserId == member.UserId)).ToList())
 										{
 
 											<div class="task-card mt-4" data-slug="@task.Slug" data-id="@task.Id">
@@ -201,7 +197,7 @@
 		</div>
 	</div>
 	<div id="members" class="page mt-5">
-		<div class="page-title d-flex justify-content-between ">
+		<div class="page-title">
 			<div class="d-flex justify-content-between align-items-center">
 				<h2>Members</h2>
 				<div class="add">
@@ -210,33 +206,33 @@
 					</a>
 				</div>
 			</div>
-			<form class=" filterForm my-3">
-				<input type="search" class="form-control filter py-4" placeholder="Filter member">
-				<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
-			</form>
 		</div>
 		<div id="mem-list" class="page-body d-flex justify-content-around ">
 			@if (Model.TeamMembers != null)
 			{
 				foreach (TeamMember member in Model.TeamMembers.ToList())
 				{
-					<div class="member-card text-center" data-id="@member.Id">
-						<a id="delete-member" class="del" href="#"><i class="fas fa-times"></i></a>
-						<div class="member-photo mt-5">
-							<img src="~/Uploads/@Model.Users.Find(u=>u.Id==member.UserId).Photo" alt="@Model.Users.Find(u => u.Id == member.UserId).Name">
-						</div>
-						<div class="member-info mt-3">
-							<a href="#">
-								<h6>@Model.Users.Find(u => u.Id == member.UserId).Name @Model.Users.Find(u => u.Id == member.UserId).Surname</h6>
-							</a>
-							<p>@Model.Users.Find(u => u.Id == member.UserId).Position</p>
-						</div>
-						<ul class="icons mx-4">
-							<li><i class="fab fa-twitter"></i></li>
-							<li><i class="fab fa-linkedin-in"></i></li>
-							<li><i class="fab fa-facebook-f"></i></li>
-						</ul>
-					</div>
+			<div class="member-card text-center" data-id="@member.Id">
+				@if (Model.Users.FirstOrDefault(u => u.Id == member.UserId).Id != Model.Team.UserId)
+				{
+					<a id="delete-member" class="del" href="#"><i class="fas fa-times"></i></a>
+
+				}
+				<div class="member-photo mt-5">
+					<img src="~/Uploads/@Model.Users.FirstOrDefault(u=>u.Id==member.UserId).Photo" alt="@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name">
+				</div>
+				<div class="member-info mt-3">
+					<a href="#">
+						<h6>@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name @Model.Users.FirstOrDefault(u => u.Id == member.UserId).Surname</h6>
+					</a>
+					<p>@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Position</p>
+				</div>
+				<ul class="icons mx-4">
+					<li><i class="fab fa-twitter"></i></li>
+					<li><i class="fab fa-linkedin-in"></i></li>
+					<li><i class="fab fa-facebook-f"></i></li>
+				</ul>
+			</div>
 
 				}
 			}

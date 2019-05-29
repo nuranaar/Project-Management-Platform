@@ -520,6 +520,13 @@ main #tasks .page-body .task-list .task-stage .task-card .progress {
   border-radius: 0;
 }
 
+main #tasks .page-body .task-list .task-stage .task-card .dropdown-menu {
+  top: -23px !important;
+  left: -114px !important;
+  -webkit-transform: none !important;
+          transform: none !important;
+}
+
 main #tasks .page-body .task-list .task-stage .task-card h6 {
   font-weight: 700;
   color: #212529;

@@ -23,7 +23,7 @@
 				<ul class="avatars">
 					@foreach (TaskMember member in Model.TaskMembers.Where(m=>m.TaskId==Model.Task.Id).ToList())
 					{
-						<li><a href=""><img src="~/Public/img/@Model.Users.Find(u=>u.Id==member.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==member.UserId).Name"></a></li>
+						<li><a href=""><img src="~/Uploads/@Model.Users.Find(u=>u.Id==member.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==member.UserId).Name"></a></li>
 					}
 					<li>
 						<a data-fancybox data-src="#member" href="javascript:;">
@@ -76,7 +76,7 @@
 					<div class="act-card w-100 d-flex justify-content-start align-items-center">
 						<ul class="avatars mt-3">
 							<li><a href="#"><i class="fas fa-star"></i></a></li>
-							<li><a href="#"><img src="~/Public/img/@Model.Users.Find(u=>u.Id==act.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==act.UserId).Name"></a></li>
+							<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u=>u.Id==act.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==act.UserId).Name"></a></li>
 						</ul>
 						<div class="act-info pl-4 py-4">
 							<a href="#">
@@ -106,7 +106,9 @@
 			
 		</div>
 		<div id="check-body" class="page-body">
-			@foreach (Checklist checklist in Model.Checklists.Where(c=>c.TaskId==Model.Task.Id).ToList())
+
+			@if (Model.Task.Checklists!=null) { 
+			foreach (Checklist checklist in Model.Checklists.Where(c => c.TaskId == Model.Task.Id).ToList())
 			{
 				<div class="check-card file-card  w-100 d-flex justify-content-start align-items-center" data-id="@checklist.Id">
 					<div class="file-info pl-4 py-4 w-100">
@@ -114,7 +116,7 @@
 							<div class="bar">
 								<i class="fas fa-bars"></i>
 							</div>
-							<form id="check-form" data-type="update" data-id="@checklist.Id">
+							<form class="w-100" id="check-form" data-type="update" data-id="@checklist.Id">
 								<input id="checkbox" class="check" @(checklist.Checked ? "checked =checked" : " ") type="checkbox" />
 
 
@@ -137,7 +139,13 @@
 					</div>
 				</div>
 			}
-
+			}
+			else
+			{
+			<p class="add mx-auto text-center w-100">
+				Add checkitem
+			</p>
+			}
 
 		</div>
 
@@ -154,26 +162,35 @@
 
 			</div>
 			<div id="note-body" class="page-body d-flex justify-content-around align-items-center">
-				@foreach (Note note in Model.Notes.Where(n=>n.TaskId==Model.Task.Id).ToList())
+				@if (Model.Task.Notes != null)
 				{
-					<div class="note-card p-4" data-id="@note.Id">
-						<p>
-							@note.Title
-						</p>
-						<span>
-							@note.Desc
-						</span>
-						<div class="dropdown">
-							<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
-							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fas fa-ellipsis-v"></i>
-							</a>
-							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<a id="edit-note" class="dropdown-item" data-src="#note-create" data-fancybox href="javascript:;">Edit</a>
-								<a id="delete-note" class="dropdown-item" href="#">Delete</a>
+					foreach (Note note in Model.Notes.Where(n => n.TaskId == Model.Task.Id).ToList())
+					{
+						<div class="note-card p-4" data-id="@note.Id">
+							<p>
+								@note.Title
+							</p>
+							<span>
+								@note.Desc
+							</span>
+							<div class="dropdown">
+								<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+								   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fas fa-ellipsis-v"></i>
+								</a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+									<a id="edit-note" class="dropdown-item" data-src="#note-create" data-fancybox href="javascript:;">Edit</a>
+									<a id="delete-note" class="dropdown-item" href="#">Delete</a>
+								</div>
 							</div>
 						</div>
-					</div>
+					}
+				}
+				else
+				{
+					<p class="add mx-auto text-center w-100">
+						Add note
+					</p>
 				}
 			</div>
 		</div>
@@ -202,7 +219,7 @@
 					<div id="file-card" class="file-card w-100 d-flex justify-content-start align-items-center" data-id="@file.Id">
 						<ul class="avatars mt-3">
 							<li><a href=""><i class="far fa-file-alt"></i></a></li>
-							<li><a href=""><img src="~/Public/img/@Model.Users.Find(u=>u.Id==file.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==file.UserId).Name"></a></li>
+							<li><a href=""><img src="~/Uploads/@Model.Users.Find(u=>u.Id==file.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==file.UserId).Name"></a></li>
 						</ul>
 						<div class="file-info pl-4 py-4">
 							<a href="#">

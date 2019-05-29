@@ -19,7 +19,7 @@
 				$("#team-form").find(".createBtn").text("Update team");
 				$("#team").find(".popup-head").html(`<h3>${response.Name}</h3>`);
 				if ($("#team-form").data("type") == "update") {
-					$(".mem-input").css({ "display": "none" });
+					$(".mem-input").empty();
 				}
 			}
 		});
@@ -45,7 +45,6 @@
 				if ($("#project-form").data("type") == "update") {
 					$(".mem-input").empty();
 				}
-				console.log(response);
 			}
 		});
 	});
@@ -128,10 +127,10 @@
 						Id:id
 					},
 					success: function (response) {
-						console.log(response);
 						if (response == true) {
 							let er = `<div class="validation-summary-errors text-success" data-valmsg-summary="true"><ul><li>Password changed.</li></ul></div>`;
 							$(".password-submit").before(er);
+							$(`input[type='password']`).val('');
 						}
 						else {
 							let er = `<div class="validation-summary-errors text-danger" data-valmsg-summary="true"><ul><li>Password incorrect.</li></ul></div>`;

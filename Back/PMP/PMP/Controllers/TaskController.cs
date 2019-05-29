@@ -102,6 +102,14 @@ namespace PMP.Controllers
 			db.Files.Add(startfile);
 			db.SaveChanges();
 
+			TaskMember taskMem = new TaskMember()
+			{
+				UserId = task.UserId,
+				TaskId=task.Id
+			};
+			db.TaskMembers.Add(taskMember);
+			db.SaveChanges();
+
 			string[] emails = member.Split(' ');
 			foreach (var email in emails)
 			{
@@ -196,8 +204,7 @@ namespace PMP.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult FileUpload(Models.File file,
-							   HttpPostedFileBase fileBase, int TaskId)
+		public JsonResult FileUpload(HttpPostedFileBase fileBase, int TaskId)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -217,6 +224,7 @@ namespace PMP.Controllers
 			string filename = date + fileBase.FileName;
 			string path = Path.Combine(Server.MapPath("~/Uploads"), filename);
 			fileBase.SaveAs(path);
+			Models.File file = new Models.File();
 			file.TaskId = TaskId;
 			file.UserId = Convert.ToInt32(Session["UserId"]);
 			file.Name = filename;
@@ -225,6 +233,7 @@ namespace PMP.Controllers
 			file.User = db.Users.Find(file.UserId);
 			db.Files.Add(file);
 			db.SaveChanges();
+			file.Task = db.Tasks.FirstOrDefault(t => t.Id == file.TaskId);
 			Activity act = new Activity()
 			{
 				UserId = file.Task.UserId,
@@ -404,11 +413,11 @@ namespace PMP.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult NoteEdit(Note note)
+		public JsonResult NoteEdit(Note notes)
 		{
-			Note n = db.Notes.Find(note.Id);
-			n.Desc = note.Desc;
-			n.Title = note.Title;
+			Note note = db.Notes.FirstOrDefault(n=>n.Id==notes.Id);
+			note.Desc = notes.Desc;
+			note.Title = notes.Title;
 			if (!ModelState.IsValid)
 			{
 				Response.StatusCode = 400;
@@ -418,14 +427,14 @@ namespace PMP.Controllers
 				return Json(errorList, JsonRequestBehavior.AllowGet);
 			}
 
-			db.Entry(n).State = EntityState.Modified;
+			db.Entry(note).State = EntityState.Modified;
 			db.SaveChanges();
 
 			return Json(new
 			{
-				n.Title,
-				n.Id,
-				n.Desc
+				note.Title,
+				note.Id,
+				note.Desc
 			}, JsonRequestBehavior.AllowGet);
 		}
 
@@ -532,7 +541,6 @@ namespace PMP.Controllers
 			task.TaskStageId = Stage;
 			db.Entry(task).State = EntityState.Modified;
 			db.SaveChanges();
-			task.User = db.Users.Find(task.UserId);
 			task.TaskStage = db.TaskStages.Find(task.TaskStageId);
 			Activity act = new Activity()
 			{
@@ -548,6 +556,7 @@ namespace PMP.Controllers
 				task.Name,
 				task.Slug,
 				task.Desc,
+				task.UserId,
 				TaskStage = new
 				{
 					task.TaskStage.Id,
