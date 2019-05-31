@@ -1,6 +1,7 @@
 ﻿@model ChatVm
 @{
 	ViewBag.Title = "Index";
+	string s = "";
 	<style>
 		main {
 			padding: 0 !important;
@@ -68,18 +69,18 @@
 						</a>
 						<span>gb</span>
 					</div>
-				
+
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="inbox w-100">
 		<header class="d-flex p-3">
-				@if (Model.Chat.Photo != null)
-				{
-					<img class="logo-team mr-3 mt-2" src="~/Uploads/@Model.Chat.Photo" alt="@Model.Team.Name">
-				}
-				<h3>@Model.Team.Name</h3>
+			@if (Model.Chat.Photo != null)
+			{
+				<img class="logo-team mr-3 mt-2" src="~/Uploads/@Model.Chat.Photo" alt="@Model.Team.Name">
+			}
+			<h3>@Model.Team.Name</h3>
 			<ul class="avatars">
 				@foreach (TeamMember member in Model.TeamMembers.Where(tm => tm.TeamId == Model.Team.Id).ToList())
 				{
@@ -90,58 +91,28 @@
 		<div class="inbox-body">
 			<div class="container">
 				<div class="inbox-messages">
-					<div class="message my-2 d-flex align-items-end">
-						<ul class="avatars mb-2 px-3">
-							<li> <a href=""> <img src="~/Public/img/avatar-female-2.jpg" alt=""></a></li>
-						</ul>
-						<div class="text">
-							<p>
-								Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-							</p>
-							<span>07:30am</span>
+					@foreach (Message mes in Model.Messages.ToList())
+					{
+
+						<div class="message @(mes.UserId== Convert.ToInt32(HttpContext.Current.Session["UserId"])? s="user-message":s="") my-2 d-flex align-items-end">
+							<ul class="avatars mb-2 px-3">
+								<li> <a href=""> <img src="~/Uploads/@Model.Users.FirstOrDefault(u=>u.Id==mes.UserId).Photo" alt="@Model.Users.FirstOrDefault(u=>u.Id==mes.UserId).Name"></a></li>
+							</ul>
+							<div class="text">
+								<p>
+									@(mes.Content != null ? mes.Content : mes.File)
+								</p>
+								<span>@mes.Date.ToShortTimeString()</span>
+							</div>
 						</div>
-					</div>
-					<div class="message user-message my-2 d-flex align-items-end">
-						<ul class="avatars mb-2 px-3">
-							<li> <a href=""> <img src="~/Public/img/avatar-male-1.jpg" alt=""></a></li>
-						</ul>
-						<div class="text">
-							<p>
-								Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-							</p>
-							<span>08:30am</span>
-						</div>
-					</div>
-					<div class="message my-2 d-flex align-items-end">
-						<ul class="avatars mb-2 px-3">
-							<li> <a href=""> <img src="~/Public/img/avatar-male-1.jpg" alt=""></a></li>
-						</ul>
-						<div class="text">
-							<p>
-								It has survived not only five centuries, but also the leap into electronic
-								typesetting.
-							</p>
-							<span>08:45am</span>
-						</div>
-					</div>
-					<div class="message user-message my-2 d-flex align-items-end">
-						<ul class="avatars mb-2 px-3">
-							<li> <a href=""> <img src="~/Public/img/avatar-male-1.jpg" alt=""></a></li>
-						</ul>
-						<div class="text">
-							<p>
-								It has survived not only five centuries, but also the leap into electronic
-								typesetting.
-							</p>
-							<span>08:45am</span>
-						</div>
-					</div>
+
+					}
 				</div>
 
 			</div>
 		</div>
 		<footer>
-			<form  method="post" id="chat-form" class="message-area w-100 p-4" data-user="@HttpContext.Current.Session["UserId"]" data-chat="@Model.Chat.Id" enctype="multipart/form-data">
+			<form method="post" id="chat-form" class="message-area w-100 p-4" data-user="@HttpContext.Current.Session["UserId"]" data-chat="@Model.Chat.Id" enctype="multipart/form-data">
 				<input id="message" type="text" class="form-control message px-3 py-4"
 					   placeholder="Start typing for reply...">
 				<button class="btn smile-btn"><i class="far fa-smile-wink"></i></button>

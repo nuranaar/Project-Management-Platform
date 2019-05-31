@@ -1,6 +1,7 @@
 ﻿@model TeamVm
 @{
-	ViewBag.Title = "Index";
+	DateTime now = DateTime.Now;
+	int show = 2;
 }
 
 
@@ -12,13 +13,26 @@
 		<div class="row align-items-center">
 			<div class="col-6">
 				<h1> @Model.Team.Name </h1>
-				<p>@Model.Team.Desc</p>
 			</div>
 			<div class="col-6">
 				<ul class="avatars">
-					@foreach (TeamMember member in Model.TeamMembers.ToList())
+					@{
+						List<TeamMember> members = Model.TeamMembers.ToList();
+					}
+					@if (members.Count > show)
 					{
-						<li><a href="#"><img src="~/Uploads/@Model.Users.FirstOrDefault(u=>u.Id==member.UserId).Photo" alt="@Model.Users.FirstOrDefault(u=>u.Id==member.UserId).Name"></a></li>
+						for (int i = 0; i < show; i++)
+						{
+							<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == members[i].UserId).Photo" alt="@Model.Users.Find(u => u.Id == members[i].UserId).Name"></a></li>
+						}
+						<li><span class="count text-center">+@(members.Count - show)</span><i class="fas fa-ellipsis-h"></i></li>
+					}
+					else
+					{
+						for (int i = 0; i < members.Count; i++)
+						{
+							<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == members[i].UserId).Photo" alt="@Model.Users.Find(u => u.Id == members[i].UserId).Name"></a></li>
+						}
 					}
 					<li>
 						<a data-fancybox data-src="#member" href="javascript:;">
@@ -89,9 +103,23 @@
 								<div class="card-info d-flex justify-content-between">
 									<div class="mt-2"><i class="far fa-check-square"></i><span>4/10</span></div>
 									<ul class="avatars">
-										@foreach (ProjectMember projectMember in Model.ProjectMembers.Where(m => m.ProjectId == project.Id).ToList())
+										@{
+											List<ProjectMember> mems = Model.ProjectMembers.Where(p => p.ProjectId == project.Id).ToList();
+										}
+										@if (mems.Count > show)
 										{
-											<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u=>u.Id==projectMember.UserId).Photo" alt="@Model.Users.Find(u=>u.Id==projectMember.UserId).Name"></a></li>
+											for (int i = 0; i < show; i++)
+											{
+												<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == mems[i].UserId).Photo" alt="@Model.Users.Find(u => u.Id == mems[i].UserId).Name"></a></li>
+											}
+											<li><span class="count text-center">+@(mems.Count - show)</span><i class="fas fa-ellipsis-h"></i></li>
+										}
+										else
+										{
+											for (int i = 0; i < mems.Count; i++)
+											{
+												<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == mems[i].UserId).Photo" alt="@Model.Users.Find(u => u.Id == mems[i].UserId).Name"></a></li>
+											}
 										}
 									</ul>
 								</div>
@@ -145,7 +173,12 @@
 
 											<div class="task-card mt-4" data-slug="@task.Slug" data-id="@task.Id">
 												<div class="progress">
-													<div class="progress-bar" role="progressbar" style="width: 25%"
+													@{
+														var Taskdue = task.EndTime.Subtract(task.StartTime);
+														var Taskpass = now.Subtract(task.StartTime);
+														var progress = (100 * Convert.ToInt32(Taskpass.Days)) / Convert.ToInt32(Taskdue.Days);
+													}
+													<div class="progress-bar" role="progressbar" style="width: @progress%"
 														 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
 												<div class="row">
@@ -158,17 +191,26 @@
 													</div>
 													<div class="col-6 p-4 d-flex justify-content-between align-items-center">
 														<ul class="avatars">
-															@foreach (TaskMember taskmember in Model.TaskMembers.Where(t => t.TaskId == task.Id).ToList())
-															{
-																<li>
-																	<a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == taskmember.UserId).Photo" alt="@Model.Users.Find(u => u.Id == taskmember.UserId).Name"></a>
-																</li>
+															@{
+																List<TaskMember> mems = Model.TaskMembers.Where(t => t.TaskId == task.Id).ToList();
 															}
-
+															@if (mems.Count > show)
+															{
+																for (int i = 0; i < show; i++)
+																{
+																	<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == mems[i].UserId).Photo" alt="@Model.Users.Find(u => u.Id == mems[i].UserId).Name"></a></li>
+																}
+																<li><span class="count text-center">+@(mems.Count - show)</span><i class="fas fa-ellipsis-h"></i></li>
+															}
+															else
+															{
+																for (int i = 0; i < mems.Count; i++)
+																{
+																	<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == mems[i].UserId).Photo" alt="@Model.Users.Find(u => u.Id == mems[i].UserId).Name"></a></li>
+																}
+															}
 														</ul>
-														<div class="mt-2">
-															<i class="far fa-check-square"></i><span>4/10</span>
-														</div>
+
 
 														<div class="dropdown">
 															<a class="nav-link" href="#" id="navbarDropdownMenuLink"
@@ -212,27 +254,27 @@
 			{
 				foreach (TeamMember member in Model.TeamMembers.ToList())
 				{
-			<div class="member-card text-center" data-id="@member.Id">
-				@if (Model.Users.FirstOrDefault(u => u.Id == member.UserId).Id != Model.Team.UserId)
-				{
-					<a id="delete-member" class="del" href="#"><i class="fas fa-times"></i></a>
+					<div class="member-card text-center" data-id="@member.Id">
+						@if (Model.Users.FirstOrDefault(u => u.Id == member.UserId).Id != Model.Team.UserId)
+						{
+							<a id="delete-member" class="del" href="#"><i class="fas fa-times"></i></a>
 
-				}
-				<div class="member-photo mt-5">
-					<img src="~/Uploads/@Model.Users.FirstOrDefault(u=>u.Id==member.UserId).Photo" alt="@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name">
-				</div>
-				<div class="member-info mt-3">
-					<a href="#">
-						<h6>@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name @Model.Users.FirstOrDefault(u => u.Id == member.UserId).Surname</h6>
-					</a>
-					<p>@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Position</p>
-				</div>
-				<ul class="icons mx-4">
-					<li><i class="fab fa-twitter"></i></li>
-					<li><i class="fab fa-linkedin-in"></i></li>
-					<li><i class="fab fa-facebook-f"></i></li>
-				</ul>
-			</div>
+						}
+						<div class="member-photo mt-5">
+							<img src="~/Uploads/@Model.Users.FirstOrDefault(u=>u.Id==member.UserId).Photo" alt="@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name">
+						</div>
+						<div class="member-info mt-3">
+							<a href="#">
+								<h6>@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name @Model.Users.FirstOrDefault(u => u.Id == member.UserId).Surname</h6>
+							</a>
+							<p>@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Position</p>
+						</div>
+						<ul class="icons mx-4">
+							<li><i class="fab fa-twitter"></i></li>
+							<li><i class="fab fa-linkedin-in"></i></li>
+							<li><i class="fab fa-facebook-f"></i></li>
+						</ul>
+					</div>
 
 				}
 			}

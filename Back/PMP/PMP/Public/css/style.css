@@ -164,6 +164,7 @@ body {
 }
 
 .avatars li {
+  position: relative;
   margin-left: -10px;
 }
 
@@ -182,6 +183,14 @@ body {
   width: 50px;
   border: 2px solid #fbfbfb;
   border-radius: 100%;
+}
+
+.avatars li .count {
+  color: #bdbac2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 
 p.desc {
@@ -833,7 +842,7 @@ main #members .page-body .member-card .icons li i {
 #teams .page-body .team-card .dropdown {
   position: absolute;
   top: 20%;
-  right: 7%;
+  right: 3%;
 }
 
 #teams .page-body .team-card .dropdown .dropdown-menu {

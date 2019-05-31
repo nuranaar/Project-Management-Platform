@@ -6,7 +6,7 @@
 	var due = Model.Project.EndTime.Subtract(Model.Project.StartTime);
 	var pass = now.Subtract(Model.Project.StartTime);
 	var bar = (100 * Convert.ToInt32(pass.Days)) / Convert.ToInt32(due.Days);
-
+	int show = 2;
 
 }
 
@@ -20,11 +20,24 @@
 			</div>
 			<div class="col-6">
 				<ul class="avatars">
-					@foreach (ProjectMember member in Model.ProjectMembers.ToList())
-					{
-						<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == member.UserId).Photo" alt="@Model.Users.Find(u => u.Id == member.UserId).Name"></a></li>
+					@{
+						List<ProjectMember> members = Model.ProjectMembers.ToList();
 					}
-
+					@if (members.Count > show)
+					{
+						for (int i = 0; i < show; i++)
+						{
+							<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == members[i].UserId).Photo" alt="@Model.Users.Find(u => u.Id == members[i].UserId).Name"></a></li>
+						}
+						<li><span class="count text-center">+@(members.Count - show)</span><i class="fas fa-ellipsis-h"></i></li>
+					}
+					else
+					{
+						for (int i = 0; i < members.Count; i++)
+						{
+							<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == members[i].UserId).Photo" alt="@Model.Users.Find(u => u.Id == members[i].UserId).Name"></a></li>
+						}
+					}
 					<li>
 						<a data-fancybox data-src="#member" href="javascript:;">
 							<i class="fa fa-plus"></i>
@@ -168,11 +181,23 @@
 														</div>
 														<div class="col-6 p-4 d-flex justify-content-between align-items-center">
 															<ul class="avatars">
-																@foreach (TaskMember mem in Model.TaskMembers.Where(t => t.TaskId == task.Id).ToList())
+																@{
+																	List<TaskMember> mems = Model.TaskMembers.Where(t => t.TaskId == task.Id).ToList();
+																}
+																@if (mems.Count > show)
 																{
-																	<li>
-																		<a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == mem.UserId).Photo" alt="@Model.Users.Find(u => u.Id == mem.UserId).Name"></a>
-																	</li>
+																	for (int i = 0; i < show; i++)
+																	{
+																		<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == mems[i].UserId).Photo" alt="@Model.Users.Find(u => u.Id == mems[i].UserId).Name"></a></li>
+																	}
+																	<li><span class="count text-center">+@(mems.Count - show)</span><i class="fas fa-ellipsis-h"></i></li>
+																}
+																else
+																{
+																	for (int i = 0; i < mems.Count; i++)
+																	{
+																		<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == mems[i].UserId).Photo" alt="@Model.Users.Find(u => u.Id == mems[i].UserId).Name"></a></li>
+																	}
 																}
 
 															</ul>

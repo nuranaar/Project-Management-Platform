@@ -12,7 +12,6 @@
 			success: function (response) {
 				$("#team-form").find("input[name='name']").val(response.Name);
 				$("#team-form").find("input[name='slug']").val(response.Slug);
-				$("#team-form").find("textarea[name='desc']").text(response.Desc);
 				$("#team-form").attr("data-type", "update");
 				let input_id = `<div class="type-id"><input type="text" id="id" name="id" value='${response.Id}'></div>`;
 				$("#team-form").find(".slug-id").append(input_id);

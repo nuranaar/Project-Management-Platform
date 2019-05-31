@@ -1,8 +1,8 @@
 ﻿@model UserVm
 @{
 	DateTime now = DateTime.Now;
-string a;
-
+	string a;
+	int show = 2;
 }
 
 <!--Start of header -->
@@ -64,12 +64,25 @@ string a;
 								</div>
 							</div>
 							<div class="card-body pt-1">
-								<p class="desc"> @team.Desc</p>
 								<div class="card-info d-flex justify-content-between">
 									<ul class="avatars">
-										@foreach (TeamMember member in Model.TeamMembers.Where(t => t.TeamId == team.Id).ToList())
+										@{
+											List<TeamMember> members = Model.TeamMembers.Where(t => t.TeamId == team.Id).ToList();
+										}
+										@if (members.Count > show)
 										{
-											<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == member.UserId).Photo" alt="@Model.Users.Find(u => u.Id == member.UserId).Name"></a></li>
+											for (int i = 0; i < show; i++)
+											{
+												<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == members[i].UserId).Photo" alt="@Model.Users.Find(u => u.Id == members[i].UserId).Name"></a></li>
+											}
+											<li><span class="count text-center">+@(members.Count-show)</span><i class="fas fa-ellipsis-h"></i></li>
+										}
+										else
+										{
+											for (int i = 0; i < members.Count; i++)
+											{
+												<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == members[i].UserId).Photo" alt="@Model.Users.Find(u => u.Id == members[i].UserId).Name"></a></li>
+											}
 										}
 									</ul>
 								</div>
@@ -81,7 +94,7 @@ string a;
 			else
 			{
 				<p class="add mx-auto text-center w-100" style="color:#bdbac2">
-				Add team
+					Add team
 				</p>
 			}
 		</div>
@@ -96,7 +109,7 @@ string a;
 					</a>
 				</div>
 			</div>
-				</div>
+		</div>
 		<div class="page-body d-flex justify-content-around ">
 			@if (Model.Admin.ProjectMembers != null)
 			{
@@ -146,9 +159,23 @@ string a;
 								<div class="card-info">
 									<div class="card-info d-flex justify-content-between">
 										<ul class="avatars">
-											@foreach (ProjectMember member in Model.ProjectMembers.Where(p => p.ProjectId == project.Id).ToList())
+											@{
+												List<ProjectMember> members = Model.ProjectMembers.Where(p => p.ProjectId == project.Id).ToList();
+											}
+											@if (members.Count >show)
 											{
-												<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u=>u.Id==member.UserId).Photo" alt=""></a></li>
+												for (int i = 0; i < show; i++)
+												{
+													<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == members[i].UserId).Photo" alt="@Model.Users.Find(u => u.Id == members[i].UserId).Name"></a></li>
+												}
+												<li><span class="count text-center">+@(members.Count - show)</span><i class="fas fa-ellipsis-h"></i></li>
+											}
+											else
+											{
+												for (int i = 0; i < members.Count; i++)
+												{
+													<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == members[i].UserId).Photo" alt="@Model.Users.Find(u => u.Id == members[i].UserId).Name"></a></li>
+												}
 											}
 										</ul>
 									</div>
@@ -167,7 +194,7 @@ string a;
 
 		</div>
 	</div>
-	 <div id="tasks" class="page mt-5">
+	<div id="tasks" class="page mt-5">
 		<div class="page-title">
 			<div class="d-flex justify-content-between align-items-center">
 				<h2>Tasks</h2>
@@ -220,11 +247,23 @@ string a;
 													</div>
 													<div class="col-6 p-4 d-flex justify-content-between align-items-center">
 														<ul class="avatars">
-															@foreach (TaskMember member in Model.TaskMembers.Where(t => t.TaskId == task.Id).ToList())
+															@{
+																List<TaskMember> members = Model.TaskMembers.Where(t => t.TaskId == task.Id).ToList();
+															}
+															@if (members.Count > show)
 															{
-																<li>
-																	<a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == member.UserId).Photo" alt="@Model.Users.Find(u => u.Id == member.UserId).Name"></a>
-																</li>
+																for (int i = 0; i < show; i++)
+																{
+																	<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == members[i].UserId).Photo" alt="@Model.Users.Find(u => u.Id == members[i].UserId).Name"></a></li>
+																}
+																<li><span class="count text-center">+@(members.Count - show)</span><i class="fas fa-ellipsis-h"></i></li>
+															}
+															else
+															{
+																for (int i = 0; i < members.Count; i++)
+																{
+																	<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == members[i].UserId).Photo" alt="@Model.Users.Find(u => u.Id == members[i].UserId).Name"></a></li>
+																}
 															}
 
 														</ul>
@@ -248,7 +287,7 @@ string a;
 								}
 								else
 								{
-									<p class="add mx-auto text-center w-100" >
+									<p class="add mx-auto text-center w-100">
 										Add task
 									</p>
 								}

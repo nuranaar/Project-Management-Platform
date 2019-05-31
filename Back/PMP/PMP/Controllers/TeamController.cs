@@ -210,8 +210,7 @@ namespace PMP.Controllers
 			{
 				team.Id,
 				team.Name,
-				team.Slug,
-				team.Desc
+				team.Slug
 			}, JsonRequestBehavior.AllowGet);
 		}
 
@@ -230,7 +229,6 @@ namespace PMP.Controllers
 				return Json(errorList, JsonRequestBehavior.AllowGet);
 			}
 			Team team = db.Teams.FirstOrDefault(t => t.Id == teams.Id);
-			team.Desc = teams.Desc;
 			team.Name = teams.Name;
 			db.Entry(team).State = EntityState.Modified;
 			db.SaveChanges();
@@ -246,8 +244,7 @@ namespace PMP.Controllers
 			{
 				team.Id,
 				team.Name,
-				team.Slug,
-				team.Desc
+				team.Slug
 			}, JsonRequestBehavior.AllowGet);
 		}
 	}

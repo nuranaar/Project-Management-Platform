@@ -243,6 +243,10 @@
     <Compile Include="Migrations\201905301507315_MessageChat1.Designer.cs">
       <DependentUpon>201905301507315_MessageChat1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905311627070_DelTeamDesc.cs" />
+    <Compile Include="Migrations\201905311627070_DelTeamDesc.Designer.cs">
+      <DependentUpon>201905311627070_DelTeamDesc.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Chat.cs" />
@@ -407,6 +411,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905301507315_MessageChat1.resx">
       <DependentUpon>201905301507315_MessageChat1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905311627070_DelTeamDesc.resx">
+      <DependentUpon>201905311627070_DelTeamDesc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -85,10 +85,8 @@
 				data: $(this).serialize(),
 				success: function (response) {
 					$(`div[data-id="${response.Id}"]`).find("span").text(response.Name);
-					$(`div[data-id="${response.Id}"]`).find("p").text(response.Desc);
 					$.fancybox.close();
 					$("#team-form").find("input[name='name']").val('');
-					$("#team-form").find("textarea[name='desc']").val('');
 					$("#team-form").attr("data-type", "create");
 					$("#team-form").find(".type-id").remove();
 					$("#team-form").find(".createBtn").text("Create team");

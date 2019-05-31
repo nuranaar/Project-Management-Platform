@@ -24,7 +24,7 @@ namespace PMP.Controllers
 				
 			};
 			model.Chat = db.Chats.FirstOrDefault(c => c.TeamId == model.Team.Id);
-			model.Messages = db.Messages.Where(m=>m.ChatId==model.Chat.Id).ToList();
+			model.Messages = db.Messages.Where(m=>m.ChatId==model.Chat.Id).OrderBy(m=>m.Date).ToList();
 
 			return View(model);
         }
@@ -45,23 +45,20 @@ namespace PMP.Controllers
 
 			Message message = new Message()
 			{
-				UserId=UserId,
-				ChatId=ChatId,
-				Content=Message,
-				Date=DateTime.Now,
-				
-
+				UserId = UserId,
+				ChatId = ChatId,
+				Content = Message,
+				Date = DateTime.Now
 			};
-
-			db.Messages.Add(message);
-			db.SaveChanges();
+			message.User = db.Users.FirstOrDefault(u => u.Id == message.UserId);
 			return Json(new
 			{
 				message.Id,
 				message.ChatId,
 				message.Content,
-				message.UserId
+				message.Date,
+				Photo = message.User.Photo
 			}, JsonRequestBehavior.AllowGet);
 		}
-    }
+	}
 }	
