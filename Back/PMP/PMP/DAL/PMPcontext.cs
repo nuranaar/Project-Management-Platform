@@ -38,5 +38,8 @@ namespace PMP.DAL
 
 		public DbSet<TaskStage> TaskStages { get; set; }
 
+		public DbSet<Chat> Chats { get; set; }
+
+		public DbSet<Message> Messages { get; set; }
 	}
 }

@@ -1,0 +1,159 @@
+﻿@model ChatVm
+@{
+	ViewBag.Title = "Index";
+	<style>
+		main {
+			padding: 0 !important;
+		}
+
+			main .container {
+				padding-left: 0 !important;
+			}
+	</style>
+}
+
+
+<div class="chat d-flex">
+	<div class="chat-datas p-4">
+		<form class="filterForm my-3 w-100">
+			<input type="search" class="form-control filter py-4"
+				   placeholder="Filter members &amp; files">
+			<button type="submit" class="btn filterBtn"> <i class="fas fa-search"></i></button>
+		</form>
+		<div class="btn-list d-flex mt-3 justify-content-between w-100">
+			<a href="#members" class="btn btn-item active" role="button">Members</a>
+			<a href="#files" class="btn btn-item " role="button">Files</a>
+		</div>
+		<div id="members" class="page mt-5 w-100">
+			<div class="page-title d-flex justify-content-between mb-4">
+				<div class="d-flex justify-content-between align-items-center">
+					<h2>Members</h2>
+				</div>
+			</div>
+			<hr>
+			<div class="page-body">
+				<ul class="member-list pl-2">
+					@foreach (TeamMember member in Model.TeamMembers.Where(tm => tm.TeamId == Model.Team.Id).ToList())
+					{
+						<li class="member-item d-flex justify-content-start align-items-start">
+							<ul class="avatars mb-2 px-3">
+								<li> <a href="#"> <img src="~/Uploads/@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Photo" alt="@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name"></a></li>
+							</ul>
+							<div class="member-info">
+								<a href="#">
+									<p>@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name @Model.Users.FirstOrDefault(u => u.Id == member.UserId).Surname</p>
+								</a>
+								<span>Developer</span>
+							</div>
+						</li>
+					}
+				</ul>
+			</div>
+		</div>
+		<div id="files" class="page mt-5 w-100">
+			<div class="page-title d-flex justify-content-between ">
+				<div class="d-flex justify-content-between align-items-center">
+					<h2>Files</h2>
+				</div>
+			</div>
+			<div class="page-body ">
+				<div class="file-card w-100 d-flex justify-content-start align-items-center">
+					<ul class="avatars mt-3 pl-4">
+						<li><a href=""><i class="far fa-file-alt"></i></a></li>
+						<li><a href=""><img src="~/Public/img/avatar-male-3.jpg" alt=""></a></li>
+					</ul>
+					<div class="file-info pl-3 py-4">
+						<a href="#">
+							<p class="m-0">fiele name.***</p>
+						</a>
+						<span>gb</span>
+					</div>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="inbox w-100">
+		<header class="d-flex p-3">
+				@if (Model.Chat.Photo != null)
+				{
+					<img class="logo-team mr-3 mt-2" src="~/Uploads/@Model.Chat.Photo" alt="@Model.Team.Name">
+				}
+				<h3>@Model.Team.Name</h3>
+			<ul class="avatars">
+				@foreach (TeamMember member in Model.TeamMembers.Where(tm => tm.TeamId == Model.Team.Id).ToList())
+				{
+					<li><a href="#"><img src="~/Uploads/@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Photo" alt="@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name"></a></li>
+				}
+			</ul>
+		</header>
+		<div class="inbox-body">
+			<div class="container">
+				<div class="inbox-messages">
+					<div class="message my-2 d-flex align-items-end">
+						<ul class="avatars mb-2 px-3">
+							<li> <a href=""> <img src="~/Public/img/avatar-female-2.jpg" alt=""></a></li>
+						</ul>
+						<div class="text">
+							<p>
+								Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+							</p>
+							<span>07:30am</span>
+						</div>
+					</div>
+					<div class="message user-message my-2 d-flex align-items-end">
+						<ul class="avatars mb-2 px-3">
+							<li> <a href=""> <img src="~/Public/img/avatar-male-1.jpg" alt=""></a></li>
+						</ul>
+						<div class="text">
+							<p>
+								Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+							</p>
+							<span>08:30am</span>
+						</div>
+					</div>
+					<div class="message my-2 d-flex align-items-end">
+						<ul class="avatars mb-2 px-3">
+							<li> <a href=""> <img src="~/Public/img/avatar-male-1.jpg" alt=""></a></li>
+						</ul>
+						<div class="text">
+							<p>
+								It has survived not only five centuries, but also the leap into electronic
+								typesetting.
+							</p>
+							<span>08:45am</span>
+						</div>
+					</div>
+					<div class="message user-message my-2 d-flex align-items-end">
+						<ul class="avatars mb-2 px-3">
+							<li> <a href=""> <img src="~/Public/img/avatar-male-1.jpg" alt=""></a></li>
+						</ul>
+						<div class="text">
+							<p>
+								It has survived not only five centuries, but also the leap into electronic
+								typesetting.
+							</p>
+							<span>08:45am</span>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<footer>
+			<form  method="post" id="chat-form" class="message-area w-100 p-4" data-user="@HttpContext.Current.Session["UserId"]" data-chat="@Model.Chat.Id" enctype="multipart/form-data">
+				<input id="message" type="text" class="form-control message px-3 py-4"
+					   placeholder="Start typing for reply...">
+				<button class="btn smile-btn"><i class="far fa-smile-wink"></i></button>
+				<label class="d-block m-0"><input type="file" class="d-none"><img class="btn attech-btn" src="~/Uploads/clip.png" /></label>
+				<button id="sendmessage" class="btn send-btn"><i class="far fa-paper-plane"></i></button>
+			</form>
+		</footer>
+	</div>
+</div>
+
+@section scripts {
+	<script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+	<script src="~/signalr/hubs"></script>
+	<script src="~/Public/js/chat.js"></script>
+}

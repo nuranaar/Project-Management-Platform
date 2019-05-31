@@ -51,6 +51,7 @@ namespace PMP.Models
 
 		public List<Activity> Activities { get; set; }
 
+		public List<Message> Messages { get; set; }
 
 	}
 }

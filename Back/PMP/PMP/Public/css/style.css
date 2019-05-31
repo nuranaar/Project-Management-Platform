@@ -194,6 +194,38 @@ p.desc {
   color: #007bff;
 }
 
+input::-webkit-input-placeholder {
+  color: #bdbac299 !important;
+}
+
+input:-ms-input-placeholder {
+  color: #bdbac299 !important;
+}
+
+input::-ms-input-placeholder {
+  color: #bdbac299 !important;
+}
+
+input::placeholder {
+  color: #bdbac299 !important;
+}
+
+textarea::-webkit-input-placeholder {
+  color: #bdbac299 !important;
+}
+
+textarea:-ms-input-placeholder {
+  color: #bdbac299 !important;
+}
+
+textarea::-ms-input-placeholder {
+  color: #bdbac299 !important;
+}
+
+textarea::placeholder {
+  color: #bdbac299 !important;
+}
+
 .sides {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1042,14 +1074,28 @@ main #noti .noti .custom-switch {
   position: absolute;
   color: #bdbac2;
   top: 30px;
-  left: 30px;
+  right: 126px;
 }
 
 .chat .inbox footer .message-area .send-btn {
+  position: absolute;
+  top: 25px;
+  width: 45px;
+  height: 45px;
+  background-color: #007aff;
+  color: white;
+  right: 35px;
+}
+
+.chat .inbox footer .message-area .attech-btn {
   color: #bdbac2;
   position: absolute;
-  top: 30px;
-  right: 30px;
+  top: 34px;
+  right: 96px;
+}
+
+.chat .inbox footer .message-area .message {
+  width: 90%;
 }
 
 .chat .inbox footer .message-area .message:focus {

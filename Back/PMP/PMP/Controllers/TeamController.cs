@@ -75,10 +75,15 @@ namespace PMP.Controllers
 				db.SaveChanges();
 			}
 
+			Chat chat = new Chat()
+			{
+				TeamId = team.Id
+			};
+			db.Chats.Add(chat);
 			Activity act = new Activity()
 			{
 				UserId = team.UserId,
-				Desc = "create team " + team.Name,
+				Desc = "create team" + team.Name,
 				Date = DateTime.Now
 			};
 			db.Activities.Add(act);

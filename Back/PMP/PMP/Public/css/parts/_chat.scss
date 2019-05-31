@@ -122,15 +122,25 @@
           position: absolute;
           color: $p_color;
           top: 30px;
-          left: 30px;
+          right: 126px;
         }
         .send-btn {
+          position: absolute;
+          top: 25px;
+          width: 45px;
+          height: 45px;
+          background-color: #007aff;
+          color: white;
+          right: 35px;
+        }
+        .attech-btn {
           color: $p_color;
           position: absolute;
-          top: 30px;
-          right: 30px;
+          top: 34px;
+          right: 96px;
         }
         .message{
+          width:90%;
           &:focus{
             box-shadow: none;
             background-color: $elem-color;

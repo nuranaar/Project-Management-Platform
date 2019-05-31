@@ -32,14 +32,12 @@ string a;
 		<div class="page-title  ">
 			<div class="d-flex justify-content-between align-items-center">
 				<h2>Teams</h2>
-
 				<div class="add">
 					<a data-fancybox data-src="#team" class="dropdown-item" href="javascript:;">
 						<i class="fa fa-plus"></i>
 					</a>
 				</div>
 			</div>
-			
 		</div>
 		<div class="page-body d-flex justify-content-around ">
 			@if (Model.Admin.TeamMembers != null)
@@ -61,6 +59,7 @@ string a;
 									<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 										<a id="edit-team" class="dropdown-item" href="javascript:;" data-fancybox data-src="#team">Edit</a>
 										<a id="delete-team" class="dropdown-item" href="#">Delete</a>
+										<a class="dropdown-item" href="@Url.Action("index","chat", new { Id=team.Id })">Chat</a>
 									</div>
 								</div>
 							</div>
@@ -85,9 +84,6 @@ string a;
 				Add team
 				</p>
 			}
-
-
-
 		</div>
 	</div>
 	<div id="projects" class="page mt-5">

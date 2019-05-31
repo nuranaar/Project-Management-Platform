@@ -172,3 +172,9 @@ p {
 .curColor{
   color: $main_color;
 }
+input::placeholder{
+  color: #bdbac299 !important;
+}
+textarea::placeholder{
+  color: #bdbac299 !important;
+}
