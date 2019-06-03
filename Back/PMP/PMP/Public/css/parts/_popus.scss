@@ -24,9 +24,13 @@
       
     }
     .popup-head {
-      background-color: $bg_color;
+      background-color: $main_color;
+      color: #fff;
       position: relative;
       top: 0;
+      .fancybox-close-small{
+color: #fff !important;
+      }
     }
     .desc {
       @extend %desc;

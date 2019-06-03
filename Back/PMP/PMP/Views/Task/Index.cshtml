@@ -2,7 +2,7 @@
 @{
 	ViewBag.Title = "Index";
 	DateTime now = DateTime.Now;
-	string span=null;
+	string span = null;
 	var Taskdue = Model.Task.EndTime.Subtract(Model.Task.StartTime);
 	var Taskpass = now.Subtract(Model.Task.StartTime);
 	var progress = (100 * Convert.ToInt32(Taskpass.Days)) / Convert.ToInt32(Taskdue.Days);
@@ -58,9 +58,9 @@
 					}
 					else
 					{
-				<div class="mt-2"><i class="far fa-check-square"></i><span> Complated</span></div>
+						<div class="mt-2"><i class="far fa-check-square"></i><span> Complated</span></div>
 					}
-				<div class="due"><i class="far fa-clock"></i><span>Due @Taskdue.Days days</span></div>
+					<div class="due"><i class="far fa-clock"></i><span>Due @Taskdue.Days days</span></div>
 				</div>
 			</div>
 		</div>
@@ -77,15 +77,15 @@
 
 <div class="row mb-5">
 	<div id="activity" class="page mt-5">
-		<div class="page-title ">
-				<h2>Activity</h2>
-			
+		<div class="page-title d-flex justify-content-between align-items-center">
+			<h2>Activity</h2>
+			<div class="deleteAll">
+				<span data-fancybox data-src="#delAct" class="dropdown-item" href="javascript:;">Clear activities list</span>
+			</div>
 		</div>
 		<div class="page-body ">
 			@foreach (TaskMember member in Model.TaskMembers.ToList())
 			{
-
-
 				foreach (Activity act in Model.Activities.Where(a => a.UserId == member.UserId).ToList())
 				{
 					<div class="act-card w-100 d-flex justify-content-start align-items-center">
@@ -101,7 +101,7 @@
 								@act.Date.ToString("MM.dd.yyyy, hh:mm")
 							</span>
 						</div>
-					
+
 					</div>
 
 				}
@@ -118,52 +118,52 @@
 					</a>
 				</div>
 			</div>
-			
+
 		</div>
 		<div id="check-body" class="page-body">
-
-			@if (Model.Task.Checklists!=null) { 
-			foreach (Checklist checklist in Model.Checklists.Where(c => c.TaskId == Model.Task.Id).ToList())
+			@if (Model.Task.Checklists != null)
 			{
-				<div class="check-card file-card  w-100 d-flex justify-content-start align-items-center" data-id="@checklist.Id">
-					<div class="file-info pl-4 py-4 w-100">
-						<div class="input-group pl-5 mb-3">
-							<div class="bar">
-								<i class="fas fa-bars"></i>
+				foreach (Checklist checklist in Model.Checklists.Where(c => c.TaskId == Model.Task.Id).ToList())
+				{
+					<div class="check-card file-card  w-100 d-flex justify-content-start align-items-center" data-id="@checklist.Id">
+						<div class="file-info pl-4 py-4 w-100">
+							<div class="input-group pl-5 mb-3">
+								<div class="bar">
+									<i class="fas fa-bars"></i>
+								</div>
+								<form class="w-100" id="check-form" data-type="update" data-id="@checklist.Id">
+									<input id="checkbox" class="check" @(checklist.Checked ? "checked =checked" : " ") type="checkbox" />
+									<input id="text" type="text" class="form-control"
+										   value="@checklist.Text">
+								</form>
 							</div>
-							<form class="w-100" id="check-form" data-type="update" data-id="@checklist.Id">
-								<input id="checkbox" class="check" @(checklist.Checked ? "checked =checked" : " ") type="checkbox" />
-
-
-								<input id="text" type="text" class="form-control"
-									   value="@checklist.Text">
-							</form>
-
 						</div>
-
+						@foreach (TaskMember taskMember in Model.TaskMembers.Where(t => t.TaskId == Model.Task.Id).ToList())
+						{
+							if (taskMember.UserId == Convert.ToInt32(HttpContext.Current.Session["UserId"]))
+							{
+								<div class="dropdown">
+									<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+									   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fas fa-ellipsis-v"></i>
+									</a>
+									<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+										<a id="edit-checkitem" class="dropdown-item" href="#">Edit</a>
+										<a id="delete-checkitem" class="dropdown-item" href="#">Delete</a>
+									</div>
+								</div>
+							}
+						}
 					</div>
-					<div class="dropdown">
-						<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
-						   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fas fa-ellipsis-v"></i>
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							<a id="edit-checkitem" class="dropdown-item" href="#">Edit</a>
-							<a id="delete-checkitem" class="dropdown-item" href="#">Delete</a>
-						</div>
-					</div>
-				</div>
-			}
+				}
 			}
 			else
 			{
-			<p class="add mx-auto text-center w-100">
-				Add checkitem
-			</p>
+				<p class="add mx-auto text-center w-100">
+					Add checkitem
+				</p>
 			}
-
 		</div>
-
 		<div id="note" class="page mt-5" style="display:inline-block;">
 			<div class="page-title">
 				<div class="d-flex justify-content-between align-items-center">
@@ -174,7 +174,6 @@
 						</a>
 					</div>
 				</div>
-
 			</div>
 			<div id="note-body" class="page-body d-flex justify-content-around align-items-center">
 				@if (Model.Task.Notes != null)
@@ -188,16 +187,22 @@
 							<span>
 								@note.Desc
 							</span>
-							<div class="dropdown">
-								<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
-								   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<i class="fas fa-ellipsis-v"></i>
-								</a>
-								<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-									<a id="edit-note" class="dropdown-item" data-src="#note-create" data-fancybox href="javascript:;">Edit</a>
-									<a id="delete-note" class="dropdown-item" href="#">Delete</a>
-								</div>
-							</div>
+							@foreach (TaskMember taskMember in Model.TaskMembers.Where(t => t.TaskId == Model.Task.Id).ToList())
+							{
+								if (taskMember.UserId == Convert.ToInt32(HttpContext.Current.Session["UserId"]))
+								{
+									<div class="dropdown">
+										<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+										   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<i class="fas fa-ellipsis-v"></i>
+										</a>
+										<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+											<a id="edit-note" class="dropdown-item" data-src="#note-create" data-fancybox href="javascript:;">Edit</a>
+											<a id="delete-note" class="dropdown-item" href="#">Delete</a>
+										</div>
+									</div>
+								}
+							}
 						</div>
 					}
 				}
@@ -229,7 +234,7 @@
 				</form>
 			</div>
 			<div id="file-list">
-				@foreach (PMP.Models.File file in Model.Files.Where(f=>f.TaskId==Model.Task.Id).ToList())
+				@foreach (PMP.Models.File file in Model.Files.Where(f => f.TaskId == Model.Task.Id).ToList())
 				{
 					<div id="file-card" class="file-card w-100 d-flex justify-content-start align-items-center" data-id="@file.Id">
 						<ul class="avatars mt-3">
@@ -242,15 +247,22 @@
 							</a>
 							<span>@file.Weight</span>
 						</div>
-						<div class="dropdown">
-							<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
-							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fas fa-ellipsis-v"></i>
-							</a>
-							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<a id="delete-file" class="dropdown-item" href="#">Delete</a>
-							</div>
-						</div>
+						@foreach (TaskMember taskMember in Model.TaskMembers.Where(t => t.TaskId == Model.Task.Id).ToList())
+						{
+							if (taskMember.UserId == Convert.ToInt32(HttpContext.Current.Session["UserId"]))
+							{
+								<div class="dropdown">
+									<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+									   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fas fa-ellipsis-v"></i>
+									</a>
+									<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+										<a id="delete-file" class="dropdown-item" href="#">Delete</a>
+									</div>
+								</div>
+							}
+						}
+
 					</div>
 				}
 			</div>
@@ -296,6 +308,20 @@
 						team
 					</button>
 				</form>
+			</div>
+		</div>
+	</div>
+	<div style="display: none; " id="hidden-content">
+		<div id="delAct" class="popup">
+			<div class="form text-center">
+				<div class="popup-head px-5 pt-4 pb-2 w-100">
+					<i class="far fa-times-circle"></i>
+				</div>
+				<h3>Are you sure?</h3>
+				<span>Do you really want delete all activities?</span>
+				<br />
+				<button class="btn btn-secondary cancel">Cancel</button>
+				<a class="btn btn-danger delete" href="@Url.Action("delActivities","task")">Delete</a>
 			</div>
 		</div>
 	</div>

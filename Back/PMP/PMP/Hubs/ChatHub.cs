@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -12,28 +13,56 @@ namespace SignalRChat
 	public class ChatHub : Hub
 	{
 		protected readonly PMPcontext db = new PMPcontext();
+		static Dictionary<string, int> ChatMember = new Dictionary<string, int>();
 
-		public void Send(int userId, int chatId,string message)
+		public void Send(int userId, int chatId, string message)
 		{
 			Message mess = new Message()
 			{
-				UserId=userId,
-				ChatId=chatId,
-				Content=message,
-				Date=DateTime.Now
+				UserId = userId,
+				ChatId = chatId,
+				Content = message,
+				Date = DateTime.Now
 			};
-			//if (fileBase != null)
-			//{
-			//	string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-			//	string filename = date + fileBase.FileName;
-			//	string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Uploads"), filename);
-			//	mess.File = filename;
-			//}
 			db.Messages.Add(mess);
 			db.SaveChanges();
-			User user = db.Users.SingleOrDefault(u=>u.Id==userId);
-			//Clients.OthersInGroup(teamMember).broadcastMessage(user.Photo, mes.Date, mes.Content, mes.File);
-			Clients.Others.addMessage(user.Photo, mess.Date, mess.Content, chatId);
+			User user = db.Users.SingleOrDefault(u => u.Id == userId);
+			Chat chat = db.Chats.FirstOrDefault(c => c.Id == chatId);
+			foreach (var connection in ChatMember.Where(c => c.Value == chatId).ToList())
+			{
+				Clients.Client(connection.Key).addMessage(user.Photo, mess.Date, mess.Content, user.Id);
+			}
+		}
+		public void SendFile(int userId, int chatId, HttpPostedFileBase fileBase)
+		{
+			Message mess = new Message()
+			{
+				UserId = userId,
+				ChatId = chatId,
+				Date = DateTime.Now
+			};
+
+			if (fileBase != null)
+			{
+				string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+				string filename = date + fileBase.FileName;
+				string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Uploads"), filename);
+				mess.File = filename;
+			}
+
+			db.Messages.Add(mess);
+			db.SaveChanges();
+			User user = db.Users.SingleOrDefault(u => u.Id == userId);
+			Chat chat = db.Chats.FirstOrDefault(c => c.Id == chatId);
+			foreach (var connection in ChatMember.Where(c => c.Value == chatId).ToList())
+			{
+				Clients.Client(connection.Key).addFile(user.Photo, mess.Date, user.Id, mess.File);
+			}
+		}
+
+		public void AddMember(int chatId)
+		{
+			ChatMember.Add(Context.ConnectionId, chatId);
 		}
 	}
 }

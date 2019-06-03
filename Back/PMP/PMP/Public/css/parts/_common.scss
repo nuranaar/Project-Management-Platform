@@ -4,22 +4,20 @@
   &:hover {
     color: $main_color;
     text-decoration: none;
-    
   }
 }
-.dropdown-item{
-  &:active{
-      background-color:$bg_color !important;
-        color: #fff;
-      
+.dropdown-item {
+  &:active {
+    background-color: $bg_color !important;
+    color: #fff;
   }
-&:visited{
-  background-color:$bg_color !important;
-}
-&:focus{
-  background-color:$bg_color !important;
-  outline:none;
-}
+  &:visited {
+    background-color: $bg_color !important;
+  }
+  &:focus {
+    background-color: $bg_color !important;
+    outline: none;
+  }
 }
 hr {
   border-color: $bg_color;
@@ -161,28 +159,64 @@ body {
       border: 2px solid $bg_color;
       border-radius: 100%;
     }
-    .count{
+    .count {
       color: #bdbac2;
       position: absolute;
-      top:0;
+      top: 0;
       left: 0;
       width: 100%;
     }
   }
 }
 p {
-  &.desc{
+  &.desc {
     white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
-.curColor{
+.curColor {
   color: $main_color;
 }
-input::placeholder{
+input::placeholder {
   color: #bdbac299 !important;
 }
-textarea::placeholder{
+textarea::placeholder {
   color: #bdbac299 !important;
+}
+#activity {
+  .deleteAll {
+    cursor: pointer;
+    span {
+      color: #bdbac2;
+      font-size: 16px;
+    }
+  }
+}
+#delAct{
+  .popup-head{
+    border-bottom: 1px solid #efefef;
+    background-color: #fff;
+    color: #fb5454;
+    i{
+      font-size: 48px;
+    }
+  }
+  span {
+    color: #bdbac2;
+    font-size: 16px;
+  }
+  h3{
+    padding-top: 17px;
+  }
+  .btn{
+    margin: 17px 7px;
+    &.btn-danger{
+    background-color: #fb5454;
+    border-color: #fb5454 !important;
+    }
+    &:focus{
+      outline: none;
+    }
+  }
 }

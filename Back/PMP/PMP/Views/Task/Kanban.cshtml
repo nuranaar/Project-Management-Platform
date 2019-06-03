@@ -59,7 +59,7 @@
 															<p class="desc">@task.Desc</p>
 														</div>
 														<div class="col-12 px-4 pb-3">
-															
+
 															<ul class="avatars">
 																@foreach (TaskMember member in Model.TaskMembers.Where(t => t.TaskId == task.Id).ToList())
 																{
@@ -69,19 +69,22 @@
 																}
 
 															</ul>
-															<div class="dropdown">
-																<a class="nav-link" href="#" id="navbarDropdownMenuLink"
-																   role="button" data-toggle="dropdown" aria-haspopup="true"
-																   aria-expanded="false">
-																	<i class="fas fa-ellipsis-v"></i>
-																</a>
-																<div class="dropdown-menu"
-																	 aria-labelledby="navbarDropdownMenuLink">
-																	<a id="edit-task" class="dropdown-item" href="javascript:;" data-fancybox data-src="#task">Edit</a>
-																	<a id="delete-task" class="dropdown-item" href="#">Delete</a>
+															@if (task.UserId == Convert.ToInt32(HttpContext.Current.Session["UserId"]))
+															{
+																<div class="dropdown">
+																	<a class="nav-link" href="#" id="navbarDropdownMenuLink"
+																	   role="button" data-toggle="dropdown" aria-haspopup="true"
+																	   aria-expanded="false">
+																		<i class="fas fa-ellipsis-v"></i>
+																	</a>
+																	<div class="dropdown-menu"
+																		 aria-labelledby="navbarDropdownMenuLink">
+																		<a id="edit-task" class="dropdown-item" href="javascript:;" data-fancybox data-src="#task">Edit</a>
+																		<a id="delete-task" class="dropdown-item" href="#">Delete</a>
+																	</div>
 																</div>
+															}
 															</div>
-														</div>
 													</div>
 												</div>
 											}

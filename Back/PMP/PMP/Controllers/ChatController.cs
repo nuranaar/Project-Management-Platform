@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using PMP.ViewModels;
 using PMP.Models;
+using System.IO;
 
 namespace PMP.Controllers
 {
@@ -19,8 +20,9 @@ namespace PMP.Controllers
 			ChatVm model = new ChatVm()
 			{
 				Users = db.Users.ToList(),
-				Team = db.Teams.FirstOrDefault(t=>t.Id==id),
-				TeamMembers = db.TeamMembers.ToList()
+				Team = db.Teams.FirstOrDefault(t => t.Id == id),
+				TeamMembers = db.TeamMembers.ToList(),
+				Files = db.Files.ToList()
 				
 			};
 			model.Chat = db.Chats.FirstOrDefault(c => c.TeamId == model.Team.Id);
@@ -29,36 +31,5 @@ namespace PMP.Controllers
 			return View(model);
         }
 
-		[HttpPost]
-		public JsonResult AddMessage(int UserId, int ChatId, string Message)
-		{
-			if (!ModelState.IsValid)
-			{
-				Response.StatusCode = 400;
-
-				var errorList = ModelState.Values.SelectMany(m => m.Errors)
-								 .Select(e => e.ErrorMessage)
-								 .ToList();
-
-				return Json(errorList, JsonRequestBehavior.AllowGet);
-			}
-
-			Message message = new Message()
-			{
-				UserId = UserId,
-				ChatId = ChatId,
-				Content = Message,
-				Date = DateTime.Now
-			};
-			message.User = db.Users.FirstOrDefault(u => u.Id == message.UserId);
-			return Json(new
-			{
-				message.Id,
-				message.ChatId,
-				message.Content,
-				message.Date,
-				Photo = message.User.Photo
-			}, JsonRequestBehavior.AllowGet);
-		}
 	}
 }	

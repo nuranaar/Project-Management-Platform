@@ -51,17 +51,20 @@
 								<a class="click-title title" href="@Url.Action("index", "team", new { slug = team.Slug, adminId = team.UserId })">
 									<span>@team.Name</span>
 								</a>
-								<div class="dropdown">
-									<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
-									   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-ellipsis-v"></i>
-									</a>
-									<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-										<a id="edit-team" class="dropdown-item" href="javascript:;" data-fancybox data-src="#team">Edit</a>
-										<a id="delete-team" class="dropdown-item" href="#">Delete</a>
-										<a class="dropdown-item" href="@Url.Action("index","chat", new { Id=team.Id })">Chat</a>
+								@if (team.UserId == Convert.ToInt32(HttpContext.Current.Session["UserId"]))
+								{
+									<div class="dropdown">
+										<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+										   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<i class="fas fa-ellipsis-v"></i>
+										</a>
+										<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+											<a id="edit-team" class="dropdown-item" href="javascript:;" data-fancybox data-src="#team">Edit</a>
+											<a id="delete-team" class="dropdown-item" href="#">Delete</a>
+											<a class="dropdown-item" href="@Url.Action("index", "chat", new { Id = team.Id })">Chat</a>
+										</div>
 									</div>
-								</div>
+								}
 							</div>
 							<div class="card-body pt-1">
 								<div class="card-info d-flex justify-content-between">
@@ -75,7 +78,7 @@
 											{
 												<li><a href="#"><img src="~/Uploads/@Model.Users.Find(u => u.Id == members[i].UserId).Photo" alt="@Model.Users.Find(u => u.Id == members[i].UserId).Name"></a></li>
 											}
-											<li><span class="count text-center">+@(members.Count-show)</span><i class="fas fa-ellipsis-h"></i></li>
+											<li><span class="count text-center">+@(members.Count - show)</span><i class="fas fa-ellipsis-h"></i></li>
 										}
 										else
 										{
@@ -142,17 +145,19 @@
 								<a class="click-title title" href="@Url.Action("index", "project", new { slug = project.Slug, adminId=project.UserId })">
 									<span>@project.Name</span>
 								</a>
-
-								<div class="dropdown">
-									<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
-									   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-ellipsis-v"></i>
-									</a>
-									<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-										<a id="edit-project" class="dropdown-item" href="javascript:;" data-fancybox data-src="#project">Edit</a>
-										<a id="delete-project" class="dropdown-item" href="#">Delete</a>
+								@if (project.UserId == Convert.ToInt32(HttpContext.Current.Session["UserId"]))
+								{
+									<div class="dropdown">
+										<a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button"
+										   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<i class="fas fa-ellipsis-v"></i>
+										</a>
+										<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+											<a id="edit-project" class="dropdown-item" href="javascript:;" data-fancybox data-src="#project">Edit</a>
+											<a id="delete-project" class="dropdown-item" href="#">Delete</a>
+										</div>
 									</div>
-								</div>
+								}
 							</div>
 							<div class="card-body pt-1">
 								<p class="desc">@project.Desc</p>
@@ -162,7 +167,7 @@
 											@{
 												List<ProjectMember> members = Model.ProjectMembers.Where(p => p.ProjectId == project.Id).ToList();
 											}
-											@if (members.Count >show)
+											@if (members.Count > show)
 											{
 												for (int i = 0; i < show; i++)
 												{
@@ -267,18 +272,21 @@
 															}
 
 														</ul>
-														<div class="dropdown">
-															<a class="nav-link" href="#" id="navbarDropdownMenuLink"
-															   role="button" data-toggle="dropdown" aria-haspopup="true"
-															   aria-expanded="false">
-																<i class="fas fa-ellipsis-v"></i>
-															</a>
-															<div class="dropdown-menu"
-																 aria-labelledby="navbarDropdownMenuLink">
-																<a id="edit-task" class="dropdown-item" href="javascript:;" data-fancybox data-src="#task">Edit</a>
-																<a id="delete-task" class="dropdown-item" href="#">Delete</a>
+														@if (task.UserId == Convert.ToInt32(HttpContext.Current.Session["UserId"]))
+														{
+															<div class="dropdown">
+																<a class="nav-link" href="#" id="navbarDropdownMenuLink"
+																   role="button" data-toggle="dropdown" aria-haspopup="true"
+																   aria-expanded="false">
+																	<i class="fas fa-ellipsis-v"></i>
+																</a>
+																<div class="dropdown-menu"
+																	 aria-labelledby="navbarDropdownMenuLink">
+																	<a id="edit-task" class="dropdown-item" href="javascript:;" data-fancybox data-src="#task">Edit</a>
+																	<a id="delete-task" class="dropdown-item" href="#">Delete</a>
+																</div>
 															</div>
-														</div>
+														}
 													</div>
 												</div>
 											</div>

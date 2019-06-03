@@ -45,5 +45,15 @@ $(document).ready(function () {
 	$(document).on("click", "html", function () {
 		$(this).find(".menu").removeClass("act");
 	});
+
+
+	$(".cancel").click(function (e) {
+		e.preventDefault();
+		$.fancybox.close();
+	});
+	$(".delete").click(function (e) {
+		e.preventDefault();
+
+	});
 		
 });

@@ -235,6 +235,47 @@ textarea::placeholder {
   color: #bdbac299 !important;
 }
 
+#activity .deleteAll {
+  cursor: pointer;
+}
+
+#activity .deleteAll span {
+  color: #bdbac2;
+  font-size: 16px;
+}
+
+#delAct .popup-head {
+  border-bottom: 1px solid #efefef;
+  background-color: #fff;
+  color: #fb5454;
+}
+
+#delAct .popup-head i {
+  font-size: 48px;
+}
+
+#delAct span {
+  color: #bdbac2;
+  font-size: 16px;
+}
+
+#delAct h3 {
+  padding-top: 17px;
+}
+
+#delAct .btn {
+  margin: 17px 7px;
+}
+
+#delAct .btn.btn-danger {
+  background-color: #fb5454;
+  border-color: #fb5454 !important;
+}
+
+#delAct .btn:focus {
+  outline: none;
+}
+
 .sides {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -403,9 +444,14 @@ textarea::placeholder {
 }
 
 .popup .form .popup-head {
-  background-color: #fbfbfb;
+  background-color: #007bff;
+  color: #fff;
   position: relative;
   top: 0;
+}
+
+.popup .form .popup-head .fancybox-close-small {
+  color: #fff !important;
 }
 
 .popup .form .custom-control-label::before {

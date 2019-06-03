@@ -2,16 +2,19 @@
 @{
 	ViewBag.Title = "Index";
 	string s = "";
-	<style>
-		main {
-			padding: 0 !important;
-		}
-
-			main .container {
-				padding-left: 0 !important;
-			}
-	</style>
+	string time;
+	DateTime now = DateTime.Now;
 }
+<style>
+	main {
+		padding: 0 !important;
+	}
+
+		main .container {
+			padding-left: 0 !important;
+		}
+</style>
+
 
 
 <div class="chat d-flex">
@@ -58,20 +61,28 @@
 				</div>
 			</div>
 			<div class="page-body ">
-				<div class="file-card w-100 d-flex justify-content-start align-items-center">
-					<ul class="avatars mt-3 pl-4">
-						<li><a href=""><i class="far fa-file-alt"></i></a></li>
-						<li><a href=""><img src="~/Public/img/avatar-male-3.jpg" alt=""></a></li>
-					</ul>
-					<div class="file-info pl-3 py-4">
-						<a href="#">
-							<p class="m-0">fiele name.***</p>
-						</a>
-						<span>gb</span>
+				@foreach (TeamMember member in Model.TeamMembers.Where(tm => tm.TeamId == Model.Team.Id).ToList())
+				{
+					if (member.User.Files != null)
+					{
+						foreach (var file in Model.Files.Where(f => f.UserId == member.UserId).ToList())
+						{
+					<div class="file-card w-100 d-flex justify-content-start align-items-center">
+						<ul class="avatars mt-3 pl-4">
+							<li><a href="#"><i class="far fa-file-alt"></i></a></li>
+							<li><a href="#"><img src="~/Uploads/@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Photo" alt="@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name"></a></li>
+						</ul>
+						<div class="file-info pl-3 py-4" style="width: 208px;">
+							<a href="#">
+								<p class="m-0" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap">@file.Name</p>
+							</a>
+							<span>@file.Weight</span>
+						</div>
 					</div>
-
+						}
+					}
+				}
 				</div>
-			</div>
 		</div>
 	</div>
 	<div class="inbox w-100">
@@ -98,11 +109,13 @@
 							<ul class="avatars mb-2 px-3">
 								<li> <a href=""> <img src="~/Uploads/@Model.Users.FirstOrDefault(u=>u.Id==mes.UserId).Photo" alt="@Model.Users.FirstOrDefault(u=>u.Id==mes.UserId).Name"></a></li>
 							</ul>
-							<div class="text">
-								<p>
+							<div class="text m-0">
+								<p class=" m-0">
 									@(mes.Content != null ? mes.Content : mes.File)
 								</p>
-								<span>@mes.Date.ToShortTimeString()</span>
+								<span class="datetime" style="font-size:13px">
+									@mes.Date.ToShortTimeString()
+								</span>
 							</div>
 						</div>
 
@@ -116,7 +129,7 @@
 				<input id="message" type="text" class="form-control message px-3 py-4"
 					   placeholder="Start typing for reply...">
 				<button class="btn smile-btn"><i class="far fa-smile-wink"></i></button>
-				<label class="d-block m-0"><input type="file" class="d-none"><img class="btn attech-btn" src="~/Uploads/clip.png" /></label>
+				<label class="d-block m-0"><img class="btn attech-btn" src="~/Uploads/clip.png" /></label>
 				<button id="sendmessage" class="btn send-btn"><i class="far fa-paper-plane"></i></button>
 			</form>
 		</footer>
