@@ -16,9 +16,9 @@ namespace PMP.Controllers
 	public class SettingController : BaseController
 	{
 		// GET: Setting
-		public ActionResult Index()
+		public ActionResult Index(int Id)
 		{
-			User model = db.Users.Find(Convert.ToInt32(Session["UserId"]));
+			User model = db.Users.Find(Id);
 			
 			return View(model);
 		}

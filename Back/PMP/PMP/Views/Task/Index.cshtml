@@ -313,15 +313,15 @@
 	</div>
 	<div style="display: none; " id="hidden-content">
 		<div id="delAct" class="popup">
-			<div class="form text-center">
+			<div class="form text-center" data-id="@Model.Task.Id">
 				<div class="popup-head px-5 pt-4 pb-2 w-100">
 					<i class="far fa-times-circle"></i>
 				</div>
 				<h3>Are you sure?</h3>
 				<span>Do you really want delete all activities?</span>
 				<br />
+				<a id="delete-task-act" class="btn btn-danger">Delete</a>
 				<button class="btn btn-secondary cancel">Cancel</button>
-				<a class="btn btn-danger delete" href="@Url.Action("delActivities","task")">Delete</a>
 			</div>
 		</div>
 	</div>

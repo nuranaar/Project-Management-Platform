@@ -1,6 +1,7 @@
 ﻿@model TeamVm
 @{
 	DateTime now = DateTime.Now;
+	string a;
 	int show = 2;
 }
 
@@ -74,11 +75,24 @@
 				{
 					foreach (Project project in Model.Projects.Where(p => p.UserId == member.UserId).ToList())
 					{
+						var due = project.EndTime.Subtract(project.StartTime);
+						var pass = now.Subtract(project.StartTime);
+						var bar = (100 * Convert.ToInt32(pass.Days)) / Convert.ToInt32(due.Days);
 						<div class="project-card" data-slug="@project.Slug" data-id="@project.Id">
-							<div class="progress">
-								<div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25"
-									 aria-valuemin="0" aria-valuemax="100"></div>
-							</div>
+							@if (project.EndTime < now)
+							{
+								<div class="progress">
+									<div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="10"
+										 aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+							}
+							else
+							{
+								<div class="progress">
+									<div class="progress-bar" role="progressbar" style="width: @bar%" aria-valuenow="10"
+										 aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+							}
 							<div class="card-title">
 								<div class="curColor">
 									<i class="fas fa-circle"></i>
@@ -269,7 +283,7 @@
 							<img src="~/Uploads/@Model.Users.FirstOrDefault(u=>u.Id==member.UserId).Photo" alt="@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name">
 						</div>
 						<div class="member-info mt-3">
-							<a href="#">
+							<a href="@Url.Action("index","setting", new { id=member.User.Id})">
 								<h6>@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name @Model.Users.FirstOrDefault(u => u.Id == member.UserId).Surname</h6>
 							</a>
 							<p>@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Position</p>

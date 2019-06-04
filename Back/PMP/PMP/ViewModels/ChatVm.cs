@@ -20,6 +20,5 @@ namespace PMP.ViewModels
 		public List<Message> Messages { get; set; }
 
 		public List<File> Files { get; set; }
-
 	}
 }

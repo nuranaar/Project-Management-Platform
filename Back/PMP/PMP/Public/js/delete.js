@@ -99,4 +99,58 @@
 			}
 		});
 	});
+	$(document).on("click", "#delete-project-act", function (e) {
+		e.preventDefault();
+		let projectId = $(this).parent().data("id");
+		$.ajax({
+			url: "/project/DelActivities/",
+			type: "post",
+			datatype: "json",
+			data: {
+				Id: projectId
+			},
+			success: function (response) {
+				$(".form").html(`<h3>Deleted</h3>`);
+				setTimeout(function () { $.fancybox.close() }, 3000);
+				setTimeout(function () {
+					$(".form").html(`<div class="popup-head px-5 pt-4 pb-2 w-100">
+				<i class="far fa-times-circle"></i>
+			</div>
+			<h3>Are you sure?</h3>
+			<span>Do you really want delete all activities?</span>
+			<br />
+			<a id="delete-project-act" class="btn btn-danger text-white">Delete</a>
+					<button class="btn btn-secondary cancel"> Cancel</button>`); }, 2000);
+				
+			}
+		});
+	});
+	$(document).on("click", "#delete-task-act", function (e) {
+		e.preventDefault();
+		let taskId = $(this).parent().data("id");
+		$.ajax({
+			url: "/task/DelActivities/",
+			type: "post",
+			datatype: "json",
+			data: {
+				Id: taskId
+			},
+			success: function (response) {
+				$(".form").html(`<h3>Deleted</h3>`);
+				setTimeout(function () { $.fancybox.close() }, 3000);
+				setTimeout(function () {
+					$(".form").html(`<div class="popup-head px-5 pt-4 pb-2 w-100">
+				<i class="far fa-times-circle"></i>
+			</div>
+			<h3>Are you sure?</h3>
+			<span>Do you really want delete all activities?</span>
+			<br />
+			<a id="delete-project-act" class="btn btn-danger text-white">Delete</a>
+					<button class="btn btn-secondary cancel"> Cancel</button>`);
+				}, 2000);
+				
+
+			}
+		});
+	});
 });

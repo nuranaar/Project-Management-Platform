@@ -22,8 +22,7 @@ namespace PMP.Controllers
 				Users = db.Users.ToList(),
 				Team = db.Teams.FirstOrDefault(t => t.Id == id),
 				TeamMembers = db.TeamMembers.ToList(),
-				Files = db.Files.ToList()
-				
+				Files=db.Files.ToList()
 			};
 			model.Chat = db.Chats.FirstOrDefault(c => c.TeamId == model.Team.Id);
 			model.Messages = db.Messages.Where(m=>m.ChatId==model.Chat.Id).OrderBy(m=>m.Date).ToList();

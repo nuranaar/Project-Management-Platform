@@ -41,10 +41,10 @@
 					{
 						<li class="member-item d-flex justify-content-start align-items-start">
 							<ul class="avatars mb-2 px-3">
-								<li> <a href="#"> <img src="~/Uploads/@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Photo" alt="@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name"></a></li>
+								<li> <a href="@Url.Action("index","setting", new { id=member.User.Id})"> <img src="~/Uploads/@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Photo" alt="@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name"></a></li>
 							</ul>
 							<div class="member-info">
-								<a href="#">
+								<a href="@Url.Action("index","setting", new { id=member.User.Id})">
 									<p>@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name @Model.Users.FirstOrDefault(u => u.Id == member.UserId).Surname</p>
 								</a>
 								<span>Developer</span>
@@ -111,7 +111,7 @@
 							</ul>
 							<div class="text m-0">
 								<p class=" m-0">
-									@(mes.Content != null ? mes.Content : mes.File)
+									@mes.Content
 								</p>
 								<span class="datetime" style="font-size:13px">
 									@mes.Date.ToShortTimeString()

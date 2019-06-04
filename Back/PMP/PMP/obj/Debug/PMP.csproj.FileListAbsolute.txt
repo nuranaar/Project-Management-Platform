@@ -116,3 +116,4 @@ C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Mig
 C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.MessageChat.resources
 C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.MessageChat1.resources
 C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.DelTeamDesc.resources
+C:\Users\ssule\Desktop\Project Managment Platform\Back\PMP\PMP\obj\Debug\PMP.Migrations.MessageFileDel.resources

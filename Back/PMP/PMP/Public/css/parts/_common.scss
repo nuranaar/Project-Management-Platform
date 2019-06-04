@@ -38,9 +38,10 @@ hr {
 }
 %card_hover {
   &:hover {
-    top: -10px;
-    position: relative;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 10px lighten($color: $main_color, $amount: 30%);
+    .progress{
+      opacity: 0;
+    }
   }
 }
 
@@ -210,13 +211,14 @@ textarea::placeholder {
     padding-top: 17px;
   }
   .btn{
-    margin: 17px 7px;
+    margin: 20px 7px;
     &.btn-danger{
     background-color: #fb5454;
     border-color: #fb5454 !important;
     }
     &:focus{
       outline: none;
+      box-shadow: none;
     }
   }
 }

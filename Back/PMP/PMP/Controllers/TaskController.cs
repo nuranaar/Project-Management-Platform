@@ -564,6 +564,24 @@ namespace PMP.Controllers
 				}
 			}, JsonRequestBehavior.AllowGet);
 		}
+
+		[HttpPost]
+		public JsonResult DelActivities(int Id)
+		{
+			List<TaskMember> taskMembers = db.TaskMembers.Where(pm => pm.TaskId == Id).ToList();
+
+			foreach (TaskMember member in taskMembers)
+			{
+				List<Activity> activities = db.Activities.Where(a => a.UserId == member.UserId).ToList();
+				foreach (Activity act in activities)
+				{
+					db.Activities.Remove(act);
+					db.SaveChanges();
+				}
+			}
+			return Json("", JsonRequestBehavior.AllowGet);
+		}
+
 	}
 
 }

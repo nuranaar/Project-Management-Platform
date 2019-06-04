@@ -49,10 +49,12 @@ main #projects .page-body .project-card, main #members .page-body .member-card, 
 }
 
 main #projects .page-body .project-card:hover, main #members .page-body .member-card:hover, #checklist #note .page-body .note-card:hover, #teams .page-body .team-card:hover {
-  top: -10px;
-  position: relative;
-  -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
-          box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 0 0 10px #99caff;
+          box-shadow: 0 0 10px #99caff;
+}
+
+main #projects .page-body .project-card:hover .progress, main #members .page-body .member-card:hover .progress, #checklist #note .page-body .note-card:hover .progress, #teams .page-body .team-card:hover .progress {
+  opacity: 0;
 }
 
 body {
@@ -264,7 +266,7 @@ textarea::placeholder {
 }
 
 #delAct .btn {
-  margin: 17px 7px;
+  margin: 20px 7px;
 }
 
 #delAct .btn.btn-danger {
@@ -274,6 +276,8 @@ textarea::placeholder {
 
 #delAct .btn:focus {
   outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .sides {
@@ -444,8 +448,7 @@ textarea::placeholder {
 }
 
 .popup .form .popup-head {
-  background-color: #007bff;
-  color: #fff;
+  background-color: #fbfbfb;
   position: relative;
   top: 0;
 }
@@ -865,7 +868,8 @@ main #members .page-body .member-card .icons li i {
 }
 
 #teams .page-body .team-card {
-  width: 400px;
+  position: relative;
+  width: 260px;
 }
 
 #teams .page-body .team-card .card-title {
@@ -905,6 +909,36 @@ main #members .page-body .member-card .icons li i {
 
 #teams .page-body .team-card .dropdown .dropdown-menu .dropdown-item:focus {
   background: none;
+}
+
+#teams .page-body .team-card .goto-chat {
+  line-height: 45px;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  border: 1px solid #007bff;
+  position: absolute;
+  bottom: 12%;
+  right: 6%;
+  background-color: #fff;
+}
+
+#teams .page-body .team-card .goto-chat a {
+  background: none;
+  padding: 0 12px;
+}
+
+#teams .page-body .team-card .goto-chat img {
+  width: 24px;
+}
+
+#teams .page-body .card-body {
+  padding-top: 100px !important;
+}
+
+#teams .page-body .card-body .card-info .avatars {
+  padding-left: 20px;
+  margin-bottom: 7px !important;
 }
 
 #teams .page-body .card-body .card-info i,

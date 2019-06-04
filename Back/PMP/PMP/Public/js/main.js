@@ -51,9 +51,5 @@ $(document).ready(function () {
 		e.preventDefault();
 		$.fancybox.close();
 	});
-	$(".delete").click(function (e) {
-		e.preventDefault();
 
-	});
-		
 });

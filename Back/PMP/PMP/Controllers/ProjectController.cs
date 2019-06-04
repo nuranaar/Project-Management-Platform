@@ -11,29 +11,29 @@ using PMP.Filter;
 namespace PMP.Controllers
 {
 	[Auth]
-    public class ProjectController : BaseController
-    {
-        // GET: Projects
-        public ActionResult Index(string Slug, int AdminId)
-        {
+	public class ProjectController : BaseController
+	{
+		// GET: Projects
+		public ActionResult Index(string Slug, int AdminId)
+		{
 			int userId = Convert.ToInt32(Session["UserId"]);
 
 			ProjectVm model = new ProjectVm()
 			{
-				Admin = db.Users.FirstOrDefault(u=>u.Id==userId),
+				Admin = db.Users.FirstOrDefault(u => u.Id == userId),
 				Users = db.Users.ToList(),
-				Project = db.Projects.FirstOrDefault(p => p.Slug == Slug && p.UserId==AdminId),
+				Project = db.Projects.FirstOrDefault(p => p.Slug == Slug && p.UserId == AdminId),
 				Tasks = db.Tasks.ToList(),
 				TaskMembers = db.TaskMembers.ToList(),
 				TaskStages = db.TaskStages.ToList(),
 				Activities = db.Activities.OrderByDescending(a => a.Date).ToList(),
 				Files = db.Files.ToList(),
-				Checklists=db.Checklists.ToList()
+				Checklists = db.Checklists.ToList()
 			};
 			model.ProjectMembers = db.ProjectMembers.Where(m => m.ProjectId == model.Project.Id).ToList();
-			
+
 			return View(model);
-        }
+		}
 		[HttpPost]
 		public JsonResult ProjectCreate(Project project, ProjectMember projectMember, string member)
 		{
@@ -49,7 +49,7 @@ namespace PMP.Controllers
 			}
 
 			project.UserId = Convert.ToInt32(Session["UserId"]);
-			
+
 			db.Projects.Add(project);
 			db.SaveChanges();
 
@@ -61,12 +61,12 @@ namespace PMP.Controllers
 			db.ProjectMembers.Add(projMem);
 			db.SaveChanges();
 
-			string[] emails = member.Split( ' ');
+			string[] emails = member.Split(' ');
 			foreach (var email in emails)
 			{
 				string e = email.Split(',', '\t', ';')[0];
 				projectMember.ProjectId = project.Id;
-				var usr= db.Users.FirstOrDefault(u => u.Email ==e);
+				var usr = db.Users.FirstOrDefault(u => u.Email == e);
 				if (usr != null)
 				{
 					projectMember.UserId = usr.Id;
@@ -130,7 +130,7 @@ namespace PMP.Controllers
 		[HttpPost]
 		public JsonResult ProjectDelete(string Slug)
 		{
-			Project project = db.Projects.FirstOrDefault(p=>p.Slug==Slug);
+			Project project = db.Projects.FirstOrDefault(p => p.Slug == Slug);
 
 			if (project == null)
 			{
@@ -141,7 +141,7 @@ namespace PMP.Controllers
 				}, JsonRequestBehavior.AllowGet);
 			}
 
-			var mems= db.ProjectMembers.Where(pm => pm.ProjectId == project.Id).ToList();
+			var mems = db.ProjectMembers.Where(pm => pm.ProjectId == project.Id).ToList();
 			foreach (var mem in mems)
 			{
 				db.ProjectMembers.Remove(mem);
@@ -202,8 +202,8 @@ namespace PMP.Controllers
 			Project pr = db.Projects.Find(project.Id);
 			pr.Name = project.Name;
 			pr.Slug = project.Slug;
-			pr.Desc = project.Desc;	
-			db.Entry(pr).State = EntityState.Modified; 
+			pr.Desc = project.Desc;
+			db.Entry(pr).State = EntityState.Modified;
 			db.SaveChanges();
 			Activity act = new Activity()
 			{
@@ -220,6 +220,23 @@ namespace PMP.Controllers
 				pr.Slug,
 				pr.Desc
 			}, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		public JsonResult DelActivities(int Id)
+		{
+			List<ProjectMember> projectMembers = db.ProjectMembers.Where(pm=>pm.ProjectId==Id).ToList();
+
+			foreach(ProjectMember member in projectMembers)
+			{
+				List<Activity> activities = db.Activities.Where(a => a.UserId == member.UserId).ToList();
+				foreach(Activity act in activities)
+				{
+					db.Activities.Remove(act);
+					db.SaveChanges();
+				}
+			}
+			return Json("", JsonRequestBehavior.AllowGet);
 		}
 	}
 }

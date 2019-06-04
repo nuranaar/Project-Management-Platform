@@ -13,8 +13,6 @@ namespace PMP.Models
 
 		public string Content { get; set; }
 		
-		public string File { get; set; }
-
 		[Required]
 		public int ChatId { get; set; }
 

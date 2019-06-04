@@ -103,7 +103,7 @@
 							<div class="onlineUser m-4">
 								@if (user != null)
 								{
-									<img src="~/Uploads/@user.Photo" alt="user" class=" dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+									<img src="~/Uploads/@user.Photo" alt="user" class=" dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" >
 
 								}
 								else
@@ -116,7 +116,7 @@
 								</div>
 
 								<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="top:-40px">
-									<a class="dropdown-item" href="@Url.Action("index", "setting")">Settings</a>
+									<a class="dropdown-item" href="@Url.Action("index","setting", new { id=user.Id})">Settings</a>
 									<a class="dropdown-item" href="@Url.Action("logout", "sign")">Log Out</a>
 								</div>
 
@@ -231,8 +231,6 @@
 						</div>
 					</div>
 					<hr>
-					<div class="row">
-
 						<button type="submit" class="createBtn btn btn-primary my-3">
 							Create
 							project
@@ -258,8 +256,6 @@
 						<label for="slugTeam">Slug</label>
 						<input type="text" id="slugTeam" name="slug" data-type="slug-input" class="form-control" aria-describedby="teamSlug"
 							   placeholder="Team slug">
-
-
 					</div>
 					<div class="form-group mem-input">
 						<label for="memberTeam">Members</label>
@@ -286,19 +282,7 @@
 	<script src="~/Public/js/create.js"></script>
 	<script src="~/Public/js/delete.js"></script>
 	<script src="~/Public/js/edit.js"></script>
-	<!--Start of Tawk.to Script-->
-	@*<script type="text/javascript">
-			var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-			(function () {
-				var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-				s1.async = true;
-				s1.src = 'https://embed.tawk.to/5cee6935a667a0210d59fd46/default';
-				s1.charset = 'UTF-8';
-				s1.setAttribute('crossorigin', '*');
-				s0.parentNode.insertBefore(s1, s0);
-			})();
-		</script>*@
-	<!--End of Tawk.to Script-->
+
 	@RenderSection("scripts", required: false)
 </body>
 
