@@ -279,9 +279,18 @@
 							<a id="delete-member" class="del" href="#"><i class="fas fa-times"></i></a>
 
 						}
-						<div class="member-photo mt-5">
-							<img src="~/Uploads/@Model.Users.FirstOrDefault(u=>u.Id==member.UserId).Photo" alt="@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name">
-						</div>
+					<div class="member-photo mt-5">
+						@if (Model.Users.FirstOrDefault(u=>u.Id==member.UserId).Photo != null)
+						{
+							<img src="~/Uploads/@Model.Users.FirstOrDefault(u=>u.Id==member.UserId).Photo" alt="@Model.Users.FirstOrDefault(u=>u.Id==member.UserId).Name" class=" dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+
+						}
+						else
+						{
+							<img src="~/Public/img/user_male2-512.png" alt="user" class=" dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+
+						}
+					</div>
 						<div class="member-info mt-3">
 							<a href="@Url.Action("index","setting", new { id=member.User.Id})">
 								<h6>@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name @Model.Users.FirstOrDefault(u => u.Id == member.UserId).Surname</h6>

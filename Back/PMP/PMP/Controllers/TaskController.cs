@@ -78,7 +78,6 @@ namespace PMP.Controllers
 			if (fileBase == null)
 			{
 				ModelState.AddModelError("file", "Please select file");
-
 			}
 			string date = DateTime.Now.ToString("yyyyMMddHHmmssfff");
 			string filename = date + fileBase.FileName;
@@ -89,9 +88,9 @@ namespace PMP.Controllers
 			startfile.Name = filename;
 			startfile.Weight = fileBase.ContentLength.ToString() + "-mb";
 			startfile.Type = fileBase.ContentType;
-
+			
 			task.UserId = Convert.ToInt32(Session["UserId"]);
-			if (db.Tasks.FirstOrDefault(t => t.Slug == task.Slug && t.UserId==task.UserId) != null)
+			if (db.Tasks.FirstOrDefault(t => t.Slug == task.Slug) != null)
 			{
 				task.Slug = task.Slug + DateTime.Now.ToString("yyyyMMddHHmmssfff");
 			}
@@ -107,7 +106,7 @@ namespace PMP.Controllers
 				UserId = task.UserId,
 				TaskId=task.Id
 			};
-			db.TaskMembers.Add(taskMember);
+			db.TaskMembers.Add(taskMem);
 			db.SaveChanges();
 
 			string[] emails = member.Split(' ');
@@ -123,7 +122,6 @@ namespace PMP.Controllers
 				db.TaskMembers.Add(taskMember);
 				db.SaveChanges();
 			}
-			task.TaskStage = db.TaskStages.Find(task.TaskStageId);
 			Activity act = new Activity()
 			{
 				UserId = task.UserId,
@@ -136,7 +134,7 @@ namespace PMP.Controllers
 			{
 				task.Id,
 				task.Slug,
-				Stage = task.TaskStage.Name
+				task.UserId
 			}, JsonRequestBehavior.AllowGet);
 		}
 

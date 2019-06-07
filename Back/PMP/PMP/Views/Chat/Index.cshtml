@@ -41,7 +41,21 @@
 					{
 						<li class="member-item d-flex justify-content-start align-items-start">
 							<ul class="avatars mb-2 px-3">
-								<li> <a href="@Url.Action("index","setting", new { id=member.User.Id})"> <img src="~/Uploads/@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Photo" alt="@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name"></a></li>
+								@if (Model.Users.FirstOrDefault(u => u.Id == member.UserId).Photo != null)
+								{
+									<li> <a href="@Url.Action("index","setting", new { id=member.User.Id})"> <img src="~/Uploads/@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Photo" alt="@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name"></a></li>
+
+
+								}
+								else
+								{
+									<li>
+										<a href="@Url.Action("index","setting", new { id=member.User.Id})">
+											<img src="~/Public/img/user_male2-512.png" alt="user" class=" dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+										</a>
+									</li>
+
+								}
 							</ul>
 							<div class="member-info">
 								<a href="@Url.Action("index","setting", new { id=member.User.Id})">

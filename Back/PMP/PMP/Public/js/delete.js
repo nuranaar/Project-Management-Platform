@@ -147,7 +147,7 @@
 			<br />
 			<a id="delete-project-act" class="btn btn-danger text-white">Delete</a>
 					<button class="btn btn-secondary cancel"> Cancel</button>`);
-				}, 2000);
+				},0);
 				
 
 			}

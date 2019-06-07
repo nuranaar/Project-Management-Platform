@@ -39,9 +39,6 @@
 						<li class="nav-item">
 							<a class="nav-link" href="@Url.Action("kanban","task")">Kanban Board</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="@Url.Action("index","chat")">Chat</a>
-						</li>
 						<li>
 							<hr>
 							<h5 class="ml-3">Projects</h5>
@@ -101,7 +98,7 @@
 						</li>
 						<li class="nav-item ml-5">
 							<div class="onlineUser m-4">
-								@if (user != null)
+								@if (user.Photo != null)
 								{
 									<img src="~/Uploads/@user.Photo" alt="user" class=" dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" >
 

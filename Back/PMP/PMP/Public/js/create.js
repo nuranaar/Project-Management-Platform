@@ -142,7 +142,7 @@
 				processData: false,
 				contentType: false,
 				success: function (response) {
-					const url = `/task?slug=${response.Slug}`;
+					const url = `/task?slug=${response.Slug}&adminId=${response.UserId}`;
 					window.location.href = url;
 				}
 			});

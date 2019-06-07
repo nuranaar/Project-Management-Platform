@@ -52,7 +52,7 @@ namespace PMP.Controllers
 			db.Entry(user).State = EntityState.Modified;
 			db.SaveChanges();
 
-			return RedirectToAction("index");
+			return RedirectToAction("index",new { id = user.Id });
 		}
 
 
