@@ -18,7 +18,11 @@ namespace PMP.Controllers
 		// GET: Setting
 		public ActionResult Index(int Id)
 		{
-			User model = db.Users.Find(Id);
+			if (db.Users.FirstOrDefault(u => u.Id == Id) == null || Id==0)
+			{
+				return HttpNotFound();
+			}
+			User model = db.Users.FirstOrDefault(u=>u.Id==Id);
 			
 			return View(model);
 		}

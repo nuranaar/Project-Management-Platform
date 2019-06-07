@@ -17,6 +17,10 @@ namespace PMP.Controllers
 		// GET: Task
 		public ActionResult Index(string Slug, int AdminId )
 		{
+			if (db.Tasks.FirstOrDefault(t => t.Slug == Slug && t.UserId == AdminId) == null || Slug == null || AdminId == 0)
+			{
+				return HttpNotFound();
+			}
 			int userId = Convert.ToInt32(Session["UserId"]);
 
 			TaskVm model = new TaskVm()

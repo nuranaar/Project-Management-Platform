@@ -16,8 +16,11 @@ namespace PMP.Controllers
         // GET: Team
         public ActionResult Index(string Slug, int AdminId)
         {
+			if(db.Teams.FirstOrDefault(t => t.Slug == Slug && t.UserId == AdminId) == null ||Slug==null|| AdminId==0)
+			{
+				return HttpNotFound();
+			}
 			int userId = Convert.ToInt32(Session["UserId"]);
-
 			TeamVm model = new TeamVm()
 			{
 				Admin = db.Users.FirstOrDefault(u=>u.Id==userId),

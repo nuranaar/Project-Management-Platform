@@ -16,7 +16,10 @@ namespace PMP.Controllers
        
         public ActionResult Index(int id)
         {
-
+			if (db.Chats.FirstOrDefault(c=>c.Id==id) == null || id==0)
+			{
+				return HttpNotFound();
+			}
 			ChatVm model = new ChatVm()
 			{
 				Users = db.Users.ToList(),

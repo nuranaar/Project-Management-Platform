@@ -11,6 +11,7 @@ namespace PMP.Controllers
 		[Auth]
 	public class HomeController : BaseController
 	{
+
 		public ActionResult Index()
 		{
 			int userId = Convert.ToInt32(Session["UserId"]);
@@ -30,5 +31,6 @@ namespace PMP.Controllers
 			};
 			return View(model);
 		}
+	
 	}
 }

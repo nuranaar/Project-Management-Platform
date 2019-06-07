@@ -16,6 +16,10 @@ namespace PMP.Controllers
 		// GET: Projects
 		public ActionResult Index(string Slug, int AdminId)
 		{
+			if (db.Projects.FirstOrDefault(p => p.Slug == Slug && p.UserId == AdminId) == null || Slug == null || AdminId == 0)
+			{
+				return HttpNotFound();
+			}
 			int userId = Convert.ToInt32(Session["UserId"]);
 
 			ProjectVm model = new ProjectVm()
