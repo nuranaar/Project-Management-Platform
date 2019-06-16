@@ -16,7 +16,7 @@ namespace PMP.Controllers
        
         public ActionResult Index(int id)
         {
-			if (db.Chats.FirstOrDefault(c=>c.Id==id) == null || id==0)
+			if (db.Teams.FirstOrDefault(t=>t.Id==id) == null || db.Chats.FirstOrDefault(c => c.TeamId ==id)==null)
 			{
 				return HttpNotFound();
 			}
