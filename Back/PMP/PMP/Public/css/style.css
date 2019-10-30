@@ -1,6 +1,11 @@
+[class*="col-"], .container, .row{
+    padding:0;
+}
+
+
 .page a, .sides .navigation .container .navbar a {
-  font-weight: 500;
-  color: #bdbac2;
+    font-weight: 500;
+    color: #bdbac2;
 }
 
 .page a:hover, .sides .navigation .container .navbar a:hover {
@@ -680,7 +685,6 @@ main #members .page-body .member-card .icons li i {
   background-color: #f5f5f5;
   border-radius: 10px;
   padding: 10px;
-  width: 850px;
 }
 
 .btn-list:focus {

@@ -24,15 +24,20 @@ namespace PMP.Models
 		[Required]
 		public DateTime StartTime { get; set; }
 
-		[Required]
+		[Required]                           
 		public DateTime EndTime { get; set; }
 
-		public string Slug { get; set; }
+        public int ?TeamId { get; set; }
+
+        public string Slug { get; set; }
 
 		public User User { get; set; }
 
+		public Team Team { get; set; }
+
 		public List<ProjectMember> ProjectMembers { get; set; }
 
+        public List<Task> Tasks { get; set; }
 
-	}
+    }
 }

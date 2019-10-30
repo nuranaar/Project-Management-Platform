@@ -1,286 +1,294 @@
 ﻿@{
-	List<Project> projects = ViewBag.Project as List<Project>;
-	List<ProjectMember> projectMembers = ViewBag.ProjectMem as List<ProjectMember>;
-	Task task = ViewBag.Task as Task;
-	List<User> users = ViewBag.User as List<User>;
-	User user = users.Find(u => u.Id == Convert.ToInt32(HttpContext.Current.Session["UserId"]));
+    List<Project> projects = ViewBag.Project as List<Project>;
+    List<ProjectMember> projectMembers = ViewBag.ProjectMem as List<ProjectMember>;
+    Task task = ViewBag.Task as Task;
+    List<User> users = ViewBag.User as List<User>;
+    User user = users.Find(u => u.Id == Convert.ToInt32(HttpContext.Current.Session["UserId"]));
 }
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
-	<link rel="stylesheet" href="~/Public/css/style.css">
-	<link rel="icon" type="image/png" href="~/Public/img/logo.png">
-	<title>DIFF - Project Management Platform</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="~/Public/css/style.css">
+    <link rel="icon" type="image/png" href="~/Public/img/logo.png">
+    <title>DIFF - Project Management Platform</title>
 </head>
 
 <body>
 
-	<div class="sides">
-		<!--Start of Navbar -->
-		<div class="navigation">
-			<div class="container  pl-0">
-				<nav class="navbar">
-					<ul class="nav flex-column">
-						<li class="nav-item">
-							<a class="nav-link" href="@Url.Action("index","home")"><img class="logo my-2" src="~/Public/img/logo.png" alt="Logo"></a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="@Url.Action("index","home")">Home</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="@Url.Action("kanban","task")">Kanban Board</a>
-						</li>
-						<li>
-							<hr>
-							<h5 class="ml-3">Projects</h5>
-						</li>
-						<div class="pr-list">
-							@if (user.ProjectMembers != null)
-							{
-								foreach (ProjectMember projectMember in projectMembers.Where(pm => pm.UserId == Convert.ToInt32(HttpContext.Current.Session["UserId"])).ToList())
-								{
-									foreach (Project project in projects.Where(p => p.Id == projectMember.ProjectId).ToList())
-									{
-										<li class="nav-item" data-slug="@project.Slug">
-											<div class="project">
-												<div class="curColor">
-													<i class="fas fa-circle"></i>
-												</div>
-												<a class="nav-link" href="@Url.Action("index", "project", new { slug = project.Slug, adminId = project.UserId })">@project.Name</a>
-											</div>
-										</li>
-									}
-								}
-							}
-							else
-							{
-								<p class="add mx-auto text-center w-100" style="color:#bdbac2">
-									Add Project
-								</p>
-							}
+    <div class="sides">
+        <!--Start of Navbar -->
+        <div class="navigation">
+            <div class="container  pl-0">
+                <nav class="navbar">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("index","home")"><img class="logo my-2" src="~/Public/img/logo.png" alt="Logo"></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("index","home")">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("kanban","task")">Kanban Board</a>
+                        </li>
+                        <li>
+                            <hr>
+                            <h5 class="ml-3">Projects</h5>
+                        </li>
+                        <div class="pr-list">
+                            @if (user.ProjectMembers != null)
+                            {
+                                foreach (ProjectMember projectMember in projectMembers.Where(pm => pm.UserId == Convert.ToInt32(HttpContext.Current.Session["UserId"])).ToList())
+                                {
+                                    foreach (Project project in projects.Where(p => p.Id == projectMember.ProjectId).ToList())
+                                    {
+                                        <li class="nav-item" data-slug="@project.Slug">
+                                            <div class="project">
+                                                <div class="curColor">
+                                                    <i class="fas fa-circle"></i>
+                                                </div>
+                                                <a class="nav-link" href="@Url.Action("index", "project", new { slug = project.Slug, adminId = project.UserId })">@project.Name</a>
+                                            </div>
+                                        </li>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <p class="add mx-auto text-center w-100" style="color:#bdbac2">
+                                    Add Project
+                                </p>
+                            }
 
 
-						</div>
-						<hr>
+                        </div>
+                        <hr>
 
 
-						<li class="nav-item dropdown">
-							<a class="nav-link btn btn-primary menuBtn" href="#" role="button" data-toggle="dropdown"
-							   aria-haspopup="true" aria-expanded="false">
-								Add New
-							</a>
-							<div class="menu" aria-labelledby="navbarDropdownMenuLink">
-								<ul class="menu-list">
-									<li>
-										<a data-fancybox data-src="#team" class="dropop dropdown-item"
-										   href="javascript:;">Team</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link btn btn-primary menuBtn" href="#" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                Add New
+                            </a>
+                            <div class="menu" aria-labelledby="navbarDropdownMenuLink">
+                                <ul class="menu-list">
+                                    <li>
+                                        <a data-fancybox data-src="#team" class="dropop dropdown-item"
+                                           href="javascript:;">Team</a>
 
-									</li>
-									<li>
-										<a data-fancybox data-src="#project" class="dropop dropdown-item"
-										   href="javascript:;">Project</a>
-									</li>
-									<li>
-										<a data-fancybox data-src="#task" class=" dropop dropdown-item"
-										   href="javascript:;">Task</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-						<li class="nav-item ml-5">
-							<div class="onlineUser m-4">
-								@if (user.Photo != null)
-								{
-									<img src="~/Uploads/@user.Photo" alt="user" class=" dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" >
+                                    </li>
+                                    <li>
+                                        <a data-fancybox data-src="#project" class="dropop dropdown-item"
+                                           href="javascript:;">Project</a>
+                                    </li>
+                                    <li>
+                                        <a data-fancybox data-src="#task" class=" dropop dropdown-item"
+                                           href="javascript:;">Task</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item ml-5">
+                            <div class="onlineUser m-4">
+                                @if (user.Photo != null)
+                                {
+                                    <img src="~/Uploads/@user.Photo" alt="user" class=" dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
 
-								}
-								else
-								{
-									<img src="~/Public/img/user_male2-512.png" alt="user" class=" dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+                                }
+                                else
+                                {
+                                    <img src="~/Public/img/user_male2-512.png" alt="user" class=" dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
 
-								}
-								<div class="onlineIcon">
-									<i class="fas fa-circle"></i>
-								</div>
+                                }
+                                <div class="onlineIcon">
+                                    <i class="fas fa-circle"></i>
+                                </div>
 
-								<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="top:-40px">
-									<a class="dropdown-item" href="@Url.Action("index","setting", new { id=user.Id})">Settings</a>
-									<a class="dropdown-item" href="@Url.Action("logout", "sign")">Log Out</a>
-								</div>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="top:-40px">
+                                    <a class="dropdown-item" href="@Url.Action("index","setting", new { id=user.Id})">Settings</a>
+                                    <a class="dropdown-item" href="@Url.Action("logout", "sign")">Log Out</a>
+                                </div>
 
-							</div>
-						</li>
-					</ul>
-				</nav>
-			</div>
-		</div>
-		<!--end of Navbar -->
-		<main>
-			<div class="container ">
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!--end of Navbar -->
+        <main>
+            <div class="container ">
 
-				@RenderBody()
-			</div>
-		</main>
-	</div>
-	<!--task popup-->
-	<div style="display: none;" id="hidden-content">
-		<div id="task" class="popup task">
-			<div class="form" id="create-form">
-				<div class="popup-head px-5 pt-4 pb-2 w-100">
-					<h3>New Task</h3>
-				</div>
-				<form data-type="create" class="px-4" id="task-form" enctype="multipart/form-data" method="post">
+                @RenderBody()
+            </div>
+        </main>
+    </div>
+    <!--task popup-->
+    <div style="display: none;" id="hidden-content">
+        <div id="task" class="popup task">
+            <div class="form" id="create-form">
+                <div class="popup-head px-5 pt-4 pb-2 w-100">
+                    <h3>New Task</h3>
+                </div>
+                <form data-type="create" class="px-4" id="task-form" enctype="multipart/form-data" method="post">
 
-					<label for="nameTask">Name</label>
-					<input type="text" id="nameTask" name="name" data-type="slug-source" class="form-control" aria-describedby="taskName" maxlength="50"
-						   placeholder="Task name" required>
-					<div class="form-group slug-id" style="display:none">
-						<label for="slugTask">Slug</label>
-						<input type="text" id="slugTask" name="slug" data-type="slug-input" class="form-control" aria-describedby="taskSlug"
-							   placeholder="Task slug">
-					</div>
-					<label for="TaskStageId">Task Stage</label>
-					<select name="TaskStageId" id="TaskStageId" class="form-control" required></select>
+                    <label for="nameTask">Name</label>
+                    <input type="text" id="nameTask" name="name" data-type="slug-source" class="form-control" aria-describedby="taskName" maxlength="50"
+                           placeholder="Task name" required>
+                    <div class="form-group slug-id" style="display:none">
+                        <label for="slugTask">Slug</label>
+                        <input type="text" id="slugTask" name="slug" data-type="slug-input" class="form-control" aria-describedby="taskSlug"
+                               placeholder="Task slug">
+                    </div>
+                    <label for="TaskStageId">Task Stage</label>
+                    <select name="TaskStageId" id="TaskStageId" class="form-control" required></select>
 
-					<label for="descTask">Description</label>
-					<textarea id="descTask" name="desc" class="form-control" rows="3"
-							  placeholder="Task description" maxlength="250"></textarea>
-					<div class="mem-input">
-						<label for="memberTask">Members</label>
-						<input type="text" id="memberTask" name="member" class="form-control" aria-describedby="TaskMember"
-							   placeholder="Add task members" required>
-
-						<div class="row">
-							<div class="col-6">
-								<label for="StartTimeTask">Start date</label>
-								<input type="date" id="StartTimeTask" name="StartTime" class="form-control"
-									   aria-describedby="StartTime" required>
-
-							</div>
-							<div class="col-6">
-								<label for="EndTimeTask">End date</label>
-								<input type="date" id="EndTimeTask" name="EndTime" class="form-control"
-									   aria-describedby="EndTime" required>
-
-							</div>
-						</div>
-
-						<label for="fileBase">Starting files</label>
-						<input type="file" id="fileBase" name="fileBase" class="form-control" required />
-					</div>
-					<hr>
+                    <label for="ProjectId">Project</label>
+                    <select name="ProjectId" id="ProjectId" class="form-control"></select>
 
 
-					<button type="submit" class="createBtn btn btn-primary my-3">
-						Create
-						team
-					</button>
-				</form>
-			</div>
-		</div>
-	</div>
-	<!--end popup-->
-	<!--project popup-->
-	<div style="display: none;" id="hidden-content">
-		<div id="project" class="popup">
-			<div class="form">
-				<div class="popup-head px-5 pt-4 pb-2 w-100">
-					<h3>New Project</h3>
-				</div>
-				<form id="project-form" method="post" class=" px-4" data-type="create">
-					<label for="nameProj">Name</label>
-					<input type="text" id="nameProj" name="name" data-type="slug-source" required class="form-control" aria-describedby="projectName" maxlength="50"
-						   placeholder="Project name">
-					<div class="form-group slug-id" style="display:none">
-						<label for="slugProj">Slug</label>
-						<input type="text" id="slugProj" name="slug" data-type="slug-input" class="form-control" aria-describedby="projectSlug"
-							   placeholder="Project slug">
-					</div>
-					<label for="descProj">Description</label>
-					<textarea id="descProj" name="desc" class="form-control" rows="3" maxlength="250"
-							  placeholder="Project description"></textarea>
-					<div class="form-group mem-input">
-						<label for="memberProj">Members</label>
-						<input type="text" id="memberProj" name="member" class="form-control" aria-describedby="projectMember" required
-							   placeholder="Add project members">
+
+                    <label for="descTask">Description</label>
+                    <textarea id="descTask" name="desc" class="form-control" rows="3"
+                              placeholder="Task description" maxlength="250"></textarea>
+                    <div class="mem-input">
+                        <label for="memberTask">Members</label>
+                        <input type="text" id="memberTask" name="member" class="form-control" aria-describedby="TaskMember"
+                               placeholder="Add task members">
+
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="StartTimeTask">Start date</label>
+                                <input type="date" id="StartTimeTask" name="StartTime" class="form-control"
+                                       aria-describedby="StartTime" required>
+
+                            </div>
+                            <div class="col-6">
+                                <label for="EndTimeTask">End date</label>
+                                <input type="date" id="EndTimeTask" name="EndTime" class="form-control"
+                                       aria-describedby="EndTime" required>
+
+                            </div>
+                        </div>
+
+                        <label for="fileBase">Starting files</label>
+                        <input type="file" id="fileBase" name="fileBase" class="form-control" required />
+                    </div>
+                    <hr>
 
 
-						<div class="row">
-							<div class="col-6">
-								<label for="StartTimeProj">Start date</label>
-								<input type="date" id="StartTimeProj" name="StartTime" class="form-control" required
-									   aria-describedby="StartTime">
-							</div>
-							<div class="col-6">
-								<label for="EndTimeProj">End date</label>
-								<input type="date" id="EndTimeProj" name="EndTime" class="form-control" required
-									   aria-describedby="EndTime">
-							</div>
-						</div>
-					</div>
-					<hr>
-						<button type="submit" class="createBtn btn btn-primary my-3">
-							Create
-							project
-						</button>
-				</form>
-			</div>
-		</div>
-	</div>
-	<!--end popup-->
-	<!--team popup-->
-	<div style="display: none; " id="hidden-content">
-		<div id="team" class="popup">
-			<div class="form">
-				<div class="popup-head px-5 pt-4 pb-2 w-100">
-					<h3>New Team</h3>
-				</div>
-				<form id="team-form" class="px-4" data-type="create">
-					<label for="nameTeam">Name</label>
-					<input type="text" id="nameTeam" name="name" class="form-control" required aria-describedby="teamName" data-type="slug-source" maxlength="50"
-						   placeholder="Team name">
+                    <button type="submit" class="createBtn btn btn-primary my-3">
+                        Create
+                        team
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--end popup-->
+    <!--project popup-->
+    <div style="display: none;" id="hidden-content">
+        <div id="project" class="popup">
+            <div class="form">
+                <div class="popup-head px-5 pt-4 pb-2 w-100">
+                    <h3>New Project</h3>
+                </div>
+                <form id="project-form" method="post" class=" px-4" data-type="create">
+                    <label for="nameProj">Name</label>
+                    <input type="text" id="nameProj" name="name" data-type="slug-source" required class="form-control" aria-describedby="projectName" maxlength="50"
+                           placeholder="Project name">
+                    <div class="form-group slug-id" style="display:none">
+                        <label for="slugProj">Slug</label>
+                        <input type="text" id="slugProj" name="slug" data-type="slug-input" class="form-control" aria-describedby="projectSlug"
+                               placeholder="Project slug">
+                    </div>
+                    <label for="descProj">Description</label>
+                    <textarea id="descProj" name="desc" class="form-control" rows="3" maxlength="250"
+                              placeholder="Project description"></textarea>
+                    <label for="TeamId">Team</label>
+                    <select name="TeamId" id="TeamId" class="form-control"></select>
+                    <div class="form-group mem-input">
+                        <label for="memberProj">Members</label>
+                        <input type="text" id="memberProj" name="member" class="form-control" aria-describedby="projectMember"
+                               placeholder="Add project members">
 
-					<div class="form-group slug-id" style="display:none">
-						<label for="slugTeam">Slug</label>
-						<input type="text" id="slugTeam" name="slug" data-type="slug-input" class="form-control" aria-describedby="teamSlug"
-							   placeholder="Team slug">
-					</div>
-					<div class="form-group mem-input">
-						<label for="memberTeam">Members</label>
-						<input type="text" id="memberTeam" name="member" class="form-control" aria-describedby="teammember" required
-							   placeholder="Add team members">
-						<hr>
-					</div>
 
-					<button type="submit" class="createBtn btn btn-primary my-3">
-						Create
-						team
-					</button>
-				</form>
-			</div>
-		</div>
-	</div>
-	<!--end popup-->
-	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-	<script src="~/Public/js/main.js"></script>
-	<script src="~/Public/js/slugify.js"></script>
-	<script src="~/Public/js/create.js"></script>
-	<script src="~/Public/js/delete.js"></script>
-	<script src="~/Public/js/edit.js"></script>
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="StartTimeProj">Start date</label>
+                                <input type="date" id="StartTimeProj" name="StartTime" class="form-control" required
+                                       aria-describedby="StartTime">
+                            </div>
+                            <div class="col-6">
+                                <label for="EndTimeProj">End date</label>
+                                <input type="date" id="EndTimeProj" name="EndTime" class="form-control" required
+                                       aria-describedby="EndTime">
+                            </div>
+                        </div>
+                    </div>
 
-	@RenderSection("scripts", required: false)
+                    <hr>
+                    <button type="submit" class="createBtn btn btn-primary my-3">
+                        Create
+                        project
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--end popup-->
+    <!--team popup-->
+    <div style="display: none; " id="hidden-content">
+        <div id="team" class="popup">
+            <div class="form">
+                <div class="popup-head px-5 pt-4 pb-2 w-100">
+                    <h3>New Team</h3>
+                </div>
+                <form id="team-form" class="px-4" data-type="create">
+                    <label for="nameTeam">Name</label>
+                    <input type="text" id="nameTeam" name="name" class="form-control" required aria-describedby="teamName" data-type="slug-source" maxlength="50"
+                           placeholder="Team name">
+
+                    <div class="form-group slug-id" style="display:none">
+                        <label for="slugTeam">Slug</label>
+                        <input type="text" id="slugTeam" name="slug" data-type="slug-input" class="form-control" aria-describedby="teamSlug"
+                               placeholder="Team slug">
+                    </div>
+                    <div class="form-group mem-input">
+                        <label for="memberTeam">Members</label>
+                        <input type="text" id="memberTeam" name="member" class="form-control" aria-describedby="teammember" required
+                               placeholder="Add team members">
+                        <hr>
+                    </div>
+
+                    <button type="submit" class="createBtn btn btn-primary my-3">
+                        Create
+                        team
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--end popup-->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    <script src="~/Public/js/main.js"></script>
+    <script src="~/Public/js/slugify.js"></script>
+    <script src="~/Public/js/create.js"></script>
+    <script src="~/Public/js/delete.js"></script>
+    <script src="~/Public/js/edit.js"></script>
+
+    @RenderSection("scripts", required: false)
 </body>
 
 </html>

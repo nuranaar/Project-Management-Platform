@@ -18,7 +18,7 @@
 
 
 <div class="chat d-flex">
-	<div class="chat-datas p-4">
+	<div class="chat-datas p-4 col-4">
 		<form class="filterForm my-3 w-100">
 			<input type="search" class="form-control filter py-4"
 				   placeholder="Filter members &amp; files">
@@ -99,19 +99,26 @@
 				</div>
 		</div>
 	</div>
-	<div class="inbox w-100">
+	<div class="inbox col-7">
 		<header class="d-flex p-3">
 			@if (Model.Chat.Photo != null)
 			{
 				<img class="logo-team mr-3 mt-2" src="~/Uploads/@Model.Chat.Photo" alt="@Model.Team.Name">
 			}
 			<h3>@Model.Team.Name</h3>
-			<ul class="avatars">
-				@foreach (TeamMember member in Model.TeamMembers.Where(tm => tm.TeamId == Model.Team.Id).ToList())
-				{
-					<li><a href="#"><img src="~/Uploads/@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Photo" alt="@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name"></a></li>
-				}
-			</ul>
+            <ul class="avatars">
+                @foreach (TeamMember member in Model.TeamMembers.Where(tm => tm.TeamId == Model.Team.Id).ToList())
+                {
+                    if (@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Photo == null)
+                    {
+                        <li><a href="#"><img src="~/Public/img/user_male2-512.png" alt="@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name"></a></li>
+                    }
+                    else
+                    {
+                        <li><a href="#"><img src="~/Uploads/@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Photo" alt="@Model.Users.FirstOrDefault(u => u.Id == member.UserId).Name"></a></li>
+                    }
+                }
+            </ul>
 		</header>
 		<div class="inbox-body">
 			<div class="container">

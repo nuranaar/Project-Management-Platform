@@ -25,5 +25,8 @@ namespace PMP.Models
 		public List<TeamMember> TeamMembers { get; set; }
 
 		public List<Chat> Chats { get; set; }
-	}
+
+        public List<Project> Projects { get; set; }
+
+    }
 }

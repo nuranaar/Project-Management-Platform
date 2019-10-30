@@ -16,11 +16,11 @@ namespace PMP.Controllers
        
         public ActionResult Index(int id)
         {
-			if (db.Teams.FirstOrDefault(t=>t.Id==id) == null || db.Chats.FirstOrDefault(c => c.TeamId ==id)==null)
-			{
-				return HttpNotFound();
-			}
-			ChatVm model = new ChatVm()
+            if (db.Teams.FirstOrDefault(t => t.Id == id) == null || db.Chats.FirstOrDefault(c => c.TeamId == id) == null)
+            {
+                return HttpNotFound();
+            }
+            ChatVm model = new ChatVm()
 			{
 				Users = db.Users.ToList(),
 				Team = db.Teams.FirstOrDefault(t => t.Id == id),

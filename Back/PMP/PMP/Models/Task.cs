@@ -30,6 +30,8 @@ namespace PMP.Models
 
 		public string Slug { get; set; }
 
+		public int ?ProjectId { get; set; }
+
 		public List<File> Files { get; set; } 
 
 		[Required]
@@ -39,6 +41,8 @@ namespace PMP.Models
 		public TaskStage TaskStage { get; set; }
 
 		public User User { get; set; }
+
+		public Project Project { get; set; }
 
 		public List<TaskMember> TaskMembers { get; set; }
 
